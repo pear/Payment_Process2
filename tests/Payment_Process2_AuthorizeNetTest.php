@@ -79,8 +79,11 @@ class Payment_Process2_AuthorizeNetTest extends PHPUnit_Framework_TestCase {
 
     public function testShouldFailGracefullyOnFailedTransaction() {
 
+        $response = new HTTP_Request2_Response('HTTP/1.1 200 OK');
+        $response->appendBody(file_get_contents(dirname(__FILE__) . '/data/AuthorizeNet/error.html'));
+
         $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse('HTTP/1.1 404 Not Found');
+        $mock->addResponse($response);
 
         $request = new HTTP_Request2();
         $request->setAdapter($mock);
