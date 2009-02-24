@@ -178,41 +178,26 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
 
         $fields = $this->_prepareQueryString();
 
-        if(function_exists('tclink_send')) {
-            /** USE TCLINK **/
-            $result = tclink_send($fields);
-            $r_keys = array_keys($result);
-            for($i=0;$i<sizeof($r_keys);$i++) {
-                $key = $r_keys[$i];
-                $value = $result[$key];
-                $result_string .= $key.'='.$value."\n";
-            }
-            if (PEAR::isError($result_string)) {
-                PEAR::popErrorHandling();
-                return $result_string;
-            } else {
-                $result = $result_string;
-            }
-        } else {
-            /** USE CURL **/
-            $curl = new Net_Curl('https://vault.trustcommerce.com/trans/');
-            if (PEAR::isError($curl)) {
-                PEAR::popErrorHandling();
-                return $curl;
-            }
 
-            $curl->type = 'PUT';
-            $curl->fields = $fields;
-            $curl->userAgent = 'PEAR Payment_Process2_TrustCommerce 0.1a';
-
-            $result = $curl->execute();
-            if (PEAR::isError($result)) {
-                PEAR::popErrorHandling();
-                return $result;
-            } else {
-                $curl->close();
-            }
+        /** USE CURL **/
+        $curl = new Net_Curl('https://vault.trustcommerce.com/trans/');
+        if (PEAR::isError($curl)) {
+            PEAR::popErrorHandling();
+            return $curl;
         }
+
+        $curl->type = 'PUT';
+        $curl->fields = $fields;
+        $curl->userAgent = 'PEAR Payment_Process2_TrustCommerce 0.1a';
+
+        $result = $curl->execute();
+        if (PEAR::isError($result)) {
+            PEAR::popErrorHandling();
+            return $result;
+        } else {
+            $curl->close();
+        }
+
         /** END TCLINK/CURL CASE STATEMENT **/
 
         $this->_responseBody = trim($result);
