@@ -1,0 +1,748 @@
+Revision: 28378
+Author: doconnor
+Date: 4:24:18 PM, Tuesday, February 24, 2009
+Message:
+Implement Driver interface
+One class per file.
+----
+Added : /Payment_Process2/Payment/Process2/Result/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_TransfirstTest.php
+
+Revision: 28377
+Author: doconnor
+Date: 4:19:15 PM, Tuesday, February 24, 2009
+Message:
+
+----
+Modified : /Payment_Process2/Migrating
+
+Revision: 28368
+Author: doconnor
+Date: 3:24:37 PM, Tuesday, February 24, 2009
+Message:
+One class per file.
+----
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Added : /Payment_Process2/Payment/Process2/Result/PayPal.php
+
+Revision: 28367
+Author: doconnor
+Date: 3:23:29 PM, Tuesday, February 24, 2009
+Message:
+Implement Driver interface
+----
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_PaypalTest.php
+
+Revision: 28359
+Author: doconnor
+Date: 11:29:43 AM, Tuesday, February 24, 2009
+Message:
+Split classes - one class per file
+Implements Driver interface
+----
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Added : /Payment_Process2/Payment/Process2/Result/Paycom.php
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_PaycomTest.php
+
+Revision: 28357
+Author: doconnor
+Date: 11:21:48 AM, Tuesday, February 24, 2009
+Message:
+Split classes - one class per file
+Implements Driver interface
+----
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Added : /Payment_Process2/Payment/Process2/Result/Bibit.php
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_BibitTest.php
+
+Revision: 28355
+Author: doconnor
+Date: 11:21:15 AM, Tuesday, February 24, 2009
+Message:
+Improve factory - if the file isn't in the path, maybe some nice autoloader will find it for us.
+----
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28354
+Author: doconnor
+Date: 10:58:19 AM, Tuesday, February 24, 2009
+Message:
+Improved constructor
+Made HTTP_Request2 a common requirement
+----
+Modified : /Payment_Process2/Payment/Process2/Common.php
+
+Revision: 28353
+Author: doconnor
+Date: 10:57:29 AM, Tuesday, February 24, 2009
+Message:
+One class per file. Ish.
+----
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Added : /Payment_Process2/Payment/Process2/Result/LinkPoint.php
+
+Revision: 28352
+Author: doconnor
+Date: 10:55:22 AM, Tuesday, February 24, 2009
+Message:
+Implements Driver interface
+----
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_LinkPointTest.php
+
+Revision: 28351
+Author: doconnor
+Date: 10:51:36 AM, Tuesday, February 24, 2009
+Message:
+Prevent fatal errors
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+
+Revision: 28350
+Author: doconnor
+Date: 10:50:31 AM, Tuesday, February 24, 2009
+Message:
+Implements Driver interface
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+
+Revision: 28349
+Author: doconnor
+Date: 10:49:24 AM, Tuesday, February 24, 2009
+Message:
+Minimal Test coverage
+----
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_DummyTest.php
+Added : /Payment_Process2/tests/Payment_Process2_TrustCommerceTest.php
+
+Revision: 28348
+Author: doconnor
+Date: 10:49:07 AM, Tuesday, February 24, 2009
+Message:
+Split classes - one class per file
+Implement Driver interface
+----
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Added : /Payment_Process2/Payment/Process2/Result/Dummy.php
+
+Revision: 28347
+Author: doconnor
+Date: 10:47:47 AM, Tuesday, February 24, 2009
+Message:
+Split classes - one class per file
+----
+Added : /Payment_Process2/Payment/Process2/Result/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+
+Revision: 28346
+Author: doconnor
+Date: 10:46:17 AM, Tuesday, February 24, 2009
+Message:
+Implement Driver interface
+----
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+
+Revision: 28344
+Author: doconnor
+Date: 10:39:48 AM, Tuesday, February 24, 2009
+Message:
+Fix test behaviour
+----
+Modified : /Payment_Process2/tests/Payment_Process2_AuthorizeNetTest.php
+
+Revision: 28343
+Author: doconnor
+Date: 10:39:03 AM, Tuesday, February 24, 2009
+Message:
+Add new tests
+----
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_AuthorizeNetTest.php
+
+Revision: 28342
+Author: doconnor
+Date: 10:38:12 AM, Tuesday, February 24, 2009
+Message:
+If an empty response is returned, bail
+----
+Modified : /Payment_Process2/Payment/Process2/Result/AuthorizeNet.php
+
+Revision: 28341
+Author: doconnor
+Date: 10:37:30 AM, Tuesday, February 24, 2009
+Message:
+Options must always be arrays
+----
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28340
+Author: doconnor
+Date: 10:36:48 AM, Tuesday, February 24, 2009
+Message:
+Added a Driver interface
+----
+Added : /Payment_Process2/Payment/Process2/Driver.php
+
+Revision: 28337
+Author: doconnor
+Date: 6:08:32 PM, Monday, February 23, 2009
+Message:
+One class per file
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Added : /Payment_Process2/Payment/Process2/Result/AuthorizeNet.php
+
+Revision: 28336
+Author: doconnor
+Date: 6:05:21 PM, Monday, February 23, 2009
+Message:
+Added result folder
+----
+Added : /Payment_Process2/Payment/Process2/Result
+
+Revision: 28335
+Author: doconnor
+Date: 6:04:06 PM, Monday, February 23, 2009
+Message:
+
+----
+Modified : /Payment_Process2/tests/Payment_Process2Test.php
+
+Revision: 28334
+Author: doconnor
+Date: 6:02:20 PM, Monday, February 23, 2009
+Message:
+suppress explode() errors
+----
+Modified : /Payment_Process2/Payment/Process2/Type/CreditCard.php
+
+Revision: 28333
+Author: doconnor
+Date: 6:01:41 PM, Monday, February 23, 2009
+Message:
+isset()
+----
+Modified : /Payment_Process2/Payment/Process2/Result.php
+
+Revision: 28332
+Author: doconnor
+Date: 6:00:51 PM, Monday, February 23, 2009
+Message:
+Undefined property
+----
+Modified : /Payment_Process2/Payment/Process2/Result.php
+
+Revision: 28331
+Author: doconnor
+Date: 5:59:56 PM, Monday, February 23, 2009
+Message:
+Undefined property
+----
+Modified : /Payment_Process2/Payment/Process2/Result.php
+
+Revision: 28330
+Author: doconnor
+Date: 5:58:30 PM, Monday, February 23, 2009
+Message:
+Only sets when defined
+----
+Modified : /Payment_Process2/Payment/Process2/Common.php
+
+Revision: 28329
+Author: doconnor
+Date: 5:57:18 PM, Monday, February 23, 2009
+Message:
+Improved factories
+----
+Modified : /Payment_Process2/Payment/Process2/Result.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28328
+Author: doconnor
+Date: 5:52:47 PM, Monday, February 23, 2009
+Message:
+Improved constructor to be more explicit
+----
+Modified : /Payment_Process2/Payment/Process2/Result.php
+Modified : /Payment_Process2/tests/Payment_Process2Test.php
+Modified : /Payment_Process2/tests/Payment_Process2_ResultTest.php
+
+Revision: 28327
+Author: doconnor
+Date: 5:38:39 PM, Monday, February 23, 2009
+Message:
+Fix how we instatiate
+----
+Modified : /Payment_Process2/tests/Payment_Process2Test.php
+
+Revision: 28326
+Author: doconnor
+Date: 5:37:34 PM, Monday, February 23, 2009
+Message:
+Undefined property
+----
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28325
+Author: doconnor
+Date: 5:37:22 PM, Monday, February 23, 2009
+Message:
+Fix how we instatiate
+----
+Modified : /Payment_Process2/tests/Payment_Process2_ResultTest.php
+
+Revision: 28323
+Author: doconnor
+Date: 5:28:19 PM, Monday, February 23, 2009
+Message:
+Updated package.xml
+----
+Modified : /Payment_Process2/package.xml
+
+Revision: 28322
+Author: doconnor
+Date: 5:27:37 PM, Monday, February 23, 2009
+Message:
+More test coverage, numerous tiny fixes, one class per file
+----
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Added : /Payment_Process2/Payment/Process2/Result.php
+Modified : /Payment_Process2/Payment/Process2.php
+Modified : /Payment_Process2/tests/AllTests.php
+Modified : /Payment_Process2/tests/Payment_Process2Test.php
+Modified : /Payment_Process2/tests/Payment_Process2_CommonTest.php
+Added : /Payment_Process2/tests/Payment_Process2_ResultTest.php
+
+Revision: 28320
+Author: doconnor
+Date: 4:57:07 PM, Monday, February 23, 2009
+Message:
+
+----
+Modified : /Payment_Process2/tests/Payment_Process2_CommonTest.php
+
+Revision: 28317
+Author: doconnor
+Date: 4:49:36 PM, Monday, February 23, 2009
+Message:
+
+----
+Modified : /Payment_Process2/tests/AllTests.php
+
+Revision: 28316
+Author: doconnor
+Date: 4:38:34 PM, Monday, February 23, 2009
+Message:
+More test coverage
+----
+Modified : /Payment_Process2/tests/Payment_Process2Test.php
+Modified : /Payment_Process2/tests/Payment_Process2_CommonTest.php
+
+Revision: 28315
+Author: doconnor
+Date: 4:33:05 PM, Monday, February 23, 2009
+Message:
+Added more test coverage
+----
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_CommonTest.php
+
+Revision: 28312
+Author: doconnor
+Date: 3:47:15 PM, Monday, February 23, 2009
+Message:
+Test coverage
+----
+Modified : /Payment_Process2/tests/Payment_Process2_Type_CreditCardTest.php
+
+Revision: 28308
+Author: doconnor
+Date: 3:33:29 PM, Monday, February 23, 2009
+Message:
+Test coverage
+----
+Modified : /Payment_Process2/tests/Payment_Process2_Type_eCheckTest.php
+
+Revision: 28306
+Author: doconnor
+Date: 3:17:04 PM, Monday, February 23, 2009
+Message:
+ * Added Validate as a dependency
+ * Changed function signature
+ * Test coverage
+----
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/tests/Payment_Process2_TypeTest.php
+Modified : /Payment_Process2/tests/Payment_Process2_Type_CreditCardTest.php
+Modified : /Payment_Process2/tests/Payment_Process2_Type_eCheckTest.php
+
+Revision: 28304
+Author: doconnor
+Date: 3:03:04 PM, Monday, February 23, 2009
+Message:
+Unit test coverage of factory()
+----
+Modified : /Payment_Process2/Payment/Process2/Type/CreditCard.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/tests/Payment_Process2_TypeTest.php
+
+Revision: 28301
+Author: doconnor
+Date: 2:57:18 PM, Monday, February 23, 2009
+Message:
+Added skeletons for tests
+----
+Modified : /Payment_Process2/tests/Payment_Process2_Type_CreditCardTest.php
+Modified : /Payment_Process2/tests/Payment_Process2_Type_eCheckTest.php
+
+Revision: 28299
+Author: doconnor
+Date: 2:55:30 PM, Monday, February 23, 2009
+Message:
+Added skeletons for tests
+----
+Modified : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2_TypeTest.php
+Added : /Payment_Process2/tests/Payment_Process2_Type_CreditCardTest.php
+Added : /Payment_Process2/tests/Payment_Process2_Type_eCheckTest.php
+
+Revision: 28296
+Author: doconnor
+Date: 2:13:18 PM, Monday, February 23, 2009
+Message:
+Added TODOs
+----
+Modified : /Payment_Process2/TODO
+
+Revision: 28295
+Author: doconnor
+Date: 2:11:46 PM, Monday, February 23, 2009
+Message:
+
+----
+Added : /Payment_Process2/Migrating
+
+Revision: 28294
+Author: doconnor
+Date: 2:10:14 PM, Monday, February 23, 2009
+Message:
+require_once is a statement
+----
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/Offline.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+
+Revision: 28293
+Author: doconnor
+Date: 2:08:55 PM, Monday, February 23, 2009
+Message:
+require_once is a statement
+----
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/examples/TrustCommerce_creditcard.php
+Modified : /Payment_Process2/examples/creditcard.php
+Modified : /Payment_Process2/examples/echeck.php
+Modified : /Payment_Process2/examples/linkpoint.php
+
+Revision: 28292
+Author: doconnor
+Date: 2:07:46 PM, Monday, February 23, 2009
+Message:
+Removed some pass-by-referencing
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2.php
+Modified : /Payment_Process2/TODO
+Modified : /Payment_Process2/examples/Payment_Process-example.php
+Modified : /Payment_Process2/examples/TrustCommerce_creditcard.php
+Modified : /Payment_Process2/examples/creditcard.php
+Modified : /Payment_Process2/examples/echeck.php
+Modified : /Payment_Process2/examples/linkpoint.php
+
+Revision: 28291
+Author: doconnor
+Date: 2:05:43 PM, Monday, February 23, 2009
+Message:
+Removed some pass-by-referencing
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2.php
+Modified : /Payment_Process2/examples/Payment_Process-example.php
+
+Revision: 28290
+Author: doconnor
+Date: 2:03:49 PM, Monday, February 23, 2009
+Message:
+Swapped to PHP5 style __construct
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/Offline.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2/Type/CreditCard.php
+Modified : /Payment_Process2/Payment/Process2/Type/eCheck.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28289
+Author: doconnor
+Date: 1:58:19 PM, Monday, February 23, 2009
+Message:
+Renamed
+----
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+
+Revision: 28287
+Author: doconnor
+Date: 1:48:15 PM, Monday, February 23, 2009
+Message:
+Updated package.xml
+----
+Modified : /Payment_Process2/package.xml
+
+Revision: 28286
+Author: doconnor
+Date: 1:43:42 PM, Monday, February 23, 2009
+Message:
+Renaming
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/examples/Payment_Process-example.php
+Modified : /Payment_Process2/examples/TrustCommerce_creditcard.php
+Modified : /Payment_Process2/examples/creditcard.php
+Modified : /Payment_Process2/examples/echeck.php
+Modified : /Payment_Process2/examples/linkpoint.php
+
+Revision: 28285
+Author: doconnor
+Date: 1:42:29 PM, Monday, February 23, 2009
+Message:
+
+----
+Added : /Payment_Process2/TODO
+
+Revision: 28284
+Author: doconnor
+Date: 1:40:27 PM, Monday, February 23, 2009
+Message:
+Remove return-reference behaviour
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28283
+Author: doconnor
+Date: 1:38:45 PM, Monday, February 23, 2009
+Message:
+Renaming
+----
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28282
+Author: doconnor
+Date: 1:38:18 PM, Monday, February 23, 2009
+Message:
+Renaming
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/Payment/Process2.php
+
+Revision: 28281
+Author: doconnor
+Date: 1:37:33 PM, Monday, February 23, 2009
+Message:
+Reversioned to PHP 5
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/Offline.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2/Type/CreditCard.php
+Modified : /Payment_Process2/Payment/Process2/Type/eCheck.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/Payment/Process2.php
+Modified : /Payment_Process2/examples/Payment_Process-example.php
+
+Revision: 28280
+Author: doconnor
+Date: 1:36:38 PM, Monday, February 23, 2009
+Message:
+Renaming
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2/Type/CreditCard.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/Payment/Process2.php
+Modified : /Payment_Process2/examples/Payment_Process-example.php
+Modified : /Payment_Process2/examples/TrustCommerce_creditcard.php
+Modified : /Payment_Process2/examples/creditcard.php
+Modified : /Payment_Process2/examples/echeck.php
+Modified : /Payment_Process2/examples/linkpoint.php
+
+Revision: 28279
+Author: doconnor
+Date: 1:36:02 PM, Monday, February 23, 2009
+Message:
+Renaming
+----
+Modified : /Payment_Process2/Payment/Process2/AuthorizeNet.php
+Modified : /Payment_Process2/Payment/Process2/Bibit.php
+Modified : /Payment_Process2/Payment/Process2/Common.php
+Modified : /Payment_Process2/Payment/Process2/Dummy.php
+Modified : /Payment_Process2/Payment/Process2/LinkPoint.php
+Modified : /Payment_Process2/Payment/Process2/Offline.php
+Modified : /Payment_Process2/Payment/Process2/PayPal.php
+Modified : /Payment_Process2/Payment/Process2/Paycom.php
+Modified : /Payment_Process2/Payment/Process2/Transfirst.php
+Modified : /Payment_Process2/Payment/Process2/TrustCommerce.php
+Modified : /Payment_Process2/Payment/Process2/Type/CreditCard.php
+Modified : /Payment_Process2/Payment/Process2/Type/eCheck.php
+Modified : /Payment_Process2/Payment/Process2/Type.php
+Modified : /Payment_Process2/Payment/Process2.php
+Modified : /Payment_Process2/examples/Payment_Process-example.php
+Modified : /Payment_Process2/examples/TrustCommerce_creditcard.php
+Modified : /Payment_Process2/examples/creditcard.php
+Modified : /Payment_Process2/examples/echeck.php
+Modified : /Payment_Process2/examples/linkpoint.php
+
+Revision: 28278
+Author: doconnor
+Date: 1:35:15 PM, Monday, February 23, 2009
+Message:
+Renamed
+----
+Deleted : /Payment_Process2/Payment/Process.php
+Added : /Payment_Process2/Payment/Process2.php (Copy from path: /Payment_Process2/Payment/Process.php, Revision, 28277)
+
+Revision: 28277
+Author: doconnor
+Date: 1:30:33 PM, Monday, February 23, 2009
+Message:
+Renamed folder
+----
+Added : /Payment_Process2/Payment
+Added : /Payment_Process2/Payment/Process.php (Copy from path: /Payment_Process2/Process.php, Revision, 28274)
+Added : /Payment_Process2/Payment/Process2 (Copy from path: /Payment_Process2/Process, Revision, 28274)
+Deleted : /Payment_Process2/Process
+Deleted : /Payment_Process2/Process.php
+
+Revision: 28276
+Author: doconnor
+Date: 1:30:01 PM, Monday, February 23, 2009
+Message:
+Added tests
+----
+Added : /Payment_Process2/tests
+Added : /Payment_Process2/tests/AllTests.php
+Added : /Payment_Process2/tests/Payment_Process2Test.php
+
+Revision: 28274
+Author: doconnor
+Date: 1:21:01 PM, Monday, February 23, 2009
+Message:
+Initial import of Payment_Process code.
+----
+Added : /Payment_Process2/LICENSE-BSD
+Added : /Payment_Process2/Process
+Added : /Payment_Process2/Process/AuthorizeNet.php
+Added : /Payment_Process2/Process/Bibit.php
+Added : /Payment_Process2/Process/Common.php
+Added : /Payment_Process2/Process/Dummy.php
+Added : /Payment_Process2/Process/LinkPoint.php
+Added : /Payment_Process2/Process/Offline.php
+Added : /Payment_Process2/Process/PayPal.php
+Added : /Payment_Process2/Process/Paycom.php
+Added : /Payment_Process2/Process/Transfirst.php
+Added : /Payment_Process2/Process/TrustCommerce.php
+Added : /Payment_Process2/Process/Type
+Added : /Payment_Process2/Process/Type/CreditCard.php
+Added : /Payment_Process2/Process/Type/eCheck.php
+Added : /Payment_Process2/Process/Type.php
+Added : /Payment_Process2/Process.php
+Added : /Payment_Process2/examples
+Added : /Payment_Process2/examples/Payment_Process-example.php
+Added : /Payment_Process2/examples/TrustCommerce_creditcard.php
+Added : /Payment_Process2/examples/creditcard.php
+Added : /Payment_Process2/examples/echeck.php
+Added : /Payment_Process2/examples/linkpoint.php
+Added : /Payment_Process2/package.xml
+
+Revision: 28273
+Author: doconnor
+Date: 1:14:30 PM, Monday, February 23, 2009
+Message:
+Created folder
+----
+Added : /Payment_Process2
+
