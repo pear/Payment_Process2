@@ -43,7 +43,7 @@
 require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
 require_once 'Payment/Process2/Result/Transfirst.php';
-require_once 'Net/Curl.php';
+require_once 'HTTP/Request2.php';
 
 // Transfirst transaction types
 // Request authorization only - no funds are transferred.
@@ -177,16 +177,13 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         // Don't die partway through
         PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
-        $req = new Net_Curl($this->_options['authorizeUri']);
-        if (PEAR::isError($req)) {
-            PEAR::popErrorHandling();
-            return $req;
-        }
-        $req->type = 'POST';
-        $req->fields = $this->_prepareQueryString();
-        $req->userAgent = 'PEAR Payment_Process2_Transfirst 0.1';
-        $res = $req->execute();
-        $req->close();
+        $req = clone $this->request;
+        $req->setURL($this->_options['authorizeUri']);
+        $req->setMethod('POST');
+        $req->addPostParameters($this->prepareRequestData());
+
+        $res = $req->send();
+
         if (PEAR::isError($res)) {
             PEAR::popErrorHandling();
             return $res;
@@ -194,24 +191,13 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
 
         $this->_processed = true;
 
-        // Restore error handling
-        PEAR::popErrorHandling();
-
-        $response = trim($res);
+        $response = trim($res->getBody());
         print "Response: {$response}\n";
         $result = Payment_Process2_Result::factory('Transfirst', $response);
         $result->_request = $this;
         $this->_result = $result;
 
         return $result;
-
-        /*
-         * HTTP_Request doesn't do SSL until PHP 4.3.0, but it
-         * might be useful later...
-        $req = new HTTP_Request($this->_authUri);
-        $this->_setPostData();
-        $req->sendRequest();
-        */
     }
 
     /**
@@ -244,19 +230,14 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         return $this->_result->_sequenceNumber;
     }
 
-    /**
-     * Prepare the POST query string.
-     *
-     * @access private
-     * @return string The query string
-     */
-    function _prepareQueryString()
+    function prepareRequestData()
     {
-        foreach($this->_data as $var => $value) {
-            if (strlen($value))
-                $tmp[] = urlencode($var).'='.urlencode($value);
+        $data = array();
+        foreach ($this->_data as $var => $value) {
+            if (!empty($value))
+                $data[$var] => $value;
         }
-        return @implode('&', $tmp);
+        return $data;
     }
 
     /**
