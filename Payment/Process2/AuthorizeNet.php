@@ -47,7 +47,7 @@ require_once 'Payment/Process2.php';
 require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
 require_once 'Payment/Process2/Result/AuthorizeNet.php';
-require_once 'Net/Curl.php';
+require_once 'HTTP/Request2.php';
 
 /**
  * Payment_Process2_AuthorizeNet
@@ -202,52 +202,18 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
             return $result;
         }
 
-        $fields = $this->_prepareQueryString();
-        if (PEAR::isError($fields)) {
-            return $fields;
-        }
-
-        // Don't die partway through
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
-
-        $curl =  new Net_Curl($this->_options['authorizeUri']);
-        if (PEAR::isError($curl)) {
-            PEAR::popErrorHandling();
-            return $curl;
-        }
-        $result = $curl->create();
-        if (PEAR::isError($result)) {
-            PEAR::popErrorHandling();
-            return $result;
-        }
-
-        $curl->type = 'post';
-        $curl->fields = $fields;
-        $curl->userAgent = 'PEAR Payment_Process2_AuthorizeNet @package_version@';
-
-        if (isset($this->_options['curl_options'])) {
-            foreach ($this->_options['curl_options'] as $key => $value) {
-                if (!$curl->setOption($key, $value)) {
-                    PEAR::popErrorHandling();
-                    return PEAR::raiseError("Curl option ($key = $value) failed");
-                }
-            }
-        }
+        $request = clone $this->request;
+        $request->setURL($this->_options['authorizeUri']);
 
 
-        $result = $curl->execute();
-        if (PEAR::isError($result)) {
-            PEAR::popErrorHandling();
-            return $result;
-        } else {
-            $curl->close();
-        }
+        $request->setMethod('post');
+        $request->addPostParameter($this->prepareRequestData());
 
-        $this->_responseBody = trim($result);
+
+        $result = $request->send();
+
+        $this->_responseBody = trim($result->getBody());
         $this->_processed = true;
-
-        // Restore error handling
-        PEAR::popErrorHandling();
 
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $this->_responseBody,
@@ -365,6 +331,14 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
         $return[] = 'x_encap_char=' . rawurlencode($encap);
 
         return implode('&', $return);
+    }
+
+    public function prepareRequestData() {
+        $string = $this->_prepareQueryString();
+
+        $data = array();
+        parse_str($string, $data);
+        return $data;
     }
 
     /**
