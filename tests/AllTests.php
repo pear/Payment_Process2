@@ -57,14 +57,14 @@ require_once dirname(__FILE__) . '/Payment_Process2_TypeTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Type_CreditCardTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Type_eCheckTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_CommonTest.php';
-require_once dirname(__FILE__) . '/Payment_Process2_AuthorizeNet.php';
-require_once dirname(__FILE__) . '/Payment_Process2_Dummy.php';
-require_once dirname(__FILE__) . '/Payment_Process2_TrustCommerce.php';
-require_once dirname(__FILE__) . '/Payment_Process2_LinkPoint.php';
-require_once dirname(__FILE__) . '/Payment_Process2_Bibit.php';
-require_once dirname(__FILE__) . '/Payment_Process2_Paycom.php';
-require_once dirname(__FILE__) . '/Payment_Process2_Paypal.php';
-require_once dirname(__FILE__) . '/Payment_Process2_Transfirst.php';
+require_once dirname(__FILE__) . '/Payment_Process2_AuthorizeNetTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_DummyTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_TrustCommerceTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_LinkPointTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_BibitTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_PaycomTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_PaypalTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_TransfirstTest.php';
 
 class Payment_Process2_AllTests
 {
@@ -78,10 +78,12 @@ class Payment_Process2_AllTests
         $suite = new PHPUnit_Framework_TestSuite('Payment_Process2 package');
 
         $suite->addTestSuite('Payment_Process2Test');
-        $suite->addTestSuite('Payment_Process2_ResultTest');
+
+
         $suite->addTestSuite('Payment_Process2_TypeTest');
         $suite->addTestSuite('Payment_Process2_Type_eCheckTest');
         $suite->addTestSuite('Payment_Process2_Type_CreditCardTest');
+
         $suite->addTestSuite('Payment_Process2_CommonTest');
         $suite->addTestSuite('Payment_Process2_AuthorizeNet');
         $suite->addTestSuite('Payment_Process2_Dummy');
@@ -91,6 +93,16 @@ class Payment_Process2_AllTests
         $suite->addTestSuite('Payment_Process2_Paycom');
         $suite->addTestSuite('Payment_Process2_Paypal');
         $suite->addTestSuite('Payment_Process2_Transfirst');
+
+        $suite->addTestSuite('Payment_Process2_ResultTest');
+        $suite->addTestSuite('Payment_Process2_Result_AuthorizeNet');
+        $suite->addTestSuite('Payment_Process2_Result_Dummy');
+        $suite->addTestSuite('Payment_Process2_Result_TrustCommerce');
+        $suite->addTestSuite('Payment_Process2_Result_LinkPoint');
+        $suite->addTestSuite('Payment_Process2_Result_Bibit');
+        $suite->addTestSuite('Payment_Process2_Result_Paycom');
+        $suite->addTestSuite('Payment_Process2_Result_Paypal');
+        $suite->addTestSuite('Payment_Process2_Result_Transfirst');
 
         return $suite;
     }
