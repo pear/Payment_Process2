@@ -131,13 +131,6 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     var $_processed = false;
 
     /**
-     * The response body sent back from the gateway.
-     *
-     * @access private
-     */
-    var $_responseBody = '';
-
-    /**
      * Constructor.
      *
      * @param  array  $options  Class options to set.

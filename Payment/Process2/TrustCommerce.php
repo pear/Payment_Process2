@@ -135,13 +135,6 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
     var $_processed = false;
 
     /**
-     * The response body sent back from the gateway.
-     *
-     * @access private
-     */
-    var $_responseBody = '';
-
-    /**
      * Constructor.
      *
      * @param  array  $options  Class options to set.
@@ -200,14 +193,14 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
 
         /** END TCLINK/CURL CASE STATEMENT **/
 
-        $this->_responseBody = trim($result);
+        $responseBody = trim($result);
         $this->_processed = true;
 
         // Restore error handling
         PEAR::popErrorHandling();
 
         $response = Payment_Process2_Result::factory($this->_driver,
-                                                     $this->_responseBody,
+                                                     $responseBody,
                                                      $this);
 
         if (!PEAR::isError($response)) {
