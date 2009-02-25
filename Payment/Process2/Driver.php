@@ -24,4 +24,13 @@ interface Payment_Process2_Driver {
     public function process();
     public function processCallback();
     public function getStatus();
+
+    /**
+     * Create a hash suitable for use with HTTP_Request2::addPostParameter();
+     *
+     * array('key' => 'value')
+     *
+     * @return mixed[]
+     */
+    public function prepareRequestData();
 }
