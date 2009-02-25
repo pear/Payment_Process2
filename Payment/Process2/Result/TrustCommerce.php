@@ -1,7 +1,9 @@
 <?php
 require_once 'Payment/Process2/Result.php';
+require_once 'Payment/Process2/Result/Driver.php';
 
-class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result {
+class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result implements Payment_Process2_Result_Driver
+{
 
     var $_statusCodeMap = array('approved' => PAYMENT_PROCESS2_RESULT_APPROVED,
                                 'accepted' => PAYMENT_PROCESS2_RESULT_APPROVED,

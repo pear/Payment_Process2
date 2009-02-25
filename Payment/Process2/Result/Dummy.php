@@ -1,5 +1,6 @@
 <?php
 require_once 'Payment/Process2/Result.php';
+require_once 'Payment/Process2/Result/Driver.php';
 
 /**
  * Dummy response
@@ -11,6 +12,9 @@ require_once 'Payment/Process2/Result.php';
  * @version  Release: @package_version@
  * @link     http://pear.php.net/package/Payment_Process
  */
-class Payment_Process2_Result_Dummy extends Payment_Process2_Result
+class Payment_Process2_Result_Dummy extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
+
+    public function parse() {}
+
 }

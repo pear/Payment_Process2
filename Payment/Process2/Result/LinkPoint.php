@@ -1,5 +1,6 @@
 <?php
 require_once 'Payment/Process2/Result.php';
+require_once 'Payment/Process2/Result/Driver.php';
 
 /**
  * Payment_Process2_Result_LinkPoint
@@ -9,7 +10,7 @@ require_once 'Payment/Process2/Result.php';
  * @author Joe Stump <joe@joestump.net>
  * @package Payment_Process
  */
-class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result
+class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
 
     var $_statusCodeMap = array('APPROVED' => PAYMENT_PROCESS2_RESULT_APPROVED,

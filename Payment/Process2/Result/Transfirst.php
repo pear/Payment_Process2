@@ -1,7 +1,9 @@
 <?php
 require_once 'Payment/Process2/Result.php';
+require_once 'Payment/Process2/Result/Driver.php';
 
-class Payment_Process2_Result_Transfirst extends Payment_Process2_Result {
+class Payment_Process2_Result_Transfirst extends Payment_Process2_Result implements Payment_Process2_Result_Driver
+{
 
     /**
      * Transfirst status codes.
@@ -146,7 +148,7 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result {
      * @param  string  $rawResponse  The raw response from the gateway
      * @return mixed boolean true on success, PEAR_Error on failure
      */
-    function __construct($rawResponse)
+    function __construct($rawResponse,  Payment_Process2_Common $request)
     {
         $res = $this->_validateResponse($rawResponse);
         if (!$res || PEAR::isError($res)) {
@@ -156,8 +158,8 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result {
             return $res;
         }
 
-        $this->_rawResponse = $rawResponse;
-        $res = $this->_parseResponse();
+        parent::__construct($rawResponse, $request);
+        $res = $this->parse(); /** @todo This is Wrong WRONG WRONGGGG! Constructors do no work. */
     }
 
     function getAuthSource()
@@ -183,7 +185,7 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result {
      *
      * @return void
      */
-    function _parseResponse()
+    function parse()
     {
         $this->_mapFields(explode('|', $this->_rawResponse));
     }

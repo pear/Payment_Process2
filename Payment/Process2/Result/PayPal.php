@@ -1,7 +1,8 @@
 <?php
 require_once 'Payment/Process2/Result.php';
+require_once 'Payment/Process2/Result/Driver.php';
 
-class Payment_Process2_Result_PayPal extends Payment_Process2_Result
+class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
 
     var $_statusCodeMap = array('1' => PAYMENT_PROCESS2_RESULT_APPROVED,
