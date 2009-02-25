@@ -235,7 +235,7 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
         $url = isset($this->_options['live']) ? $this->_options['authorizeUri'] : $this->_options['authorizeTestUri'];
 
 
-        $request = clone $this->request;
+        $request = clone $this->_request;
 
         $request->setURL($url);
         $request->setBody($this->renderRequestDocument());

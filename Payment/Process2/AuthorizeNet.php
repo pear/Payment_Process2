@@ -202,7 +202,7 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
             return $result;
         }
 
-        $request = clone $this->request;
+        $request = clone $this->_request;
         $request->setURL($this->_options['authorizeUri']);
 
 

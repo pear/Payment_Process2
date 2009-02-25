@@ -173,7 +173,7 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
         $fields = $this->prepareRequestData();
         $fields['VERSION'] = '3.2';
 
-        $request = clone $this->request;
+        $request = clone $this->_request;
         $request->setURL($this->_options['paypalUri']);
         $request->setMethod('post');
         $request->addPostParameter($fields);

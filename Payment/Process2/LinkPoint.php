@@ -195,7 +195,7 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
         $url = 'https://'.$this->_options['host'].':'.$this->_options['port'].
                '/LSGSXML';
 
-        $request = clone $this->request;
+        $request = clone $this->_request;
         $request->setURL($url);
         $request->addPostParam($this->prepareRequestData());
 

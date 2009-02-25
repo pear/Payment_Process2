@@ -171,7 +171,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         $fields = $this->prepareRequestData();
 
 
-        $request = clone $this->request;
+        $request = clone $this->_request;
         $request->setURL('https://vault.trustcommerce.com/trans/');
         $request->setMethod('PUT');
         $request->addPostParameters($fields);

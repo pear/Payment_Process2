@@ -147,7 +147,7 @@ class Payment_Process2_Paycom extends Payment_Process2_Common implements Payment
         /** @todo Refactor this method prepareRequestData(), it two does things at once! */
         $fields = $this->prepareRequestData();
 
-        $request = clone $this->request;
+        $request = clone $this->_request;
         $request->setURL($this->_options['authorizeUri']);
         $request->setMethod('post');
         $request->addPostParameter($fields);

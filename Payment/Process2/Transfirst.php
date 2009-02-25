@@ -177,7 +177,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         // Don't die partway through
         PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
-        $req = clone $this->request;
+        $req = clone $this->_request;
         $req->setURL($this->_options['authorizeUri']);
         $req->setMethod('POST');
         $req->addPostParameters($this->prepareRequestData());
