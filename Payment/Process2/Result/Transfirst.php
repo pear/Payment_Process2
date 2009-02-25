@@ -159,7 +159,7 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result impleme
         }
 
         parent::__construct($rawResponse, $request);
-        $res = $this->parse(); /** @todo This is Wrong WRONG WRONGGGG! Constructors do no work. */
+        $res = $this->parse(); /** @todo This is Wrong WRONG WRONGGGG! Constructors do no work! */
     }
 
     function getAuthSource()

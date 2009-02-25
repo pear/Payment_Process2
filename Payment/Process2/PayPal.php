@@ -52,7 +52,7 @@ require_once 'Payment/Process2.php';
 require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
 require_once 'Payment/Process2/Result/PayPal.php';
-require_once 'Net/Curl.php';
+require_once 'HTTP/Request2.php';
 
 
 /**
@@ -170,38 +170,24 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
             return $result;
         }
 
-        $fields = $this->_prepareQueryString();
-        if (PEAR::isError($fields)) {
-            return $fields;
-        }
-        $fields .= '&VERSION=3.2';
+        $fields = $this->prepareRequestData();
+        $fields['VERSION'] = '3.2';
 
-        // Don't die partway through
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
+        $request = clone $this->request;
+        $request->setURL($this->_options['paypalUri']);
+        $request->setMethod('post');
+        $request->addPostParameter($fields);
 
-        $curl = new Net_Curl($this->_options['paypalUri']);
-        if (PEAR::isError($curl)) {
-            PEAR::popErrorHandling();
-            return $curl;
-        }
 
-        $curl->type = 'post';
-        $curl->fields = $fields;
-        $curl->userAgent = 'PEAR Payment_Process2_PayPal 0.1';
-
-        $result = $curl->execute();
+        $result = $request->send();
         if (PEAR::isError($result)) {
             PEAR::popErrorHandling();
             return $result;
-        } else {
-            $curl->close();
         }
 
-        $responseBody = trim($result);
+        $responseBody = trim($result->getBody());
         $this->_processed = true;
 
-        // Restore error handling
-        PEAR::popErrorHandling();
 
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $responseBody,
@@ -277,22 +263,9 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
         return false;
     }
 
-    /**
-     * Prepare the POST query string.
-     *
-     * @access private
-     * @return string The query string
-     */
-    function _prepareQueryString()
+    function prepareRequestData()
     {
-        $data = array_merge($this->_options, $this->_data);
-
-        $return = array();
-        foreach ($data as $k => $v) {
-            $return[] = urlencode($k).'='.urlencode($v);
-        }
-
-        return implode('&', $return);
+        return array_merge($this->_options, $this->_data);
     }
 
 

@@ -36,7 +36,7 @@ class Payment_Process2_Result
     var $_request;
 
     /**
-     * The raw response (ie. from cURL)
+     * The raw response
      *
      * @author Joe Stump <joe@joestump.net>
      * @access protected

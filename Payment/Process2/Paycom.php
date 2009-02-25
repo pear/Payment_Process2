@@ -144,26 +144,18 @@ class Payment_Process2_Paycom extends Payment_Process2_Common implements Payment
         // Don't die partway through
         PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
-        $fields = $this->_prepareQueryString();
-        $request =  new HTTP_Request($this->_options['authorizeUri']);
-        $request->setMethod(HTTP_REQUEST_METHOD_POST);
-        $request->addHeader('User-Agent','PEAR Payment_Process2_Paycom 0.1');
-        foreach ($fields as $var => $val) {
-            $request->addPostData($var,$val);
-        }
+        /** @todo Refactor this method prepareRequestData(), it two does things at once! */
+        $fields = $this->prepareRequestData();
 
-        $result = $request->sendRequest();
-        if (PEAR::isError($result)) {
-            PEAR::popErrorHandling();
-            return PEAR::raiseError('Request: '.$result->getMessage());
-        }
+        $request = clone $this->request;
+        $request->setURL($this->_options['authorizeUri']);
+        $request->setMethod('post');
+        $request->addPostParameter($fields);
 
+        $result = $request->send();
 
-        $responseBody = trim($request->getResponseBody());
+        $responseBody = trim($result->getBody());
         $this->_processed = true;
-
-        // Restore error handling
-        PEAR::popErrorHandling();
 
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $responseBody,
@@ -175,13 +167,7 @@ class Payment_Process2_Paycom extends Payment_Process2_Common implements Payment
         return $response;
     }
 
-    /**
-     * Prepare the POST query string.
-     *
-     * @access private
-     * @return string The query string
-     */
-    function _prepareQueryString()
+    function prepareRequestData()
     {
 
         $data = array_merge($this->_options,$this->_data);

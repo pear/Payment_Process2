@@ -45,7 +45,7 @@ require_once 'Payment/Process2.php';
 require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
 require_once 'Payment/Process2/Result/TrustCommerce.php';
-require_once 'Net/Curl.php';
+require_once 'HTTP/Request2.php';
 
 
 
@@ -166,38 +166,24 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
             return $result;
         }
 
-        // Don't die partway through
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
-        $fields = $this->_prepareQueryString();
+        /** @todo Refactor this method, it does two things at once! */
+        $fields = $this->prepareRequestData();
 
 
-        /** USE CURL **/
-        $curl = new Net_Curl('https://vault.trustcommerce.com/trans/');
-        if (PEAR::isError($curl)) {
-            PEAR::popErrorHandling();
-            return $curl;
-        }
+        $request = clone $this->request;
+        $request->setURL('https://vault.trustcommerce.com/trans/');
+        $request->setMethod('PUT');
+        $request->addPostParameters($fields);
 
-        $curl->type = 'PUT';
-        $curl->fields = $fields;
-        $curl->userAgent = 'PEAR Payment_Process2_TrustCommerce 0.1a';
-
-        $result = $curl->execute();
+        $result = $request->send();
         if (PEAR::isError($result)) {
-            PEAR::popErrorHandling();
             return $result;
-        } else {
-            $curl->close();
         }
 
-        /** END TCLINK/CURL CASE STATEMENT **/
 
-        $responseBody = trim($result);
+        $responseBody = trim($result->getBody());
         $this->_processed = true;
-
-        // Restore error handling
-        PEAR::popErrorHandling();
 
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $responseBody,
@@ -220,13 +206,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         return false;
     }
 
-    /**
-     * Prepare the POST query string.
-     *
-     * @access private
-     * @return string The query string
-     */
-    function _prepareQueryString()
+    function prepareRequestData()
     {
 
         $data = $this->_data;

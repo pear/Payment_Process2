@@ -231,35 +231,22 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
             return $result;
         }
 
-        // Don't die partway through
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
-        $fields = $this->_prepareQueryString();
-        $curl =  new Net_Curl(isset($this->_options['live']) ? $this->_options['authorizeUri'] : $this->_options['authorizeTestUri']);
-        if (PEAR::isError($curl)) {
-            PEAR::popErrorHandling();
-            return $curl;
-        }
+        $url = isset($this->_options['live']) ? $this->_options['authorizeUri'] : $this->_options['authorizeTestUri'];
 
-        $curl->type = 'PUT';
-        $curl->fields = $fields;
-        $curl->userAgent = 'PEAR Payment_Process2_Bibit 0.1';
-        $curl->username = $this->_data['x_login'];
-        $curl->password = $this->_data['x_password'];
 
-        $result = $curl->execute();
-        if (PEAR::isError($result)) {
-            PEAR::popErrorHandling();
-            return $result;
-        } else {
-            $curl->close();
-        }
+        $request = clone $this->request;
 
-        $responseBody = trim($result);
+        $request->setURL($url);
+        $request->setBody($this->renderRequestDocument());
+        $request->setMethod('put');
+        $request->setAuth($this->_data['x_login'], $this->_data['x_password']);
+
+        $result = $request->send();
+
+        $responseBody = trim($result->getBody());
         $this->_processed = true;
 
-        // Restore error handling
-        PEAR::popErrorHandling();
 
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $responseBody,
@@ -271,13 +258,17 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
         return $response;
     }
 
+    public function prepareRequestData() {
+        return array();
+    }
+
     /**
      * Prepare the PUT query xml.
      *
      * @access private
      * @return string The query xml
      */
-    function _prepareQueryString()
+    function renderRequestDocument()
     {
         $data = array_merge($this->_options, $this->_data);
 
@@ -459,7 +450,7 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
     function _handleOrdercontent()
     {
         $specific = $this->_fieldMap['ordercontent'];
-        if ($this->ordercontent != '') {
+        if (!empty($this->ordercontent)) {
             $this->_data[$specific] = substr($this->ordercontent, 0, 10240);
         }
     }

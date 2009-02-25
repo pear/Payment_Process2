@@ -157,6 +157,10 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
         $this->_driver = 'LinkPoint';
     }
 
+    public function prepareRequestData() {
+        return array();
+    }
+
     /**
      * Process the transaction.
      *
@@ -183,11 +187,7 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
             return $result;
         }
 
-        // Don't die partway through
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
-
-
-        $xml = $this->_prepareQueryString();
+        $xml = $this->renderRequestDocument();
         if (PEAR::isError($xml)) {
             return $xml;
         }
@@ -195,38 +195,30 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
         $url = 'https://'.$this->_options['host'].':'.$this->_options['port'].
                '/LSGSXML';
 
-        $curl =  new Net_Curl($url);
-        $result = $curl->create();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $request = clone $this->request;
+        $request->setURL($url);
+        $request->addPostParam($this->prepareRequestData());
 
-        $curl->type = 'POST';
-        $curl->fields = $xml;
-        $curl->sslCert = $this->_options['keyfile'];
+        $request->setMethod('post');
+        $request->setBody($xml);
+
+        /** If we are empty, raise exception? */
+        if (!empty($this->_options['keyfile'])) {
+            $request->getAdapter()->setOption('ssl_local_cert', $this->_options['keyfile']);
+        }
 
         // LinkPoint's staging server has a boned certificate. If they are
         // testing against staging we need to turn off SSL host verification.
         if ($this->_options['host'] == 'staging.linkpt.net') {
-            $curl->verifyPeer = false;
-            $curl->verifyHost = 0;
-        }
-
-        $curl->userAgent = 'PEAR Payment_Process2_LinkPoint 0.1';
-
-        $result = $curl->execute();
-        if (PEAR::isError($result)) {
-            return PEAR::raiseError('cURL error: '.$result->getMessage());
-        } else {
-            $curl->close();
+            $request->getAdapter()->setOption('ssl_verify_peer', false);
+            $request->getAdapter()->setOption('ssl_verify_host', false);
         }
 
 
-        $responseBody = trim($result);
+        $result = $request->send();
+
+        $responseBody = trim($result->getBody());
         $this->_processed = true;
-
-        // Restore error handling
-        PEAR::popErrorHandling();
 
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $responseBody,
@@ -245,7 +237,7 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
      * @access private
      * @return string The query string
      */
-    function _prepareQueryString()
+    function renderRequestDocument()
     {
 
         $data = array_merge($this->_options,$this->_data);

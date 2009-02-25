@@ -234,8 +234,9 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     {
         $data = array();
         foreach ($this->_data as $var => $value) {
-            if (!empty($value))
-                $data[$var] => $value;
+            if (!empty($value)) {
+                $data[$var] = $value;
+            }
         }
         return $data;
     }
