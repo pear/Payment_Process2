@@ -118,6 +118,10 @@ class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_
     public function getStatus() {
         return false;
     }
+
+    public function prepareRequestData() {
+        return array();
+    }
 }
 
 
