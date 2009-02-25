@@ -267,54 +267,6 @@ class Payment_Process2_Result
     }
 
     /**
-     * parse
-     *
-     * @return mixed
-     * @abstract
-     * @author Joe Stump <joe@joestump.net>
-     * @access public
-     */
-    function parse()
-    {
-        return PEAR::raiseError('parse() not implemented',
-                                PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
-    }
-
-    /**
-     * parseCallback
-     *
-     * @return   mixed
-     * @abstract
-     * @author   Joe Stump <joe@joestump.net>
-     * @access   public
-     * @see      Payment_Process2_Common::processCallback()
-     */
-    function parseCallback()
-    {
-        return PEAR::raiseError('parse() not implemented',
-                                PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
-    }
-
-    /**
-     * isLegitimate
-     *
-     * Some gateways allow you to validate the response to make sure it's
-     * actually them that are sending the response. Override this in the
-     * driver result class and implement this if your gateway provides such
-     * a mechanism. Any information required should be passed via $options.
-     *
-     * @return   mixed
-     * @abstract
-     * @author   Joe Stump <joe@joestump.net>
-     * @access   public
-     */
-    function isLegitimate()
-    {
-        return PEAR::raiseError('parse() not implemented',
-                                PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
-    }
-
-    /**
      * getCode
      *
      * @return integer one of PAYMENT_PROCESS2_RESULT_* constant

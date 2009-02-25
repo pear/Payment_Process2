@@ -45,25 +45,6 @@ require_once 'PHPUnit/Framework/TestCase.php';
 
 class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
 
-
-    public function testShouldGetAngryWithUnimplementedParse() {
-        $object = new Payment_Process2_Result(null, new Payment_Process2_Common());
-        $result = $object->parse();
-        $this->assertTrue($result instanceOf PEAR_Error);
-    }
-
-    public function testShouldGetAngryWithUnimplementedParseCallback() {
-        $object = new Payment_Process2_Result(null, new Payment_Process2_Common());
-        $result = $object->parseCallback();
-        $this->assertTrue($result instanceOf PEAR_Error);
-    }
-
-    public function testShouldGetAngryWithUnimplementedisLegitimate() {
-        $object = new Payment_Process2_Result(null, new Payment_Process2_Common());
-        $result = $object->isLegitimate();
-        $this->assertTrue($result instanceOf PEAR_Error);
-    }
-
     public function testShouldCreateObjectWithFactory() {
         $object = Payment_Process2_Result::factory('Dummy', null, new Payment_Process2_Common());
 
