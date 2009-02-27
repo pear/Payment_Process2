@@ -79,8 +79,10 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
 
     function _mapFields($responseArray)
     {
-        foreach($this->_fieldMap as $key => $val) {
-            $this->$val = $responseArray[$key];
+        foreach ($this->_fieldMap as $key => $val) {
+            if (isset($responseArray[$key])) {
+                $this->$val = $responseArray[$key];
+            }
         }
         if (!isset($this->_statusCodeMessages[$this->messageCode]))
         {
