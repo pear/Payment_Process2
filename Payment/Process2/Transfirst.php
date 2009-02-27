@@ -115,6 +115,9 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         'email'             => "cardHolderEmail"
     );
 
+    /** @todo Work out if this actually lives in credit card */
+    var $expDate = null;
+
     /**
      * Default options for this processor.
      *
