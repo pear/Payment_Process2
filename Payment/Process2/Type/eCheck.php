@@ -85,7 +85,7 @@ class Payment_Process2_Type_eCheck extends Payment_Process2_Type
      */
     function _validateAccountNumber()
     {
-        if (!isset($this->accountNumber)) {
+        if (empty($this->accountNumber)) {
             throw new Payment_Process2_Exception('Account number is required');
         }
 
@@ -100,7 +100,7 @@ class Payment_Process2_Type_eCheck extends Payment_Process2_Type
      */
     function _validateRoutingCode()
     {
-        if (!isset($this->routingCode)) {
+        if (empty($this->routingCode)) {
             throw new Payment_Process2_Exception('Routing code is required');
         }
 
@@ -115,7 +115,7 @@ class Payment_Process2_Type_eCheck extends Payment_Process2_Type
      */
     function _validateBankName()
     {
-        if (!isset($this->bankName)) {
+        if (empty($this->bankName)) {
             throw new Payment_Process2_Exception('Bank name is required');
         }
 

@@ -42,6 +42,7 @@
  */
 
 require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Payment/Process2/Type.php';
 
 class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
 
@@ -68,7 +69,7 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldValidateAccountNumbersCorrectly2() {
-        unset($this->object->accountNumber);
+        $this->object->accountNumber = null;
 
         try {
             $result = Payment_Process2_Type::isValid($this->object);
@@ -86,7 +87,7 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldValidateRoutingCodesCorrectly2() {
-        unset($this->object->routingCode);
+        $this->object->routingCode = null;
 
         try {
             $result = Payment_Process2_Type::isValid($this->object);
@@ -104,7 +105,7 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldValidateBankNamesCorrectly2() {
-        unset($this->object->bankName);
+        $this->object->bankName = null;
 
         try {
             $result = Payment_Process2_Type::isValid($this->object);
