@@ -12,55 +12,34 @@ $options = array();
 $options['keyfile'] = '/path/to/your/keyfile.pem';
 
 $process = Payment_Process::factory('LinkPoint',$options);
-if (!PEAR::isError($process)) {
-    $process->_debug = true;
-    $process->login = 'xxxxxxxxxx'; // Your linkpoint store ID
-    $process->password = '12345678'; // Your store's password
-    $process->action = PAYMENT_PROCESS2_ACTION_AUTHONLY;
-    $process->amount = 1.00;
 
-    $card = Payment_Process2_Type::factory('CreditCard');
-    if (!PEAR::isError($card)) {
-        $card->type = PAYMENT_PROCESS2_CC_VISA;
-        $card->invoiceNumber = 112345145;
-        $card->customerId = 1461264151;
-        $card->cardNumber = '411111111111111';
-        $card->expDate = '08/2008';
-        $card->zip = '98123';
-        $card->cvv = '444';
+$process->_debug = true;
+$process->login = 'xxxxxxxxxx'; // Your linkpoint store ID
+$process->password = '12345678'; // Your store's password
+$process->action = PAYMENT_PROCESS2_ACTION_AUTHONLY;
+$process->amount = 1.00;
 
-        if (Payment_Process2_Type::isValid($card)) {
-            if(!$process->setPayment($card)) {
-                die("Unable to set payment\n");
-            }
+$card = Payment_Process2_Type::factory('CreditCard');
+$card->type = PAYMENT_PROCESS2_CC_VISA;
+$card->invoiceNumber = 112345145;
+$card->customerId = 1461264151;
+$card->cardNumber = '411111111111111';
+$card->expDate = '08/2008';
+$card->zip = '98123';
+$card->cvv = '444';
 
-            $result = $process->process();
-            if (PEAR::isError($result)) {
-                echo "\n\n";
-                echo $result->getMessage()."\n";
-            } else {
-                print_r($result);
-                echo "\n";
-                echo "---------------------- RESPONSE ------------------------\n";
-                echo $result->getMessage()."\n";
-                echo $result->getCode()."\n";
-                $validate = $result->validate();
-                if(!PEAR::isError($validate)) {
-                    echo "All good\n";
-                } else {
-                    echo "ERROR: ".$validate->getMessage()."\n";
-                }
 
-                echo "---------------------- RESPONSE ------------------------\n";
-            }
-        } else {
-            echo 'Something is wrong with your card!'."\n";
-        }
-    } else {
-      echo $card->getMessage()."\n";
-    }
-} else {
-    echo $payment->getMessage()."\n";
-}
+$process->setPayment($card);
+
+$result = $process->process();
+
+print_r($result);
+echo "\n";
+echo "---------------------- RESPONSE ------------------------\n";
+echo $result->getMessage()."\n";
+echo $result->getCode()."\n";
+$validate = $result->validate();
+
+echo "---------------------- RESPONSE ------------------------\n";
 
 ?>

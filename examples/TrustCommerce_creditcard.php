@@ -31,15 +31,9 @@
   	die("Unable to set payment\n");
   }
   $result = $process->process();
-  if (PEAR::isError($result)) {
-      echo "---------------------- ERROR ------------------------\n";
-      echo $result->getMessage()."\n";
-      echo "---------------------- ERROR ------------------------\n";
-  } else {
-      echo "---------------------- RESPONSE ------------------------\n";
-      echo 'Processor result: ';
-      echo $result->getCode()." - ";
-      echo $result->getMessage();
-      echo "---------------------- RESPONSE ------------------------\n";
-  }
+  echo "---------------------- RESPONSE ------------------------\n";
+  echo 'Processor result: ';
+  echo $result->getCode()." - ";
+  echo $result->getMessage();
+  echo "---------------------- RESPONSE ------------------------\n";
 ?>

@@ -78,15 +78,11 @@ $cc->setFrom($ccData);
 // Process it
 $processor->setFrom($data);
 if (!$processor->setPayment($cc)) {
-    PEAR::raiseError("Payment data is invalid.");
-    die();
+    throw new Payment_Process2_Exception("Payment data is invalid.");
 }
 $result = $processor->process();
 
-if (PEAR::isError($result)) {
-    // process() returns a PEAR_Error if validation failed.
-    print "Validation failed: {$result->message}\n";
-} else if ($result->isSuccess()) {
+if ($result->isSuccess()) {
     // Transaction approved
     print "Success: ";
 } else {
