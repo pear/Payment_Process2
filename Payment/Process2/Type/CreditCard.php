@@ -193,13 +193,17 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
         $yearOptions = array('min'     => $date['year'],
                              'decimal' => false);
 
-        $validMonth = Validate::number($month, $monthOptions);
+        $validMonth = Validate::number((int)$month, $monthOptions);
         if (!$validMonth) {
             throw new Payment_Process2_Exception('Invalid expiration date provided (month)');
         }
 
-        $validYear = Validate::number($year, $yearOptions);
+
+        $validYear = Validate::number((int)$year, $yearOptions);
         if (!$validYear) {
+var_dump($yearOptions);
+var_dump($year);
+var_dump($validYear);
             throw new Payment_Process2_Exception('Invalid expiration date provided (year)');
         }
 

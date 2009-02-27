@@ -50,7 +50,7 @@ class Payment_Process2_TrustCommerceTest extends PHPUnit_Framework_TestCase {
 
     public function aPayment() {
         $cc = Payment_Process2_Type::factory('CreditCard');
-
+        $cc->setDate(strtotime('2008-01-01'));
         $cc->type = PAYMENT_PROCESS2_CC_MASTERCARD;
         $cc->cardNumber = '5123456789012346';
         $cc->expDate = '12/2008';

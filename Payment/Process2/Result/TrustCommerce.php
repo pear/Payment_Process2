@@ -63,9 +63,13 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
                            'transid'  => 'transactionId'
     );
 
+    /**
+     * @todo Good unit test coverage!
+     */
     function parse()
     {
       $array = preg_split("/\n/",$this->_rawResponse,0,PREG_SPLIT_NO_EMPTY);
+      $responseArray = array();
       for($i=0;$i<sizeof($array);$i++)
       {
           $response_line = $array[$i];
@@ -77,8 +81,15 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
       $this->_mapFields($responseArray);
     }
 
+    /**
+     * @todo Good unit test coverage!
+     */
     function _mapFields($responseArray)
     {
+        if (empty($responseArray)) {
+            return;
+        }
+
         foreach ($this->_fieldMap as $key => $val) {
             if (isset($responseArray[$key])) {
                 $this->$val = $responseArray[$key];
