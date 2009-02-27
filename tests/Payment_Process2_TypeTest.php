@@ -59,17 +59,23 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldRaiseErrorWithUnknownTypes() {
-        $object = Payment_Process2_Type::factory('Duck');
+        try {
+            $object = Payment_Process2_Type::factory('Duck');
 
-        $this->assertTrue($object instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
     public function testShouldKnowWhenObjectsAreInvalid() {
         $object = Payment_Process2_Type::factory('CreditCard');
 
-        $result = Payment_Process2_Type::isValid($object);
+        try {
+            $result = Payment_Process2_Type::isValid($object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
     public function testShouldValidateObjectsCorrectly() {
@@ -92,9 +98,12 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object->bankName = "Unit test";
 
 
-        $result = Payment_Process2_Type::isValid($object);
+        try {
+            $result = Payment_Process2_Type::isValid($object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
     public function testShouldValidateEmailsCorrectly2() {
@@ -117,9 +126,12 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object->routingCode = 2;
         $object->bankName = "Unit test";
 
-        $result = Payment_Process2_Type::isValid($object);
+        try {
+            $result = Payment_Process2_Type::isValid($object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
     public function testShouldValidateAmericanZipCodesCorrectly2() {
