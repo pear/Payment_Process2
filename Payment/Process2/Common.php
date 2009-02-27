@@ -240,10 +240,7 @@ class Payment_Process2_Common
             is_array($this->_typeFieldMap[$payment->getType()]) &&
             count($this->_typeFieldMap[$payment->getType()])) {
 
-            $result = Payment_Process2_Type::isValid($payment);
-            if (PEAR::isError($result)) {
-                return $result;
-            }
+            Payment_Process2_Type::isValid($payment);
 
             $this->_payment = $payment;
             // Map over the payment specific fields. Check out
@@ -253,10 +250,7 @@ class Payment_Process2_Common
 
                 $func = '_handle'.ucfirst($generic);
                 if (method_exists($this, $func)) {
-                    $result = $this->$func();
-                    if (PEAR::isError($result)) {
-                        return $result;
-                    }
+                    $this->$func();
                 } else {
                     // TODO This may screw things up - the problem is that
                     // CC information is no longer member variables, so we
@@ -274,7 +268,7 @@ class Payment_Process2_Common
             return true;
         }
 
-        return PEAR::raiseError('Invalid type field map');
+        throw new Payment_Process2_Exception('Invalid type field map');
     }
     // }}}
     // {{{ setFrom($where)
@@ -317,10 +311,9 @@ class Payment_Process2_Common
 
             if (method_exists($this, $func)) {
                 $res = $this->$func();
-                if (PEAR::isError($res)) {
-                    return $res;
-                } elseif (is_bool($res) && $res == false) {
-                    return PEAR::raiseError('Validation of field "'.$field.'" failed.', PAYMENT_PROCESS2_ERROR_INVALID);
+                /** @todo All of these should raise exceptions instead */
+                if (is_bool($res) && $res == false) {
+                    throw new Payment_Process2_Exception('Validation of field "'.$field.'" failed.', PAYMENT_PROCESS2_ERROR_INVALID);
                 }
             }
         }
@@ -344,7 +337,7 @@ class Payment_Process2_Common
     function set($field, $value)
     {
         if (!$this->fieldExists($field)) {
-            return PEAR::raiseError('Field "' . $field . '" does not exist.', PAYMENT_PROCESS2_ERROR_INVALID);
+            throw new Payment_Process2_Exception('Field "' . $field . '" does not exist.', PAYMENT_PROCESS2_ERROR_INVALID);
         }
         $this->$field = $value;
         return true;
@@ -615,10 +608,7 @@ class Payment_Process2_Common
         foreach ($this->_fieldMap as $generic => $specific) {
             $func = '_handle'.ucfirst($generic);
             if (method_exists($this, $func)) {
-                $result = $this->$func();
-                if (PEAR::isError($result)) {
-                    return $result;
-                }
+                $this->$func();
             } else {
                 /**
                  * @todo This may screw things up - the problem is that
