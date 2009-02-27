@@ -150,13 +150,8 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result impleme
      */
     function __construct($rawResponse,  Payment_Process2_Common $request)
     {
-        $res = $this->_validateResponse($rawResponse);
-        if (!$res || PEAR::isError($res)) {
-            if (!$res) {
-                $res = PEAR::raiseError("Unable to validate response body");
-            }
-            return $res;
-        }
+        $this->_validateResponse($rawResponse);
+
 
         parent::__construct($rawResponse, $request);
         $res = $this->parse(); /** @todo This is Wrong WRONG WRONGGGG! Constructors do no work! */
@@ -197,8 +192,9 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result impleme
      */
     function _validateResponse($resp)
     {
-        if (strlen($resp) > 160)
-            return false;
+        if (strlen($resp) > 160) {
+            throw new Payment_Process2_Exception("Response too short, appears invalid");
+        }
 
         // FIXME - add more tests
 
