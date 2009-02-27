@@ -170,7 +170,7 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
      */
     function process()
     {
-        if (!strlen($this->_options['keyfile']) ||
+        if (empty($this->_options['keyfile']) ||
             !file_exists($this->_options['keyfile'])) {
             throw new Payment_Process2_Exception('Invalid key file');
         }
