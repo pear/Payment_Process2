@@ -56,7 +56,7 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
     }
 
     public function aValidProcessor() {
-        $object = new Payment_Process2_Common();
+        $object = Payment_Process2::factory('Dummy');
         $object->amount = 1;
         $object->_typeFieldMap = array('eCheck' => array('bankName' => 'xyz'));
 

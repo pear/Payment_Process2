@@ -291,8 +291,12 @@ class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result imple
 
         // Save some fields in private members
         $map = array_flip($this->_fieldMap);
-        $this->_md5Hash = $responseArray[$map['md5Hash']];
-        $this->_amount  = $responseArray[$map['amount']];
+        if (!empty($responseArray[$map['md5Hash']])) {
+            $this->_md5Hash = $responseArray[$map['md5Hash']];
+        }
+        if (!empty($responseArray[$map['amount']])) {
+            $this->_amount  = $responseArray[$map['amount']];
+        }
 
         $this->_mapFields($responseArray);
 
