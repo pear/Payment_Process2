@@ -46,7 +46,8 @@
  */
 
 require_once 'Validate/Finance/CreditCard.php';
-
+require_once 'Payment/Process2/Type.php';
+require_once 'Payment/Process2/Exception.php';
 
 /**
  * Payment_Process2_Type_CreditCard
@@ -103,14 +104,15 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
      * Uses Validate_Finance_CreditCard to validate the card number.
      *
      * @author Joe Stump <joe@joestump.net>
-     * @return mixed PEAR_Error on failure, TRUE on success
+     * @return bool
+     * @throws Payment_Process2_Exception
      * @see Payment_Process2_Type_CreditCard::_mapType()
      * @see Validate_Finance_CreditCard
      */
     function _validateCardNumber()
     {
         if (!Validate_Finance_CreditCard::number($this->cardNumber, $this->_mapType())) {
-            return PEAR::raiseError('Invalid credit card number');
+            throw new Payment_Process2_Exception('Invalid credit card number');
         }
 
         return true;
@@ -122,18 +124,19 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
      * Uses Validate_Finance_CreditCard to validate the type.
      *
      * @author Joe Stump <joe@joestump.net>
-     * @return mixed PEAR_Error on failure, TRUE on success
+     * @return bool
+     * @throws Payment_Process2_Exception
      * @see Payment_Process2_Type_CreditCard::_mapType()
      * @see Validate_Finance_CreditCard
      */
     function _validateType()
     {
         if (!($type = $this->_mapType())) {
-            return PEAR::raiseError('Invalid type map provided in driver');
+            throw new Payment_Process2_Exception('Invalid type map provided in driver');
         }
 
         if (!Validate_Finance_CreditCard::type($this->cardNumber, $type)) {
-            return PEAR::raiseError('Credit card type not recognized or does not match the card number given');
+            throw new Payment_Process2_Exception('Credit card type not recognized or does not match the card number given');
         }
 
         return true;
@@ -142,7 +145,8 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
     /**
      * Validates the card verification value
      *
-     * @return bool PEAR_Error is CVV was set and is not valid, TRUE otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      * @access protected
      */
     function _validateCvv()
@@ -152,11 +156,11 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
         }
 
         if (!($type = $this->_mapType())) {
-            return PEAR::raiseError('Invalid type map provided in driver');
+            throw new Payment_Process2_Exception('Invalid type map provided in driver');
         }
 
         if (!Validate_Finance_CreditCard::cvv($this->cvv, $type)) {
-            return PEAR::raiseError('CVV code is invalid or does not match the card type');
+            throw new Payment_Process2_Exception('CVV code is invalid or does not match the card type');
         }
 
         return true;
@@ -165,7 +169,8 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
     /**
      * Validate the card's expiration date.
      *
-     * @return boolean true on success, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      * @access protected
      * @author Joe Stump <joe@joestump.net>
      * @todo Fix YxK issues; an expyear of '99' will come up as valid.
@@ -174,7 +179,7 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
     {
         @list($month, $year) = explode('/', $this->expDate);
         if (!is_numeric($month) || !is_numeric($year)) {
-            return PEAR::raiseError('Invalid expiration date provided');
+            throw new Payment_Process2_Exception('Invalid expiration date provided');
         }
 
         $monthOptions = array('min'     => 1,
@@ -194,7 +199,7 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
             }
         }
 
-        return PEAR::raiseError('Invalid expiration date provided');
+        throw new Payment_Process2_Exception('Invalid expiration date provided');
     }
 
     /**

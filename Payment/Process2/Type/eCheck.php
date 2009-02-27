@@ -42,6 +42,9 @@
  * @link      http://pear.php.net/package/Payment_Process
  */
 
+require_once 'Payment/Process2/Type.php';
+require_once 'Payment/Process2/Exception.php';
+
 /**
  * Payment_Process2_Type_eCheck
  *
@@ -77,12 +80,13 @@ class Payment_Process2_Type_eCheck extends Payment_Process2_Type
     /**
      * Validates an account number
      *
-     * @return boolean
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateAccountNumber()
     {
         if (!isset($this->accountNumber)) {
-            return PEAR::raiseError('Account number is required');
+            throw new Payment_Process2_Exception('Account number is required');
         }
 
         return true;
@@ -91,12 +95,13 @@ class Payment_Process2_Type_eCheck extends Payment_Process2_Type
     /**
      * Validates a routing number
      *
-     * @return boolean
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateRoutingCode()
     {
         if (!isset($this->routingCode)) {
-            return PEAR::raiseError('Routing code is required');
+            throw new Payment_Process2_Exception('Routing code is required');
         }
 
         return true;
@@ -105,12 +110,13 @@ class Payment_Process2_Type_eCheck extends Payment_Process2_Type
     /**
      * Validates a bank name
      *
-     * @return boolean
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateBankName()
     {
         if (!isset($this->bankName)) {
-            return PEAR::raiseError('Bank name is required');
+            throw new Payment_Process2_Exception('Bank name is required');
         }
 
         return true;

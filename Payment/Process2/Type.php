@@ -55,6 +55,7 @@ define('PAYMENT_PROCESS2_CK_CHECKING', 1001);
 
 require_once 'PEAR.php';
 require_once 'Validate.php';
+require_once 'Payment/Process2/Exception.php';
 
 /**
  * Payment_Process2_Type
@@ -168,7 +169,8 @@ class Payment_Process2_Type
     *
     * @author Joe Stump <joe@joestump.net>
     * @param string $type
-    * @return mixed
+    * @return Payment_Process2_Type
+    * @throws Payment_Process2_Exception
     */
     function factory($type)
     {
@@ -183,8 +185,7 @@ class Payment_Process2_Type
             }
         }
 
-        $ret = PEAR::raiseError('Invalid Payment_Process2_Type: '.$type);
-        return $ret;
+        throw new Payment_Process2_Exception('Invalid Payment_Process2_Type: '.$type);
     }
     // }}}
     // {{{ isValid()
@@ -195,8 +196,10 @@ class Payment_Process2_Type
     *
     * @author Joe Stump <joe@joestump.net>
     * @access public
-    * @param mixed $obj Type object to validate
-    * @return mixed true on success, PEAR_Error on failure
+    * @param Payment_Process2_Type $obj Type object to validate
+    * @return bool
+    * @throws Payment_Process2_Exception
+    * @todo validate() to raise exceptions
     */
     function isValid(Payment_Process2_Type $obj)
     {
@@ -204,10 +207,7 @@ class Payment_Process2_Type
         foreach ($vars as $validate => $value) {
             $method = '_validate'.ucfirst($validate);
             if (method_exists($obj, $method)) {
-                $result = $obj->$method();
-                if (PEAR::isError($result)) {
-                    return $result;
-                }
+                $obj->$method();
             }
         }
 
@@ -238,7 +238,9 @@ class Payment_Process2_Type
     function _validateEmail()
     {
         if (isset($this->email) && strlen($this->email)) {
-            return Validate::email($this->email, false);
+            if (!Validate::email($this->email, false)) {
+                throw new Payment_Process2_Exception("Invalid email address");
+            }
         }
 
         return true;
@@ -259,7 +261,9 @@ class Payment_Process2_Type
     function _validateZip()
     {
         if (isset($this->zip) && strtolower($this->country) == 'us') {
-            return ereg('^[0-9]{5}(-[0-9]{4})?$', $this->zip);
+            if (!ereg('^[0-9]{5}(-[0-9]{4})?$', $this->zip)) {
+                throw new Payment_Process2_Exception("Invalid email address");
+            }
         }
 
         return true;
