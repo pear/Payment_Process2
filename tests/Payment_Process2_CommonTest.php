@@ -220,6 +220,18 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
     public function testShouldSetOptionsCorrectly2() {
         $this->markTestIncomplete('Check that the second argument in setOptions() is available, it merges correctly');
     }
+
+    public function testShouldSetOptionsCorrectly3() {
+        $object = new Payment_Process2_Common();
+
+        try {
+            $object->setOptions(null);
+
+            $this->fail("Should have raised exceptiosn");
+        } catch (InvalidArgumentException $iae) {
+        }
+    }
+
 /*
 Untested, protected code:
 
