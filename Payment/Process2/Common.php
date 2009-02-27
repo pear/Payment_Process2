@@ -444,7 +444,7 @@ class Payment_Process2_Common
     function setOptions($options = array(), $defaultOptions = array())
     {
         if (!is_array($options)) {
-            throw InvalidArgumentException("Must provide an array");
+            throw new InvalidArgumentException("Must provide an array");
         }
         $defaultOptions = $defaultOptions ? $defaultOptions : $this->_defaultOptions;
         $this->_options = array_merge($defaultOptions, $options);
