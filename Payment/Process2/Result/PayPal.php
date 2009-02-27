@@ -121,11 +121,9 @@ class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements 
      */
     function parse()
     {
-        $responseArray = parse_str($this->_rawResponse);
+        $responseArray = array();
 
-        // Save some fields in private members
-        $map = array_flip($this->_fieldMap);
-        $this->_amount = $responseArray[$map['amount']];
+        parse_str($this->_rawResponse, $responseArray);
 
         $this->_mapFields($responseArray);
 
