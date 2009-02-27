@@ -58,8 +58,6 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
      */
     function parse()
     {
-return false;
-
         $doc = new XML_XPath();
 
         $e = $doc->load($this->_rawResponse, 'string');
