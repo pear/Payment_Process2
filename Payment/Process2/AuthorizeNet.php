@@ -191,16 +191,10 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
     function process()
     {
         // Sanity check
-        $result = $this->validate();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $this->validate();
 
         // Prepare the data
-        $result = $this->_prepare();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $this->_prepare();
 
         $request = clone $this->_request;
         $request->setURL($this->_options['authorizeUri']);
@@ -219,16 +213,14 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
                                                      $this->_responseBody,
                                                      $this);
 
-        if (!PEAR::isError($response)) {
-            $response->parse();
 
-            $r = $response->isLegitimate();
-            if (PEAR::isError($r)) {
-                return $r;
-            } elseif ($r === false) {
-                return PEAR::raiseError('Illegitimate response from gateway');
-            }
+        $response->parse();
+
+        $r = $response->isLegitimate();
+        if ($r === false) {
+            throw new Payment_Process2_Exception('Illegitimate response from gateway');
         }
+
         $response->action = $this->action;
 
         return $response;
@@ -249,17 +241,13 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
 
         $response = Payment_Process2_Result::factory($this->_driver,
                             $this->_responseBody);
-        if (!PEAR::isError($response)) {
-            $response->_request =& $this;
-            $response->parseCallback();
 
-            $r = $response->isLegitimate();
-            if (PEAR::isError($r)) {
-                return $r;
+        $response->_request =& $this;
+        $response->parseCallback();
 
-            } elseif ($r === false) {
-                return PEAR::raiseError('Illegitimate callback from gateway.');
-            }
+        $r = $response->isLegitimate();
+        if ($r === false) {
+            throw new Payment_Process2_Exception('Illegitimate callback from gateway.');
         }
 
         return $response;

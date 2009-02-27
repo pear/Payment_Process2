@@ -167,15 +167,10 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     function process()
     {
         // Sanity check
-        if(PEAR::isError($res = $this->validate())) {
-            return($res);
-        }
+        $this->validate();
 
         // Prepare the data
         $this->_prepare();
-
-        // Don't die partway through
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
         $req = clone $this->_request;
         $req->setURL($this->_options['authorizeUri']);
@@ -184,15 +179,9 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
 
         $res = $req->send();
 
-        if (PEAR::isError($res)) {
-            PEAR::popErrorHandling();
-            return $res;
-        }
-
         $this->_processed = true;
 
         $response = trim($res->getBody());
-        print "Response: {$response}\n";
         $result = Payment_Process2_Result::factory('Transfirst', $response);
         $result->_request = $this;
         $this->_result = $result;
@@ -208,7 +197,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     function getStatus()
     {
         if (!$this->_processed) {
-            return PEAR::raiseError('The transaction has not been processed yet.', PAYMENT_PROCESS2_ERROR_INCOMPLETE);
+            throw new Payment_Process2_Exception('The transaction has not been processed yet.', PAYMENT_PROCESS2_ERROR_INCOMPLETE);
         }
         return $this->_result->code;
     }
@@ -225,7 +214,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     function getSequence()
     {
         if (!$this->_processed) {
-            return PEAR::raiseError('The transaction has not been processed yet.', PAYMENT_PROCESS2_ERROR_INCOMPLETE);
+            throw new Payment_Process2_Exception('The transaction has not been processed yet.', PAYMENT_PROCESS2_ERROR_INCOMPLETE);
         }
         return $this->_result->_sequenceNumber;
     }

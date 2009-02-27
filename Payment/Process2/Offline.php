@@ -135,10 +135,11 @@ class Payment_Process2_offline extends Payment_Process {
     }
 
     if($code == PROCESS_RESULT_DECLINED) {
-      return PEAR::raiseError($message,$code);
-    } else {
-      return new Payment_Process2_Result($message,$code);
+      throw new Payment_Process2_Exception($message,$code);
     }
+
+    return new Payment_Process2_Result($message,$code);
+
   }
 
   /**
@@ -152,7 +153,7 @@ class Payment_Process2_offline extends Payment_Process {
   function getStatus()
   {
     if(!$this->processed) {
-      return PEAR::raiseError('The transaction has not been processed yet.', PROCESS_ERROR_INCOMPLETE);
+      throw new Payment_Process2_Exception('The transaction has not been processed yet.', PROCESS_ERROR_INCOMPLETE);
     }
 
     return $this->_response;

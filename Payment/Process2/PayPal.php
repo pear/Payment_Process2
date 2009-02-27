@@ -159,16 +159,11 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
     function process()
     {
         // Sanity check
-        $result = $this->validate();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $this->validate();
 
         // Prepare the data
-        $result = $this->_prepare();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $this->_prepare();
+
 
         $fields = $this->prepareRequestData();
         $fields['VERSION'] = '3.2';
@@ -180,10 +175,7 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
 
 
         $result = $request->send();
-        if (PEAR::isError($result)) {
-            PEAR::popErrorHandling();
-            return $result;
-        }
+
 
         $responseBody = trim($result->getBody());
         $this->_processed = true;
@@ -192,16 +184,14 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $responseBody,
                                                      $this);
-        if (!PEAR::isError($response)) {
-            $response->parse();
 
-            $r = $response->isLegitimate();
-            if (PEAR::isError($r)) {
-                return $r;
-            } elseif ($r === false) {
-                return PEAR::raiseError('Illegitimate response from gateway');
-            }
+        $response->parse();
+
+        $r = $response->isLegitimate();
+        if ($r === false) {
+            throw new Payment_Process2_Exception('Illegitimate response from gateway');
         }
+
         $response->action = $this->action;
 
         return $response;

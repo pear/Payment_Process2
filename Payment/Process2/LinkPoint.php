@@ -172,25 +172,16 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
     {
         if (!strlen($this->_options['keyfile']) ||
             !file_exists($this->_options['keyfile'])) {
-            return PEAR::raiseError('Invalid key file');
+            throw new Payment_Process2_Exception('Invalid key file');
         }
 
         // Sanity check
-        $result = $this->validate();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $this->validate();
 
         // Prepare the data
-        $result = $this->_prepare();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $this->_prepare();
 
         $xml = $this->renderRequestDocument();
-        if (PEAR::isError($xml)) {
-            return $xml;
-        }
 
         $url = 'https://'.$this->_options['host'].':'.$this->_options['port'].
                '/LSGSXML';
@@ -224,9 +215,9 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
                                                      $responseBody,
                                                      $this);
 
-        if (!PEAR::isError($response)) {
-            $response->parse();
-        }
+
+        $response->parse();
+
 
         return $response;
     }
@@ -267,7 +258,7 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
         switch ($this->_payment->getType())
         {
             case 'eCheck':
-                return PEAR::raiseError('eCheck not currently supported',
+                throw new Payment_Process2_Exception('eCheck not currently supported',
                                         PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
 
                 $xml .= '<telecheck>'."\n";

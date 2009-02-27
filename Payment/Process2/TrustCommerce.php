@@ -155,17 +155,10 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
     function process()
     {
         // Sanity check
-        $result = $this->validate();
-        if(PEAR::isError($result)) {
-            return $result;
-        }
+        $this->validate();
 
         // Prepare the data
-        $result = $this->_prepare();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-
+        $this->_prepare();
 
         /** @todo Refactor this method, it does two things at once! */
         $fields = $this->prepareRequestData();
@@ -176,10 +169,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         $request->setMethod('PUT');
         $request->addPostParameters($fields);
 
-        $result = $request->send();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $request->send();
 
 
         $responseBody = trim($result->getBody());
@@ -189,9 +179,8 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
                                                      $responseBody,
                                                      $this);
 
-        if (!PEAR::isError($response)) {
-            $response->parse();
-        }
+
+        $response->parse();
 
         return $response;
     }
@@ -227,9 +216,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
             $data['amount'] = "0".$data['amount'];
         } else if(strlen($data['amount']) > 8) {
             $amount_message = 'Amount: '.$data['amount'].' too large.';
-            PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
-            PEAR::raiseError($amount_message);
-            PEAR::popErrorHandling();
+            throw new Payment_Process2_Exception($amount_message);
         }
         /* end amount mangle */
 

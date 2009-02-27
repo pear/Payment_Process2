@@ -95,9 +95,7 @@ class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_
     function process()
     {
         // Sanity check
-        if (PEAR::isError($res = $this->validate())) {
-            return($res);
-        }
+        $this->validate();
 
         if ($this->_options['randomResult']) {
             $n       = rand(0, count($this->_returnValues) - 1);

@@ -220,17 +220,10 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
     function process()
     {
         // Sanity check
-        $result = $this->validate();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
+        $this->validate();
 
         // Prepare the data
-        $result = $this->_prepare();
-        if (PEAR::isError($result)) {
-            return $result;
-        }
-
+        $this->_prepare();
 
         $url = isset($this->_options['live']) ? $this->_options['authorizeUri'] : $this->_options['authorizeTestUri'];
 
@@ -251,9 +244,8 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
         $response = Payment_Process2_Result::factory($this->_driver,
                                                      $responseBody,
                                                      $this);
-        if (!PEAR::isError($response)) {
-            $response->parse();
-        }
+        $response->parse();
+
 
         return $response;
     }
