@@ -161,6 +161,19 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
         return array();
     }
 
+    function validate() {
+        if (empty($this->_options['keyfile']) ||
+            !file_exists($this->_options['keyfile'])) {
+            throw new Payment_Process2_Exception('Invalid key file');
+        }
+
+        if (empty($this->_options['authorizeUri'])) {
+            throw new Payment_Process2_Exception('Invalid authorizeUri');
+        }
+
+        return parent::validate();
+    }
+
     /**
      * Process the transaction.
      *
@@ -170,11 +183,6 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
      */
     function process()
     {
-        if (empty($this->_options['keyfile']) ||
-            !file_exists($this->_options['keyfile'])) {
-            throw new Payment_Process2_Exception('Invalid key file');
-        }
-
         // Sanity check
         $this->validate();
 
@@ -188,21 +196,21 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
 
         $request = clone $this->_request;
         $request->setURL($url);
-        $request->addPostParam($this->prepareRequestData());
+        $request->addPostParameter($this->prepareRequestData());
 
         $request->setMethod('post');
         $request->setBody($xml);
 
         /** If we are empty, raise exception? */
         if (!empty($this->_options['keyfile'])) {
-            $request->getAdapter()->setOption('ssl_local_cert', $this->_options['keyfile']);
+            $request->setConfig('ssl_local_cert', $this->_options['keyfile']);
         }
 
         // LinkPoint's staging server has a boned certificate. If they are
         // testing against staging we need to turn off SSL host verification.
         if ($this->_options['host'] == 'staging.linkpt.net') {
-            $request->getAdapter()->setOption('ssl_verify_peer', false);
-            $request->getAdapter()->setOption('ssl_verify_host', false);
+            $request->setConfig('ssl_verify_peer', false);
+            $request->setConfig('ssl_verify_host', false);
         }
 
 
@@ -231,7 +239,7 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
     function renderRequestDocument()
     {
 
-        $data = array_merge($this->_options,$this->_data);
+        $data = array_merge($this->_options, $this->_data);
 
         $xml  = '<!-- Payment_Process order -->'."\n";
         $xml .= '<order>'."\n";
@@ -255,40 +263,42 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
         // Set payment method to eCheck if our payment type is eCheck.
         // Default is Credit Card.
         $data['x_method'] = 'CC';
-        switch ($this->_payment->getType())
-        {
-            case 'eCheck':
-                throw new Payment_Process2_Exception('eCheck not currently supported',
-                                        PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
 
-                $xml .= '<telecheck>'."\n";
-                $xml .= '  <routing></routing>'."\n";
-                $xml .= '  <account></account>'."\n";
-                $xml .= '  <checknumber></checknumber>'."\n";
-                $xml .= '  <bankname></bankname>'."\n";
-                $xml .= '  <bankstate></bankstate>'."\n";
-                $xml .= '  <dl></dl>'."\n";
-                $xml .= '  <dlstate></dlstate>'."\n";
-                $xml .= '  <accounttype>pc|ps|bc|bs</accounttype>'."\n";
-                $xml .= '<telecheck>'."\n";
-                break;
-            case 'CreditCard':
-                $xml .= '<creditcard>'."\n";
-                $xml .= '  <cardnumber>'.$data['cardnumber'].'</cardnumber>'."\n";
-                list($month,$year) = explode('/',$data['expDate']);
-                if (strlen($year) == 4) {
-                    $year = substr($year,2);
-                }
+        if ($this->_payment instanceof Payment_Process2_Type_eCheck) {
+            throw new Payment_Process2_Exception('eCheck not currently supported',
+                                    PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
 
-                $month = sprintf('%02d',$month);
+            /*
+            $xml .= '<telecheck>'."\n";
+            $xml .= '  <routing></routing>'."\n";
+            $xml .= '  <account></account>'."\n";
+            $xml .= '  <checknumber></checknumber>'."\n";
+            $xml .= '  <bankname></bankname>'."\n";
+            $xml .= '  <bankstate></bankstate>'."\n";
+            $xml .= '  <dl></dl>'."\n";
+            $xml .= '  <dlstate></dlstate>'."\n";
+            $xml .= '  <accounttype>pc|ps|bc|bs</accounttype>'."\n";
+            $xml .= '<telecheck>'."\n";
+            */
+        }
 
-                $xml .= '  <cardexpmonth>'.$month.'</cardexpmonth>'."\n";
-                $xml .= '  <cardexpyear>'.$year.'</cardexpyear>'."\n";
-                if (strlen($data['cvm'])) {
-                    $xml .= '  <cvmvalue>'.$data['cvm'].'</cvmvalue>'."\n";
-                    $xml .= '  <cvmindicator>provided</cvmindicator>'."\n";
-                }
-                $xml .= '</creditcard>'."\n";
+        if ($this->_payment instanceof Payment_Process2_Type_CreditCard) {
+            $xml .= '<creditcard>'."\n";
+            $xml .= '  <cardnumber>'.$data['cardnumber'].'</cardnumber>'."\n";
+            list($month,$year) = explode('/',$data['expDate']);
+            if (strlen($year) == 4) {
+                $year = substr($year,2);
+            }
+
+            $month = sprintf('%02d',$month);
+
+            $xml .= '  <cardexpmonth>'.$month.'</cardexpmonth>'."\n";
+            $xml .= '  <cardexpyear>'.$year.'</cardexpyear>'."\n";
+            if (strlen($data['cvm'])) {
+                $xml .= '  <cvmvalue>'.$data['cvm'].'</cvmvalue>'."\n";
+                $xml .= '  <cvmindicator>provided</cvmindicator>'."\n";
+            }
+            $xml .= '</creditcard>'."\n";
         }
 
         if (isset($this->_payment->firstName) &&

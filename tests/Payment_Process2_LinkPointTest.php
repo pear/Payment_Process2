@@ -64,7 +64,9 @@ class Payment_Process2_LinkPointTest extends PHPUnit_Framework_TestCase {
         $request = new HTTP_Request2();
         $request->setAdapter($mock);
 
-        $object = Payment_Process2::factory('LinkPoint', array('keyfile' => __FILE__));
+        $options = array('keyfile' => __FILE__, 'authorizeUri' => "http://google.com/");
+
+        $object = Payment_Process2::factory('LinkPoint', $options);
         $object->login = 'unit';
         $object->password = 'test';
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
@@ -85,7 +87,9 @@ class Payment_Process2_LinkPointTest extends PHPUnit_Framework_TestCase {
         $request = new HTTP_Request2();
         $request->setAdapter($mock);
 
-        $object = Payment_Process2::factory('LinkPoint', array('keyfile' => __FILE__));
+        $options = array('keyfile' => __FILE__, 'authorizeUri' => "http://google.com/");
+
+        $object = Payment_Process2::factory('LinkPoint', $options);
         $object->login = 'unit';
         $object->password = 'test';
         $object->amount = 1;
