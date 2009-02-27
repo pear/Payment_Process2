@@ -264,6 +264,7 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
     {
         $data = array_merge($this->_options, $this->_data);
 
+
         $doc  = XML_Util::getXMLDeclaration();
         $doc .= '<!DOCTYPE paymentService PUBLIC "-//Bibit//DTD Bibit PaymentService v1//EN" "http://dtd.bibit.com/paymentService_v1.dtd">';
 
@@ -322,14 +323,23 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
                 if (is_array($data['paymentMethodMask'])
                     && count($data['paymentMethodMask'] > 0)) {
                     $doc .= XML_Util::createStartElement('paymentMethodMask');
-                    foreach ($data['paymentMethodMask']['include'] as $code) {
-                        $doc .= XML_Util::createTag('include',
-                                                    array('code' => $code));
+
+                    /** @todo Unit test coverage of this ? */
+                    if (!empty($data['paymentMethodMask']['include'])) {
+                        foreach ($data['paymentMethodMask']['include'] as $code) {
+                            $doc .= XML_Util::createTag('include',
+                                                        array('code' => $code));
+                        }
                     }
-                    foreach ($data['paymentMethodMask']['exclude'] as $code) {
-                        $doc .= XML_Util::createTag('exclude',
-                                                    array('code' => $code));
+
+                    /** @todo Unit test coverage of this ? */
+                    if (!empty($data['paymentMethodMask']['exclude'])) {
+                        foreach ($data['paymentMethodMask']['exclude'] as $code) {
+                            $doc .= XML_Util::createTag('exclude',
+                                                        array('code' => $code));
+                        }
                     }
+
                     $doc .= XML_Util::createEndElement('paymentMethodMask');
                 }
             } else if ($data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_AUTH) {
@@ -426,8 +436,6 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
         }
         $doc .= XML_Util::createEndElement('paymentService');
 
-        $doc1 = domxml_open_mem($doc);
-
         return $doc;
     }
 
@@ -451,27 +459,41 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      * Validate the merchant account login.
      *
      * @access private
-     * @return boolean true if valid, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateLogin()
     {
-        return Validate::string($this->login, array(
+        $result = Validate::string($this->login, array(
             'format' => VALIDATE_ALPHA_UPPER,
             'min_length' => 1
         ));
+
+        if (!$result) {
+            throw new Payment_Process2_Exception("Invalid login");
+        }
+
+        return true;
     }
 
     /**
      * Validate the merchant account password.
      *
      * @access private
-     * @return boolean true if valid, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validatePassword()
     {
-        return Validate::string($this->password, array(
+        $result = Validate::string($this->password, array(
             'min_length' => 1
         ));
+
+        if (!$result) {
+            throw new Payment_Process2_Exception("Invalid login");
+        }
+
+        return true;
     }
 
     /**
@@ -480,14 +502,21 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      * Docs says up to 64 characters, no spaces or specials characters allowed
      *
      * @access private
-     * @return boolean true if valid, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateOrdercode()
     {
-        return Validate::string($this->ordercode, array(
+        $result = Validate::string($this->ordercode, array(
             'min_length' => 1,
             'max_length' => 64
         ));
+
+        if (!$result) {
+            throw new Payment_Process2_Exception("Invalid order code");
+        }
+
+        return true;
     }
 
     /**
@@ -500,10 +529,16 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      */
     function _validateDescription()
     {
-        return Validate::string($this->description, array(
+        $result = Validate::string($this->description, array(
             'min_length' => 1,
             'max_length' => 50,
         ));
+
+        if (!$result) {
+            throw new Payment_Process2_Exception("Invalid description");
+        }
+
+        return true;
     }
 
     /**
@@ -516,9 +551,15 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      */
     function _validateAmount()
     {
-        return Validate::number($this->amount, array(
+        $result = Validate::number($this->amount, array(
             'decimal' => false
         ));
+
+        if (!$result) {
+            throw new Payment_Process2_Exception("Invalid amount");
+        }
+
+        return true;
     }
 
     /** Validate the order amount currency
@@ -530,11 +571,17 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      */
     function _validateCurrency()
     {
-        return Validate::string($this->currency, array(
+        $result = Validate::string($this->currency, array(
             'format' => VALIDATE_ALPHA_UPPER,
             'min_length' => 2,
             'max_length' => 3
         ));
+
+        if (!$result) {
+            throw new Payment_Process2_Exception("Invalid currency");
+        }
+
+        return true;
     }
 
     /** Validate the exponent of the order amount

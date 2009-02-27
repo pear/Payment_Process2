@@ -66,10 +66,13 @@ class Payment_Process2_BibitTest extends PHPUnit_Framework_TestCase {
 
         $object = Payment_Process2::factory('Bibit');
 
-        $object->login = 'unit';
+        $object->login = 'UPPERCASE';
         $object->password = 'test';
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
         $object->amount = 1;
+        $object->ordercode = "ABC";
+        $object->currency = "AU";
+        $object->description = "Unit test";
 
         $object->setRequest($request);
 
@@ -87,10 +90,13 @@ class Payment_Process2_BibitTest extends PHPUnit_Framework_TestCase {
         $request->setAdapter($mock);
 
         $object = Payment_Process2::factory('Bibit');
-        $object->login = 'unit';
+        $object->login = 'UPPERCASE';
         $object->password = 'test';
         $object->amount = 1;
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+        $object->ordercode = "ABC";
+        $object->currency = "AU";
+        $object->description = "Unit test";
 
         $object->setRequest($request);
 

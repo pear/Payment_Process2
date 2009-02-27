@@ -1,5 +1,6 @@
 <?php
 require_once 'Payment/Process2/Result.php';
+require_once 'XML/XPath.php';
 
 /**
  * Payment_Process2_Bibit_Result

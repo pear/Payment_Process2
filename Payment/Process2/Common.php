@@ -307,7 +307,7 @@ class Payment_Process2_Common
             $func = '_validate'.ucfirst($field);
 
             // Don't validate unset optional fields
-            if (!$this->isRequired($field) && !strlen($this->$field)) {
+            if (!$this->isRequired($field) && !empty($this->$field)) {
                 continue;
             }
 
