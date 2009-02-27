@@ -132,7 +132,7 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
     function _validateType()
     {
         if (!($type = $this->_mapType())) {
-            throw new Payment_Process2_Exception('Invalid type map provided in driver');
+            throw new Payment_Process2_Exception('Credit card type not recognized by in driver');
         }
 
         if (!Validate_Finance_CreditCard::type($this->cardNumber, $type)) {

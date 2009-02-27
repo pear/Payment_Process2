@@ -160,6 +160,10 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         // Prepare the data
         $this->_prepare();
 
+        if (empty($this->_payment)) {
+            throw new Payment_Process2_Exception("Payment type not set");
+        }
+
         /** @todo Refactor this method, it does two things at once! */
         $fields = $this->prepareRequestData();
 
@@ -197,6 +201,10 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
 
     function prepareRequestData()
     {
+
+        if (empty($this->_payment)) {
+            throw new Payment_Process2_Exception("Payment type not set");
+        }
 
         $data = $this->_data;
 
