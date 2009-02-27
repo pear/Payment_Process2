@@ -175,7 +175,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         $req = clone $this->_request;
         $req->setURL($this->_options['authorizeUri']);
         $req->setMethod('POST');
-        $req->addPostParameters($this->prepareRequestData());
+        $req->addPostParameter($this->prepareRequestData());
 
         $res = $req->send();
 
