@@ -173,7 +173,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         $request->setMethod('PUT');
         $request->addPostParameter($fields);
 
-        $request->send();
+        $result = $request->send();
 
 
         $responseBody = trim($result->getBody());

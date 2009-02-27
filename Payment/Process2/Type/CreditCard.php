@@ -98,6 +98,8 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
      */
     var $expDate;
 
+    protected $timestamp;
+
     /**
      * _validateCardNumber
      *
@@ -186,10 +188,22 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
                               'max'     => 12,
                               'decimal' => false);
 
-        $date = getdate();
+        $date = getdate($this->timestamp);
 
         $yearOptions = array('min'     => $date['year'],
                              'decimal' => false);
+
+        $validMonth = Validate::number($month, $monthOptions);
+        if (!$validMonth) {
+            throw new Payment_Process2_Exception('Invalid expiration date provided (month)');
+        }
+
+        $validYear = Validate::number($year, $yearOptions);
+        if (!$validYear) {
+            throw new Payment_Process2_Exception('Invalid expiration date provided (year)');
+        }
+
+
 
         if (Validate::number($month, $monthOptions)
             && Validate::number($year, $yearOptions)) {
@@ -199,7 +213,7 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
             }
         }
 
-        throw new Payment_Process2_Exception('Invalid expiration date provided');
+
     }
 
     /**
@@ -231,6 +245,26 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
         default:
             return false;
         }
+    }
+
+    /**
+     * @param int $timestamp A unix timestamp representing the time.
+     */
+    public function setDate($timestamp) {
+        $this->timestamp = $timestamp;
+    }
+
+    /**
+     * Class constructor
+     *
+     * @param int $timestamp A unix timestamp representing the time. If absent, defaults to time()
+     */
+    public function __construct($timestamp = null) {
+        if (empty($timestamp)) {
+            $timestamp = time();
+        }
+
+        $this->setDate($timestamp);
     }
 }
 

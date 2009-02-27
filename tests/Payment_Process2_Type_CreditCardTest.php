@@ -42,12 +42,9 @@
  */
 
 require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Payment/Process2/Type.php';
 
 class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
-    public function testShouldDoX() {
-        $this->markTestIncomplete("isValid(), function _validateCardNumber() function _validateType() function _validateCvv() function _validateExpDate() function _mapType()");
-    }
-
     protected $object;
 
     public function setUp() {
@@ -126,6 +123,18 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
 
     public function testShouldValidateExpiryDatesCorrectly2() {
         $this->object->expDate = "Invalid-a-rino";
+
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
+
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
+    }
+
+    public function testShouldValidateExpiryDatesCorrectly3() {
+        $this->object->expDate = "05/2005";
+        $this->object->setDate(strtotime("2006-05-01")); // This credit card is way expired, its invalid
 
         try {
             $result = Payment_Process2_Type::isValid($this->object);
