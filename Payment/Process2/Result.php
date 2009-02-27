@@ -1,4 +1,5 @@
 <?php
+require_once 'Payment/Process2/Exception.php';
 
 /**
  * Payment_Process2_Result
@@ -203,7 +204,8 @@ class Payment_Process2_Result
     * @param string $rawResponse Raw response
     * @param  Payment_Process2_Common $request     Request
     *
-    * @return mixed Payment_Process2_Result on succes, PEAR_Error on failure
+    * @return Payment_Process2_Result
+    * @throws Payment_Process2_Exception
     * @author Joe Stump <joe@joestump.net>
     * @author Ian Eure <ieure@php.net>
     */
@@ -223,8 +225,7 @@ class Payment_Process2_Result
             }
         }
 
-        $ret = PEAR::raiseError('Invalid response type: '.$type.'('.$class.')');
-        return $ret;
+        throw new Payment_Process2_Exception('Invalid response type: '.$type.'('.$class.')');
     }
 
     /**
@@ -238,7 +239,7 @@ class Payment_Process2_Result
     {
         if ($this->_request->getOption('avsCheck') === true) {
             if ($this->getAVSCode() != PAYMENT_PROCESS2_AVS_MATCH) {
-                return PEAR::raiseError('AVS check failed',
+                throw new Payment_Process2_Exception('AVS check failed',
                                         PAYMENT_PROCESS2_ERROR_AVS);
             }
         }
@@ -252,14 +253,14 @@ class Payment_Process2_Result
             $paymentType == 'CreditCard') {
 
             if ($this->getCvvCode() != PAYMENT_PROCESS2_CVV_MATCH) {
-                return PEAR::raiseError('CVV check failed',
+                throw new Payment_Process2_Exception('CVV check failed',
                                         PAYMENT_PROCESS2_ERROR_CVV);
             }
 
         }
 
         if ($this->getCode() != PAYMENT_PROCESS2_RESULT_APPROVED) {
-            return PEAR::raiseError($this->getMessage(),
+            throw new Payment_Process2_Exception($this->getMessage(),
                                     PAYMENT_PROCESS2_RESULT_DECLINED);
         }
 
@@ -277,9 +278,9 @@ class Payment_Process2_Result
     {
         if (isset($this->_statusCodeMap[$this->code])) {
             return $this->_statusCodeMap[$this->code];
-        } else {
-            return PAYMENT_PROCESS2_RESULT_DECLINED;
         }
+
+        return PAYMENT_PROCESS2_RESULT_DECLINED;
     }
 
     /**
@@ -298,9 +299,9 @@ class Payment_Process2_Result
             return $this->_statusCodeMessages[$this->messageCode];
         } elseif (strlen($this->message)) {
             return $this->message;
-        } else {
-            return 'No message reported';
         }
+
+        return 'No message reported';
     }
 
     /**

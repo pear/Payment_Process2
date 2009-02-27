@@ -42,6 +42,8 @@
  */
 
 require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Payment/Process2/Result.php';
+require_once 'Payment/Process2/Common.php';
 
 class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
 
@@ -52,9 +54,13 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldRaiseErrorWithUnknownTypes() {
-        $object = Payment_Process2_Result::factory('Duck', null, new Payment_Process2_Common());
+        try {
+            $object = Payment_Process2_Result::factory('Duck', null, new Payment_Process2_Common());
 
-        $this->assertTrue($object instanceOf PEAR_Error);
+            $this->fail("Expected an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 
 
@@ -88,8 +94,13 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateCorrectly1() {
         $r = new Payment_Process2_Result(null, new Payment_Process2_Common());
 
-        $result = $r->validate();
-        $this->assertTrue($r instanceof PEAR_Error);
+        try {
+            $r->validate();
+
+            $this->fail("Expected an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 
     public function testShouldValidateCorrectly2() {
@@ -110,9 +121,13 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $r = new Payment_Process2_Result(null, $processor);
         $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
 
-        $result = $r->validate();
+        try {
+            $r->validate();
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Expected an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 
     public function testShouldValidateCorrectlyWithAvsCheck2() {
@@ -137,9 +152,13 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $r = new Payment_Process2_Result(null, $processor);
         $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
 
-        $result = $r->validate();
+        try {
+            $r->validate();
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Expected an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 
     public function testShouldValidateCorrectlyWithCcvCheck2() {
