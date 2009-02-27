@@ -22,7 +22,6 @@ interface Payment_Process2_Driver {
     public function translateAction($action);
 
     public function process();
-    public function processCallback();
     public function getStatus();
 
     /**
