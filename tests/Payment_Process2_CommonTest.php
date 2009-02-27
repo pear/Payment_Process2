@@ -87,8 +87,13 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
         $payment = $this->aValidPayment();
         unset($payment->bankName);
 
-        $result = $object->setPayment($payment);
-        $this->assertTrue($result instanceOf PEAR_Error);
+        try {
+            $object->setPayment($payment);
+
+            $this->fail("Expected an exception before this point");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 
     public function testShouldRaiseErrorForUnknownMappingsWithPaymentsWhenSetting() {
@@ -97,8 +102,13 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
 
         $payment = $this->aValidPayment();
 
-        $result = $object->setPayment($payment);
-        $this->assertTrue($result instanceOf PEAR_Error);
+        try {
+            $object->setPayment($payment);
+
+            $this->fail("Expected an exception before this point");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 
     public function testShouldEvaluateMappingMethodsWithPaymentsWhenSetting() {
@@ -156,9 +166,13 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
 
         $object->setPayment($payment);
 
-        $result = $object->validate();
+        try {
+            $object->validate();
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Expected an exception before this point");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 
     public function testShouldSetFieldsCorrectly1() {
@@ -172,9 +186,12 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
     public function testShouldSetFieldsCorrectly2() {
         $object = $this->aValidProcessor();
 
-        $result = $object->set('violins', 'cats');
-        $this->assertTrue($result instanceOf PEAR_Error);
-        $this->assertSame('', $object->login);
+        try {
+            $object->set('violins', 'cats');
+
+            $this->fail("Expected an exception before this point");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
     public function testShouldModelRequiredFieldsCorrectly() {

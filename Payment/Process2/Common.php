@@ -307,7 +307,7 @@ class Payment_Process2_Common
             $func = '_validate'.ucfirst($field);
 
             // Don't validate unset optional fields
-            if (! $this->isRequired($field) && !strlen($this->$field)) {
+            if (!$this->isRequired($field) && !strlen($this->$field)) {
                 continue;
             }
 
@@ -315,7 +315,7 @@ class Payment_Process2_Common
                 $res = $this->$func();
                 /** @todo All of these should raise exceptions instead */
                 if (is_bool($res) && $res == false) {
-                    throw new Payment_Process2_Exception('Validation of field "'.$field.'" failed.', PAYMENT_PROCESS2_ERROR_INVALID);
+                    throw new Payment_Process2_Exception('Validation of field "'.$field.'" failed; the method should have raised an exception.', PAYMENT_PROCESS2_ERROR_INVALID);
                 }
             }
         }
@@ -517,24 +517,34 @@ class Payment_Process2_Common
     /**
      * Validates transaction type.
      *
-     * @return boolean TRUE on success, FALSE on failure.
+     * @return bool
+     * @throws Payment_Process2_Exception
      * @access private
      */
     function _validateType()
     {
-        return $this->_isDefinedConst($this->type, 'type');
+        if (!$this->_isDefinedConst($this->type, 'type')) {
+            throw new Payment_Process2_Exception("Invalid type");
+        }
+
+        return true;
     }
     // }}}
     // {{{ _validateAction()
     /**
      * Validates transaction action.
      *
-     * @return boolean true on success, false on failure.
+     * @return bool
+     * @throws Payment_Process2_Exception
      * @access private
      */
     function _validateAction()
     {
-        return $this->translateAction($this->action) !== false;
+        if (!$this->translateAction($this->action) !== false) {
+            throw new Payment_Process2_Exception("Invalid action");
+        }
+
+        return true;
     }
     // }}}
 
@@ -542,12 +552,17 @@ class Payment_Process2_Common
     /**
      * Validates transaction source.
      *
-     * @return boolean true on success, false on failure.
+     * @return bool
+     * @throws Payment_Process2_Exception
      * @access private
      */
     function _validateSource()
     {
-        return $this->_isDefinedConst($this->transactionSource, 'source');
+        if (!$this->_isDefinedConst($this->transactionSource, 'source')) {
+            throw new Payment_Process2_Exception("Invalid source");
+        }
+
+        return true;
     }
     // }}}
     // {{{ _validateAmount()
@@ -558,16 +573,23 @@ class Payment_Process2_Common
      * Current min/max are rather arbitrarily set to $0.99 and $99999.99,
      * respectively.
      *
-     * @return boolean true on success, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateAmount()
     {
-        return Validate::number($this->amount, array(
+        $result = Validate::number($this->amount, array(
             'decimal' => '.',
             'dec_prec' => 2,
             'min' => 0.99,
             'max' => 99999.99
         ));
+
+        if (!$result) {
+            throw new Payment_Process2_Exception("Invalid amount");
+        }
+
+        return true;
     }
     // }}}
     // {{{ _handleAction()

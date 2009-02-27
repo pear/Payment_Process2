@@ -106,11 +106,11 @@ class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_
             $message = $this->_options['returnMessage'];
         }
 
-        return Payment_Process2_Result::factory('Dummy');
+        return Payment_Process2_Result::factory('Dummy', null, $this);
     }
 
     public function translateAction($action) {
-        return false;
+        return 1;
     }
 
     public function getStatus() {
