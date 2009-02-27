@@ -138,24 +138,6 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
         $this->assertSame('world', $object->password);
     }
 
-    public function testShouldGetAngryWithUnimplementedProcess() {
-        $object = new Payment_Process2_Common();
-        $result = $object->process();
-        $this->assertTrue($result instanceOf PEAR_Error);
-    }
-
-    public function testShouldGetAngryWithUnimplementedProcessCallback() {
-        $object = new Payment_Process2_Common();
-        $result = $object->processCallback();
-        $this->assertTrue($result instanceOf PEAR_Error);
-    }
-
-    public function testShouldGetAngryWithUnimplementedGetResult() {
-        $object = new Payment_Process2_Common();
-        $result = $object->getResult();
-        $this->assertTrue($result instanceOf PEAR_Error);
-    }
-
     public function testShouldValidateAllFields1() {
         $object = $this->aValidProcessor();
         $payment = $this->aValidPayment();

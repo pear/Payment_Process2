@@ -295,37 +295,7 @@ class Payment_Process2_Common
         }
     }
     // }}}
-    // {{{ process()
-    /**
-     * Processes the transaction.
-     *
-     * This function should be overloaded by the processor.
-     *
-     * @return mixed
-     */
-    function process()
-    {
-        return PEAR::raiseError("process() is not implemented in this processor.",
-                                PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
-    }
-    // }}}
-    // {{{ &processCallback()
-    /**
-     * processCallback
-     *
-     * This should be overridden in driver classes. It will be used to process
-     * communications from gateways to your application. For instance, the
-     * Authorize.net gateway will post information about pending transactions
-     * to a URL you specify. This function should handle such requests
-     *
-     * @return object Payment_Process2_Result on success, PEAR_Error on failure
-     */
-    function processCallback()
-    {
-        return PEAR::raiseError('processCallback() not implemented',
-                                PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
-    }
-    // }}}
+
     // {{{ validate()
     /**
      * validate
@@ -480,21 +450,7 @@ class Payment_Process2_Common
         return ($this->_options[$option] = $value);
     }
     // }}}
-    // {{{ getResult()
-    /**
-     * Gets transaction result.
-     *
-     * This function should be overloaded by the processor.
-     *
-     * @return mixed
-     * @abstract
-     */
-    function getResult()
-    {
-        return PEAR::raiseError("getResult() is not implemented in this processor.",
-                                PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
-    }
-    // }}}
+
     // {{{ _isDefinedConstant($value, $class)
     /**
      * See if a value is a defined constant.
