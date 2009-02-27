@@ -102,6 +102,23 @@ class Payment_Process2_TrustCommerceTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($result instanceof PEAR_Error);
     }
 
+    public function testShouldRaiseErrorsIfNoPaymentTypeIsAvailableWhenProcessing() {
+
+        $object = Payment_Process2::factory('TrustCommerce');
+
+        try {
+            $object->login = 'unit';
+            $object->password = 'test';
+            $object->amount = 1;
+            $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+
+            $object->process();
+
+            $this->fail("An exception should have been raised");
+        } catch (Payment_Process2_Exception $e) {
+            $this->assertSame("Payment type not set", $e->getMessage());
+        }
+    }
 
     /*
 function __construct($options = false)
