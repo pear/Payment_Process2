@@ -46,23 +46,12 @@
  * @link      http://pear.php.net/package/Payment_Process
  */
 
-/**
- * Include PEAR for error handling
- */
+/** @todo Get rid of this */
 require_once 'PEAR.php';
-/**
- * Include Validate
- */
 require_once 'Validate.php';
-/**
- * Inclue Validate_Finance_CreditCard for Credit Card number validation
- */
 require_once 'Validate/Finance/CreditCard.php';
-/**
- * Include Payment_Process2_Type
- */
 require_once 'Payment/Process2/Type.php';
-
+require_once 'Payment/Process2/Exception.php';
 require_once 'Payment/Process2/Result.php';
 
 /**
@@ -156,7 +145,8 @@ class Payment_Process2
      * @param string $type    Name of the processor
      * @param array  $options Options for the processor
      *
-     * @return mixed Instance of the processor object, or a PEAR_Error object.
+     * @return Payment_Process_Driver Instance of the processor object
+     * @throws Payment_Process2_Exception
      */
     function factory($type, $options = array())
     {
@@ -173,10 +163,8 @@ class Payment_Process2
             return $object;
         }
 
-        $ret = PEAR::raiseError('"'.$type.'" processor does not exist',
+        throw new Payment_Process2_Exception('"'.$type.'" processor does not exist',
                                 PAYMENT_PROCESS2_ERROR_NOPROCESSOR);
-        return $ret;
-
     }
 
     /**

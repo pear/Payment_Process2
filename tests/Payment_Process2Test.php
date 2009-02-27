@@ -42,6 +42,8 @@
  */
 
 require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Payment/Process2.php';
+require_once 'Payment/Process2/Common.php';
 
 class Payment_Process2Test extends PHPUnit_Framework_TestCase {
 
@@ -105,8 +107,12 @@ class Payment_Process2Test extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldRaiseErrorWithUnknownTypes() {
-        $object = Payment_Process2::factory('Duck');
+        try {
+            $object = Payment_Process2::factory('Duck');
 
-        $this->assertTrue($object instanceOf PEAR_Error);
+            $this->fail("Expected an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 }
