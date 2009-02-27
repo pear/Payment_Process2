@@ -70,9 +70,12 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateAccountNumbersCorrectly2() {
         unset($this->object->accountNumber);
 
-        $result = Payment_Process2_Type::isValid($this->object);
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
 
@@ -85,9 +88,12 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateRoutingCodesCorrectly2() {
         unset($this->object->routingCode);
 
-        $result = Payment_Process2_Type::isValid($this->object);
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
 
@@ -100,8 +106,11 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateBankNamesCorrectly2() {
         unset($this->object->bankName);
 
-        $result = Payment_Process2_Type::isValid($this->object);
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 }

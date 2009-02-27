@@ -74,9 +74,12 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateCardNumbersCorrectly2() {
         $this->object->cardNumber = "Invalid-a-rino";
 
-        $result = Payment_Process2_Type::isValid($this->object);
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
 
@@ -89,9 +92,12 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateTypesCorrectly2() {
         $this->object->type = "Invalid-a-rino";
 
-        $result = Payment_Process2_Type::isValid($this->object);
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
 
@@ -104,9 +110,12 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateCvvsCorrectly2() {
         $this->object->cvv = "Invalid-a-rino";
 
-        $result = Payment_Process2_Type::isValid($this->object);
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 
     public function testShouldValidateExpiryDatesCorrectly1() {
@@ -118,8 +127,11 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateExpiryDatesCorrectly2() {
         $this->object->expDate = "Invalid-a-rino";
 
-        $result = Payment_Process2_Type::isValid($this->object);
+        try {
+            $result = Payment_Process2_Type::isValid($this->object);
 
-        $this->assertTrue($result instanceOf PEAR_Error);
+            $this->fail("Should have raised an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+        }
     }
 }
