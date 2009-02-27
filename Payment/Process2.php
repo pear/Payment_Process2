@@ -273,29 +273,6 @@ class Payment_Process2
         return ($obj->getCode() == PAYMENT_PROCESS2_RESULT_APPROVED);
     }
 
-    /**
-     * Statically check a Payment_Result class for error
-     *
-     * @param mixed $obj Object to check
-     *
-     * @return bool
-     * @access public
-     * @author Joe Stump <joe@joestump.net>
-     */
-    function isError($obj)
-    {
-        if (PEAR::isError($obj)) {
-            return true;
-        }
-
-        if (is_a($obj, 'Payment_Process2_Result')) {
-            if ($obj->getCode() != PAYMENT_PROCESS2_RESULT_APPROVED) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
 
 ?>
