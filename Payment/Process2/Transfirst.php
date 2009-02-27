@@ -42,8 +42,11 @@
 
 require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
+require_once 'Payment/Process2/Exception.php';
 require_once 'Payment/Process2/Result/Transfirst.php';
 require_once 'HTTP/Request2.php';
+require_once 'Validate.php';
+
 
 // Transfirst transaction types
 // Request authorization only - no funds are transferred.
@@ -104,7 +107,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         'expDate'           => "expirationDate",
         'zip'               => "cardHolderZip",
         // Common Type
-//         'name'              => "cardHolderName",
+        'name'              => "cardHolderName",
         'address'           => "cardHolderAddress",
         'city'              => "cardHolderCity",
         'state'             => "cardHolderState",
@@ -152,10 +155,10 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
      */
     function _prepare()
     {
-        if ($this->_options['testTransaction']) {
+        if (!empty($this->_options['testTransaction'])) {
             $this->_data['testTransaction'] = $this->_options['testTransaction'];
         }
-        $this->_handleCardHolderName();
+
         return parent::_prepare();
     }
 
@@ -182,7 +185,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         $this->_processed = true;
 
         $response = trim($res->getBody());
-        $result = Payment_Process2_Result::factory('Transfirst', $response);
+        $result = Payment_Process2_Result::factory('Transfirst', $response, $this);
         $result->_request = $this;
         $this->_result = $result;
 
@@ -263,33 +266,27 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     }
 
     /**
-     * Map firstName & lastName
-     *
-     * P_P now has split firstName/lastName fields, instead of 'name.' This
-     * handles concatenating them into the Transfirst cardHolderName field.
-     *
-     * @return  void
-     */
-    function _handleCardHolderName()
-    {
-        $this->_data['cardHolderName'] = $this->firstName . ' ' . $this->lastName;
-    }
-
-    /**
      * Validate the merchant account login.
      *
      * The Transfirst docs specify that the login is exactly eight digits.
      *
      * @access private
-     * @return boolean true if valid, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateLogin()
     {
-        return Validate::string($this->login, array(
+        $options = array(
             'format' => VALIDATE_NUM,
             'max_length' => 8,
             'min_length' => 8
-        ));
+        );
+
+        if (!Validate::string($this->login, $options)) {
+            throw new Payment_Process2_Exception("Invalid login");
+        }
+
+        return true;
     }
 
     /**
@@ -299,15 +296,22 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
      * characters in length.
      *
      * @access private
-     * @return boolean true if valid, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validatePassword()
     {
-        return Validate::string($this->password, array(
+        $options = array(
             'format' => VALIDATE_ALPHA . VALIDATE_NUM,
             'min_length' => 6,
             'max_length' => 10
-        ));
+        );
+
+        if (!Validate::string($this->password, $options)) {
+            throw new Payment_Process2_Exception("Invalid password");
+        }
+
+        return true;
     }
 
     /**
@@ -315,31 +319,46 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
      *
      * Invoice number must be a 5-character long alphanumeric string.
      *
-     * @return boolean true on success, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateInvoiceNumber()
     {
-        return Validate::string($this->invoiceNumber, array(
+        $options = array(
             'format' => VALIDATE_NUM . VALIDATE_ALPHA,
             'min_length' => 5,
             'max_length' => 5
-        ));
+        );
+
+        if (!Validate::string($this->invoiceNumber, $options)) {
+            throw new Payment_Process2_Exception("Invalid invoiceNumber");
+        }
+
+        return true;
     }
 
     /**
-     * Validate the invoice number.
+     * Validate the customer id
      *
-     * Invoice no. must be a 15-character long alphanumeric string.
+     * Customer id must be a 15-character long alphanumeric string.
      *
-     * @return boolean true on success, false otherwise
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateCustomerId()
     {
-        return Validate::string($this->customerId, array(
+
+        $options = array(
             'format' => VALIDATE_NUM . VALIDATE_ALPHA,
             'min_length' => 15,
             'max_length' => 15
-        ));
+        );
+
+        if (!Validate::string($this->customerId, $options)) {
+            throw new Payment_Process2_Exception("Invalid customerId");
+        }
+
+        return true;
     }
 
     /**
@@ -347,11 +366,12 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
      *
      * Zip is only required if AVS is enabled.
      *
-     * @return boolean true on success, false otherwise.
+     * @return bool
+     * @throws Payment_Process2_Exception
      */
     function _validateZip()
     {
-        if(strlen($this->zip) || $this->performAvs) {
+        if (strlen($this->zip) || $this->performAvs) {
             return parent::_validateZip();
         }
         return true;

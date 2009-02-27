@@ -179,6 +179,9 @@ class Payment_Process2_Common
      */
     var $customerId = '';
 
+    /** @todo Work out if this actually lives in credit card */
+    var $expDate = null;
+
     /**
      * Transaction source.
      *

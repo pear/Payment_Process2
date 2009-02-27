@@ -201,9 +201,6 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
 
         $validYear = Validate::number((int)$year, $yearOptions);
         if (!$validYear) {
-var_dump($yearOptions);
-var_dump($year);
-var_dump($validYear);
             throw new Payment_Process2_Exception('Invalid expiration date provided (year)');
         }
 

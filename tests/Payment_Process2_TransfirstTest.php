@@ -65,8 +65,10 @@ class Payment_Process2_TransfirstTest extends PHPUnit_Framework_TestCase {
         $request->setAdapter($mock);
 
         $object = Payment_Process2::factory('Transfirst');
-        $object->login = 'unit';
-        $object->password = 'test';
+        $object->login = '12345678';
+        $object->password = 'test56';
+        $object->invoiceNumber = 'test5';
+        $object->customerId = 'test5test0test5';
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
         $object->amount = 1;
 
@@ -86,8 +88,10 @@ class Payment_Process2_TransfirstTest extends PHPUnit_Framework_TestCase {
         $request->setAdapter($mock);
 
         $object = Payment_Process2::factory('Transfirst');
-        $object->login = 'unit';
-        $object->password = 'test';
+        $object->login = '12345678';
+        $object->password = 'test56';
+        $object->invoiceNumber = 'test5';
+        $object->customerId = 'test5test0test5';
         $object->amount = 1;
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
 
@@ -96,6 +100,22 @@ class Payment_Process2_TransfirstTest extends PHPUnit_Framework_TestCase {
         $result = $object->process();
 
         $this->assertTrue($result instanceof PEAR_Error);
+    }
+
+    public function testShouldValidateLoginIsAn8DigitNumber() {
+        $this->markTestIncomplete("Not yet covered");
+    }
+
+    public function testShouldValidatePasswordIsA6To10CharacterAlphaNumericString() {
+        $this->markTestIncomplete("Not yet covered");
+    }
+
+    public function testShouldValidateInvoiceNumberIsA5CharacterAlphaNumericString() {
+        $this->markTestIncomplete("Not yet covered");
+    }
+
+    public function testShouldValidateCustomerIdIsA15CharacterAlphaNumericString() {
+        $this->markTestIncomplete("Not yet covered");
     }
 
 
