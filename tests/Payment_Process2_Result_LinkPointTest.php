@@ -43,7 +43,7 @@
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
-class Payment_Process2_ResultLinkPointTest extends PHPUnit_Framework_TestCase {
+class Payment_Process2_Result_LinkPointTest extends PHPUnit_Framework_TestCase {
 
 
     public function testShouldCreateObjectWithFactory() {
