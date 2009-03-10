@@ -43,6 +43,8 @@
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
+require_once 'Payment/Process2/Result.php';
+
 class Payment_Process2_Result_TrustCommerceTest extends PHPUnit_Framework_TestCase {
 
 
@@ -51,6 +53,37 @@ class Payment_Process2_Result_TrustCommerceTest extends PHPUnit_Framework_TestCa
 
         $this->assertTrue($object instanceOf Payment_Process2_Result_TrustCommerce);
     }
+
+    public function fetchData($file) {
+        $path = dirname(__FILE__) . '/data/TrustCommerce/' . $file . '.html';
+        return file_get_contents($path);
+    }
+
+    public function aResult($case) {
+        $result = Payment_Process2_Result::factory('TrustCommerce',
+                                                   $this->fetchData($case),
+                                                   new Payment_Process2_Common());
+
+        $result->parse();
+
+        return $result;
+    }
+
+    public function testShouldCorrectlyUnderstandSuccessResponse() {
+        $result = $this->aResult('success');
+
+        $this->assertSame(PAYMENT_PROCESS2_RESULT_APPROVED, $result->getCode());
+        $this->assertSame("Approved", $result->getMessage());
+    }
+
+    public function testShouldCorrectlyUnderstandInvalidBankDeclinedGoAwayResponse() {
+        $result = $this->aResult('error');
+
+        $this->assertSame(PAYMENT_PROCESS2_RESULT_DECLINED, $result->getCode());
+        $this->assertSame("Bad data", $result->getMessage());
+    }
+
+
 
     /*
 function parse()
