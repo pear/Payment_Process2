@@ -112,7 +112,8 @@ class Payment_Process2_TrustCommerceTest extends PHPUnit_Framework_TestCase {
 
         $result = $object->process();
 
-        $this->assertTrue($result instanceof PEAR_Error);
+        $this->assertTrue($result instanceOf Payment_Process2_Result_TrustCommerce);
+        $this->assertSame(PAYMENT_PROCESS2_RESULT_OTHER, $result->getCode(), $result->getMessage());
     }
 
     public function testShouldRaiseErrorsIfNoPaymentTypeIsAvailableWhenProcessing() {

@@ -73,21 +73,16 @@ class Payment_Process2_Result_TrustCommerceTest extends PHPUnit_Framework_TestCa
         $result = $this->aResult('success');
 
         $this->assertSame(PAYMENT_PROCESS2_RESULT_APPROVED, $result->getCode());
-        $this->assertSame("Approved", $result->getMessage());
+        $this->assertSame("The transaction was successfully authorized.", $result->getMessage());
     }
 
-    public function testShouldCorrectlyUnderstandInvalidBankDeclinedGoAwayResponse() {
+    public function testShouldCorrectlyUnderstandErrorMessages() {
         $result = $this->aResult('error');
 
-        $this->assertSame(PAYMENT_PROCESS2_RESULT_DECLINED, $result->getCode());
-        $this->assertSame("Bad data", $result->getMessage());
+        $this->assertSame(PAYMENT_PROCESS2_RESULT_OTHER, $result->getCode());
+
+        $error = "Invalid parameters passed, see error for further details.\nError type: missingfields.\nOffending fields: action.";
+
+        $this->assertSame($error, $result->getMessage());
     }
-
-
-
-    /*
-function parse()
-function parseCallback()
-function isLegitimate()
-    */
 }
