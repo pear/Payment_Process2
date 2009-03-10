@@ -55,9 +55,19 @@ require_once 'HTTP/Request2.php';
  * This is a processor for TrustCommerce's merchant payment gateway.
  * (http://www.trustcommerce.com/)
  *
- * *** WARNING ***
- * This is ALPHA code, and has not been fully tested. It is not recommended
- * that you use it in a production envorinment without further testing.
+ * Note:
+ * If you don't have the TrustCommerce certificate available
+ * you will need to setOption('verify_peer', false);
+ *
+ * Don't do that in production though! Install the certificate!
+ *
+ * <pre>
+ * $request = new HTTP_Request2();
+ * $request->setConfig('ssl_verify_peer', false);
+ *
+ * $payment = Payment_Process2::factory('TrustCommerce', $request);
+ * </pre>
+ *
  *
  * @package Payment_Process
  * @author Robert Peake <robert.peake@trustcommerce.com>
@@ -147,6 +157,15 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         $this->_driver = 'TrustCommerce';
     }
 
+    function _handleExpDate()
+    {
+        if ($this->_payment instanceof Payment_Process2_CreditCard) {
+            return empty($this->_data['expDate']);
+        }
+
+        return true;
+    }
+
     /**
      * Process the transaction.
      *
@@ -208,13 +227,16 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
 
         $data = $this->_data;
 
-        /* expiration is expressed as mmyy */
-        $fulldate = $data['exp'];
-        $month = strtok($fulldate,'/');
-        $year = strtok('');
-        $exp = $month.substr($year,2,2);
-        $data['exp'] = $exp;
-        /* end expiration mangle */
+        if ($this->_payment instanceof Payment_Process2_CreditCard) {
+            /* expiration is expressed as mmyy */
+            $fulldate = $data['exp'];
+            $month = strtok($fulldate,'/');
+            $year = strtok('');
+            $exp = $month.substr($year,2,2);
+            $data['exp'] = $exp;
+            /* end expiration mangle */
+        }
+
 
         /* amount is expressed in cents with leading zeroes */
         $data['amount'] = $data['amount']*100;
@@ -228,12 +250,12 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         }
         /* end amount mangle */
 
-        if ($this->_payment->getType() == 'CreditCard' &&
+        if ($this->_payment instanceof Payment_Process2_CreditCard &&
             $this->action != PAYMENT_PROCESS2_ACTION_POSTAUTH) {
             $data['media'] = 'cc';
         }
 
-        if ($this->_payment->getType() == 'eCheck') {
+        if ($this->_payment instanceof Payment_Process2_eCheck) {
             $data['media'] = 'ach';
         }
 
