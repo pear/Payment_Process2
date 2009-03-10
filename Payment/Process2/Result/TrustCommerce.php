@@ -68,17 +68,10 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
      */
     function parse()
     {
-      $array = preg_split("/\n/",$this->_rawResponse,0,PREG_SPLIT_NO_EMPTY);
-      $responseArray = array();
-      for($i=0;$i<sizeof($array);$i++)
-      {
-          $response_line = $array[$i];
-          $response_array = preg_split("/=/",$response_line);
-          $key = $response_array[0];
-          $value = $response_array[1];
-          $responseArray[$key] = $value;
-      }
-      $this->_mapFields($responseArray);
+      $array = array();
+      parse_str(str_replace("\r\n", "&", $this->_rawResponse), $array);
+
+      $this->_mapFields($array);
     }
 
     /**
@@ -92,13 +85,13 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
 
         foreach ($this->_fieldMap as $key => $val) {
             if (isset($responseArray[$key])) {
-                $this->$val = $responseArray[$key];
+                $this->$val = trim($responseArray[$key]);
             }
         }
         if (!isset($this->_statusCodeMessages[$this->messageCode]))
         {
-            $message = $this->_statusCodeMessages[$responseArray['status']];
-            if($responseArray['error'])
+            $message = $this->_statusCodeMessages[trim($responseArray['status'])];
+            if(!empty($responseArray['error']))
             {
                 $message .= "\nError type: ".$responseArray['error'].'.';
                 if($responseArray['offenders'])

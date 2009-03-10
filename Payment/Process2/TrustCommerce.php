@@ -101,6 +101,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         'email' => 'email',
         'zip' => 'zip',
         'currency' => 'currency',
+        'expDate' => 'exp'
     );
 
     /**
@@ -157,9 +158,9 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         $this->_driver = 'TrustCommerce';
     }
 
-    function _handleExpDate()
+    function _validateExpDate()
     {
-        if ($this->_payment instanceof Payment_Process2_CreditCard) {
+        if ($this->_payment instanceof Payment_Process2_Type_CreditCard) {
             return empty($this->_data['expDate']);
         }
 
@@ -189,7 +190,8 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
 
         $request = clone $this->_request;
         $request->setURL('https://vault.trustcommerce.com/trans/');
-        $request->setMethod('PUT');
+        $request->setMethod('POST');
+
         $request->addPostParameter($fields);
 
         $result = $request->send();
@@ -227,7 +229,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
 
         $data = $this->_data;
 
-        if ($this->_payment instanceof Payment_Process2_CreditCard) {
+        if ($this->_payment instanceof Payment_Process2_Type_CreditCard) {
             /* expiration is expressed as mmyy */
             $fulldate = $data['exp'];
             $month = strtok($fulldate,'/');
@@ -236,7 +238,6 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
             $data['exp'] = $exp;
             /* end expiration mangle */
         }
-
 
         /* amount is expressed in cents with leading zeroes */
         $data['amount'] = $data['amount']*100;
@@ -250,12 +251,12 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         }
         /* end amount mangle */
 
-        if ($this->_payment instanceof Payment_Process2_CreditCard &&
+        if ($this->_payment instanceof Payment_Process2_Type_CreditCard &&
             $this->action != PAYMENT_PROCESS2_ACTION_POSTAUTH) {
             $data['media'] = 'cc';
         }
 
-        if ($this->_payment instanceof Payment_Process2_eCheck) {
+        if ($this->_payment instanceof Payment_Process2_Type_eCheck) {
             $data['media'] = 'ach';
         }
 

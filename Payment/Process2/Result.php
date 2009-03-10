@@ -1,6 +1,6 @@
 <?php
 require_once 'Payment/Process2/Exception.php';
-
+require_once 'Payment/Process2/Common.php';
 /**
  * Payment_Process2_Result
  *

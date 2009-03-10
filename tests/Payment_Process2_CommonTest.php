@@ -47,7 +47,6 @@ require_once 'Payment/Process2/Common.php';
 class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
     public function aValidPayment() {
         $object = Payment_Process2_Type::factory('eCheck');
-
         $object->accountNumber = 1;
         $object->routingCode = 2;
         $object->bankName = "Unit test";
