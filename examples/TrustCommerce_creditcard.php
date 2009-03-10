@@ -24,11 +24,10 @@ $card->cardNumber = '4111111111111111';
 $card->expDate = '01/2005';
 
 $process->setPayment($card);
-
 $result = $process->process();
-echo "---------------------- RESPONSE ------------------------\n";
-echo 'Processor result: ';
+
+echo 'Processor result: ' . "\n";
 echo $result->getCode()." - ";
-echo $result->getMessage();
-echo "---------------------- RESPONSE ------------------------\n";
+echo $result->getMessage() . "\n";
+
 
