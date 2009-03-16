@@ -16,10 +16,10 @@
   <email>damien.bezborodow@valex.com.au</email>
   <active>yes</active>
  </lead>
- <date>2009-03-10</date>
- <time>05:31:31</time>
+ <date>2009-03-16</date>
+ <time>01:01:01</time>
  <version>
-  <release>0.1.0</release>
+  <release>0.1.1</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -27,15 +27,7 @@
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
- <notes>
- Reimplemented Payment_Process in a PHP5 friendly manner
- Dropped Paycom driver
- Good unit test coverage of the core driver loader, results, etc
- Acceptable unit test coverage of the Trustcommerce driver
- Interfaces, interfaces for all.
-
- Be aware: No drivers are stable at this time; and should definately not be used in production.
- </notes>
+ <notes>Bugfix - factory methods fail to load classes</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="850bad062543d4c2d6a88e246515b749" name="examples/creditcard.php" role="doc" />
@@ -43,7 +35,7 @@
    <file baseinstalldir="/" md5sum="753c6c9dc99dbf588911fb1a0fb2f531" name="examples/linkpoint.php" role="doc" />
    <file baseinstalldir="/" md5sum="0c382b30d43c80c11b2b6da5bdd64e2d" name="examples/Payment_Process-example.php" role="doc" />
    <file baseinstalldir="/" md5sum="bb149be88cd468d2a29d29bbf5b4632c" name="examples/TrustCommerce_creditcard.php" role="doc" />
-   <file baseinstalldir="/" md5sum="485a6958248f4fd8e67447f3246e5027" name="Payment/Process2.php" role="php" />
+   <file baseinstalldir="/" md5sum="f2f92c88fc821edb43b0fc384a3b294f" name="Payment/Process2.php" role="php" />
    <file baseinstalldir="/" md5sum="b65f0bf94d160893f1b37b362853e563" name="Payment/Process2/AuthorizeNet.php" role="php" />
    <file baseinstalldir="/" md5sum="8ae8368e4c27e1b85fb4a937468d502e" name="Payment/Process2/Bibit.php" role="php" />
    <file baseinstalldir="/" md5sum="ea537d3abf48f8b549eb980abfcf3b72" name="Payment/Process2/Common.php" role="php" />
@@ -53,10 +45,10 @@
    <file baseinstalldir="/" md5sum="63b366405b3caf08272237d1057074fb" name="Payment/Process2/LinkPoint.php" role="php" />
    <file baseinstalldir="/" md5sum="1818950e96ddd4fd4920c69eac1bb9e9" name="Payment/Process2/Offline.php" role="php" />
    <file baseinstalldir="/" md5sum="e61d771f98b5b8f91a451881d1ed09ae" name="Payment/Process2/PayPal.php" role="php" />
-   <file baseinstalldir="/" md5sum="903ba12f595c8cf31665ef7c3a9c6ac6" name="Payment/Process2/Result.php" role="php" />
+   <file baseinstalldir="/" md5sum="dab88090cd9f4fd22ff026c71f484b51" name="Payment/Process2/Result.php" role="php" />
    <file baseinstalldir="/" md5sum="cb0ab0ff35dbba618050ef349f01b8d2" name="Payment/Process2/Transfirst.php" role="php" />
    <file baseinstalldir="/" md5sum="4093ea2394b53320d431c65a90b480c0" name="Payment/Process2/TrustCommerce.php" role="php" />
-   <file baseinstalldir="/" md5sum="66654a1a9215c0c0c3233c21da3b248c" name="Payment/Process2/Type.php" role="php" />
+   <file baseinstalldir="/" md5sum="b0bc9a416f0ee167d9510a22bdf5e651" name="Payment/Process2/Type.php" role="php" />
    <file baseinstalldir="/" md5sum="6d6f221f83328046b1afad55b94c2a58" name="Payment/Process2/Result/AuthorizeNet.php" role="php" />
    <file baseinstalldir="/" md5sum="2541abd71fd416cd541add6e9728b062" name="Payment/Process2/Result/Bibit.php" role="php" />
    <file baseinstalldir="/" md5sum="b4c51b5bab12a043fc6c8d15dca4212a" name="Payment/Process2/Result/Driver.php" role="php" />
@@ -71,7 +63,7 @@
    <file baseinstalldir="/" md5sum="a240b87fed3e4d3a81e435a1d6aab183" name="tests/Payment_Process2Test.php" role="test" />
    <file baseinstalldir="/" md5sum="9766bf125a679b86106fb7df4628fe3b" name="tests/Payment_Process2_AuthorizeNetTest.php" role="test" />
    <file baseinstalldir="/" md5sum="162034c1d451e87c79db0d94c1209692" name="tests/Payment_Process2_BibitTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="04d13d11c979ced61223abda9d825777" name="tests/Payment_Process2_CommonTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="a3c9730220a3eb9cfb8653344a12c756" name="tests/Payment_Process2_CommonTest.php" role="test" />
    <file baseinstalldir="/" md5sum="025b4414038f5cb6d917c21ba4c07a4e" name="tests/Payment_Process2_DummyTest.php" role="test" />
    <file baseinstalldir="/" md5sum="23866e53443f6f5af7a25a8c8c93c605" name="tests/Payment_Process2_LinkPointTest.php" role="test" />
    <file baseinstalldir="/" md5sum="d205d496245f0cdec3d83dd3cddefac5" name="tests/Payment_Process2_PaypalTest.php" role="test" />
@@ -119,6 +111,19 @@
    <date>2009-03-10</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
    <notes>.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-03-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+   <notes>Bugfix - factory methods fail to load classes</notes>
   </release>
  </changelog>
 </package>
