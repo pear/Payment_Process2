@@ -87,6 +87,12 @@ class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_
         )
     );
 
+    var $_typeFieldMap = array(
+           'CreditCard' => array(),
+           'eCheck' => array(),
+    );
+
+
     /**
      * Process the (dummy) transaction
      *

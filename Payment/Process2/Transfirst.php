@@ -84,6 +84,11 @@ define('PAYMENT_PROCESS2_RESULT_TRANSFIRST_REENTER', 19);
  */
 class Payment_Process2_Transfirst extends Payment_Process2_Common implements Payment_Process2_Driver
 {
+
+    var $_typeFieldMap = array(
+           'CreditCard' => array(),
+    );
+
     /**
      * Front-end -> back-end field map.
      *

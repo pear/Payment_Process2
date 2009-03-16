@@ -239,8 +239,7 @@ class Payment_Process2_Common
     function setPayment(Payment_Process2_Type $payment)
     {
         if (isset($this->_typeFieldMap[$payment->getType()]) &&
-            is_array($this->_typeFieldMap[$payment->getType()]) &&
-            count($this->_typeFieldMap[$payment->getType()])) {
+            is_array($this->_typeFieldMap[$payment->getType()])) {
 
             Payment_Process2_Type::isValid($payment);
 
@@ -318,6 +317,12 @@ class Payment_Process2_Common
                     throw new Payment_Process2_Exception('Validation of field "'.$field.'" failed; the method should have raised an exception.', PAYMENT_PROCESS2_ERROR_INVALID);
                 }
             }
+        }
+
+        if ($this->_payment instanceof Payment_Process2_Type) {
+            Payment_Process2_Type::isValid($this->_payment);
+        } else {
+            throw new Payment_Process2_Exception("Payment type not set");
         }
 
         return true;
