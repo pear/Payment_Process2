@@ -19,7 +19,7 @@ $process->amount = 99.99;
 
 $card = Payment_Process2_Type::factory('CreditCard');
 $card->setDate(strtotime('2004-01-01'));
-$card->type = PAYMENT_PROCESS2_CC_VISA;
+$card->type = Payment_Process2_Type::CC_VISA;
 $card->cardNumber = '4111111111111111';
 $card->expDate = '01/2005';
 

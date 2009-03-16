@@ -20,7 +20,7 @@ $process->action = PAYMENT_PROCESS2_ACTION_AUTHONLY;
 $process->amount = 1.00;
 
 $card = Payment_Process2_Type::factory('CreditCard');
-$card->type = PAYMENT_PROCESS2_CC_VISA;
+$card->type = Payment_Process2_Type::CC_VISA;
 $card->invoiceNumber = 112345145;
 $card->customerId = 1461264151;
 $card->cardNumber = '411111111111111';

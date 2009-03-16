@@ -71,7 +71,7 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
     /**
      * Credit card type
      *
-     * @var int $type one of PAYMENT_PROCESS2_CC_* constant
+     * @var int $type one of Payment_Process2_Type::CC_* constant
      */
     var $type;
 
@@ -218,7 +218,7 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
     }
 
     /**
-     * Maps a PAYMENT_PROCESS2_CC_* constant with a with a value suitable
+     * Maps a Payment_Process2_Type::CC_* constant with a with a value suitable
      * to Validate_Finance_CreditCard package
      *
      * @return string|boolean card type name or FALSE on error
@@ -227,21 +227,21 @@ class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
     function _mapType()
     {
         switch ($this->type) {
-        case PAYMENT_PROCESS2_CC_MASTERCARD:
+        case Payment_Process2_Type::CC_MASTERCARD:
             return 'MasterCard';
-        case PAYMENT_PROCESS2_CC_VISA:
+        case Payment_Process2_Type::CC_VISA:
             return 'Visa';
-        case PAYMENT_PROCESS2_CC_AMEX:
+        case Payment_Process2_Type::CC_AMEX:
             return 'Amex';
-        case PAYMENT_PROCESS2_CC_DISCOVER:
+        case Payment_Process2_Type::CC_DISCOVER:
             return 'Discover';
-        case PAYMENT_PROCESS2_CC_JCB:
+        case Payment_Process2_Type::CC_JCB:
             return 'JCB';
-        case PAYMENT_PROCESS2_CC_DINERS:
+        case Payment_Process2_Type::CC_DINERS:
             return 'Diners';
-        case PAYMENT_PROCESS2_CC_ENROUTE:
+        case Payment_Process2_Type::CC_ENROUTE:
             return 'EnRoute';
-        case PAYMENT_PROCESS2_CC_CARTEBLANCHE:
+        case Payment_Process2_Type::CC_CARTEBLANCHE:
             return 'CarteBlanche';
         default:
             return false;

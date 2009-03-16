@@ -345,13 +345,13 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
             } else if ($data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_AUTH) {
                 $doc .= XML_Util::createStartElement('paymentDetails');
                 switch ($this->_payment->type) {
-                case PAYMENT_PROCESS2_CC_VISA:
+                case Payment_Process2_Type::CC_VISA:
                     $cc_type = 'VISA-SSL';
                     break;
-                case PAYMENT_PROCESS2_CC_MASTERCARD:
+                case Payment_Process2_Type::CC_MASTERCARD:
                     $cc_type = 'ECMC-SSL';
                     break;
-                case PAYMENT_PROCESS2_CC_AMEX:
+                case Payment_Process2_Type::CC_AMEX:
                     $cc_type = 'AMEX-SSL';
                     break;
                 }

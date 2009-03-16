@@ -60,14 +60,14 @@ $data = array(
 
 // The credit card information
 $cc = Payment_Process2_Type::factory('CreditCard');
-$cc->type = PAYMENT_PROCESS2_CC_VISA;
+$cc->type = Payment_Process2_Type::CC_VISA;
 $cc->cardNumber = "4111111111111111";
 $cc->expDate = "99/99";
 $cc->cvv = "123";
 
 /* Alternately, you can use setFrom()
 $ccData = array(
-    'type' => PAYMENT_PROCESS2_CC_VISA,
+    'type' => Payment_Process2_Type::CC_VISA,
     'cardNumber' => "4111111111111111",
     'expDate' => "99/99",
     'cvv' => 123

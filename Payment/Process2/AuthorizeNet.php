@@ -284,10 +284,10 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
         if ($this->_payment instanceof Payment_Process2_Type_eCheck) {
             $data['x_method'] = 'ECHECK';
             switch ($this->_payment->type) {
-                case PAYMENT_PROCESS2_CK_CHECKING:
+                case Payment_Process2_Type::CK_CHECKING:
                     $data['x_bank_acct_type'] = 'CHECKING';
                     break;
-                case PAYMENT_PROCESS2_CK_SAVINGS:
+                case Payment_Process2_Type::CK_SAVINGS:
                     $data['x_bank_acct_type'] = 'SAVINGS';
                     break;
             }

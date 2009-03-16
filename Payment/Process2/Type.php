@@ -41,18 +41,6 @@
  * @link       http://pear.php.net/package/Payment_Process
  */
 
-define('PAYMENT_PROCESS2_CC_VISA',         100);
-define('PAYMENT_PROCESS2_CC_MASTERCARD',   101);
-define('PAYMENT_PROCESS2_CC_AMEX',         102);
-define('PAYMENT_PROCESS2_CC_DISCOVER',     103);
-define('PAYMENT_PROCESS2_CC_JCB',          104);
-define('PAYMENT_PROCESS2_CC_DINERS',       105);
-define('PAYMENT_PROCESS2_CC_CARTEBLANCHE', 106);
-define('PAYMENT_PROCESS2_CC_ENROUTE',      107);
-
-define('PAYMENT_PROCESS2_CK_SAVINGS',  1000);
-define('PAYMENT_PROCESS2_CK_CHECKING', 1001);
-
 require_once 'PEAR.php';
 require_once 'Validate.php';
 require_once 'Payment/Process2/Exception.php';
@@ -67,6 +55,19 @@ require_once 'Payment/Process2/Exception.php';
  */
 class Payment_Process2_Type
 {
+
+    const CC_VISA         = 100;
+    const CC_MASTERCARD   = 101;
+    const CC_AMEX         = 102;
+    const CC_DISCOVER     = 103;
+    const CC_JCB          = 104;
+    const CC_DINERS       = 105;
+    const CC_CARTEBLANCHE = 106;
+    const CC_ENROUTE      = 107;
+
+    const CK_SAVINGS  = 1000;
+    const CK_CHECKING = 1001;
+
     // {{{ properties
     /**
      * $_type

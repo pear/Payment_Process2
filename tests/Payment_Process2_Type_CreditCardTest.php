@@ -50,7 +50,7 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
     public function setUp() {
         $object = Payment_Process2_Type::factory('CreditCard');
 
-        $object->type = PAYMENT_PROCESS2_CC_MASTERCARD;
+        $object->type = Payment_Process2_Type::CC_MASTERCARD;
         $object->cvv = 123;
         $object->cardNumber = "5123456789012346";
         $object->expDate = "05/2013";
