@@ -17,68 +17,70 @@
   <active>yes</active>
  </lead>
  <date>2009-03-16</date>
- <time>01:01:01</time>
+ <time>03:25:46</time>
  <version>
-  <release>0.1.1</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
- <notes>Bugfix - factory methods fail to load classes</notes>
+ <notes>Refactored code to use class constants instead of define()
+More validation / exceptions raised if you don&apos;t setPayment()
+Fixed CVV validation unit test coverage</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="850bad062543d4c2d6a88e246515b749" name="examples/creditcard.php" role="doc" />
-   <file baseinstalldir="/" md5sum="015f75454e063a36d6140e7f614eafef" name="examples/echeck.php" role="doc" />
-   <file baseinstalldir="/" md5sum="753c6c9dc99dbf588911fb1a0fb2f531" name="examples/linkpoint.php" role="doc" />
-   <file baseinstalldir="/" md5sum="0c382b30d43c80c11b2b6da5bdd64e2d" name="examples/Payment_Process-example.php" role="doc" />
-   <file baseinstalldir="/" md5sum="bb149be88cd468d2a29d29bbf5b4632c" name="examples/TrustCommerce_creditcard.php" role="doc" />
-   <file baseinstalldir="/" md5sum="f2f92c88fc821edb43b0fc384a3b294f" name="Payment/Process2.php" role="php" />
-   <file baseinstalldir="/" md5sum="b65f0bf94d160893f1b37b362853e563" name="Payment/Process2/AuthorizeNet.php" role="php" />
-   <file baseinstalldir="/" md5sum="8ae8368e4c27e1b85fb4a937468d502e" name="Payment/Process2/Bibit.php" role="php" />
-   <file baseinstalldir="/" md5sum="ea537d3abf48f8b549eb980abfcf3b72" name="Payment/Process2/Common.php" role="php" />
-   <file baseinstalldir="/" md5sum="785c7148e526b7a98fe78130dfd93f5a" name="Payment/Process2/Driver.php" role="php" />
-   <file baseinstalldir="/" md5sum="3722d55b2d1018760b94ec079101ffc4" name="Payment/Process2/Dummy.php" role="php" />
+   <file baseinstalldir="/" md5sum="14bed090a78a554e4d4857a9c55bd135" name="examples/creditcard.php" role="doc" />
+   <file baseinstalldir="/" md5sum="be6b97873d98b2c954aefe4fafa64d74" name="examples/echeck.php" role="doc" />
+   <file baseinstalldir="/" md5sum="aa9ed76095ed6149f51b3118d6ecea12" name="examples/linkpoint.php" role="doc" />
+   <file baseinstalldir="/" md5sum="ceba22b7cec3787483a1804b586c6f5b" name="examples/Payment_Process-example.php" role="doc" />
+   <file baseinstalldir="/" md5sum="36f610bc67b7b3050c65027ff9c73c0b" name="examples/TrustCommerce_creditcard.php" role="doc" />
+   <file baseinstalldir="/" md5sum="30ef0b2f438dd19d61837148b6673030" name="Payment/Process2.php" role="php" />
+   <file baseinstalldir="/" md5sum="8bafde49eda40b7fa4ac442da717cb89" name="Payment/Process2/AuthorizeNet.php" role="php" />
+   <file baseinstalldir="/" md5sum="59866009105422f9e911c27f04fa4945" name="Payment/Process2/Bibit.php" role="php" />
+   <file baseinstalldir="/" md5sum="0924fff080455dede145bb2cc79fd046" name="Payment/Process2/Common.php" role="php" />
+   <file baseinstalldir="/" md5sum="cd6e027f25bacdeb1783baa3fdfff195" name="Payment/Process2/Driver.php" role="php" />
+   <file baseinstalldir="/" md5sum="c3373d6b6e647eb707c0073a5f0d5833" name="Payment/Process2/Dummy.php" role="php" />
    <file baseinstalldir="/" md5sum="f6cfeea2e97e449a1e2eb320609d35cf" name="Payment/Process2/Exception.php" role="php" />
-   <file baseinstalldir="/" md5sum="63b366405b3caf08272237d1057074fb" name="Payment/Process2/LinkPoint.php" role="php" />
+   <file baseinstalldir="/" md5sum="c9b67f63748f8291de310e6f5110a898" name="Payment/Process2/LinkPoint.php" role="php" />
    <file baseinstalldir="/" md5sum="1818950e96ddd4fd4920c69eac1bb9e9" name="Payment/Process2/Offline.php" role="php" />
-   <file baseinstalldir="/" md5sum="e61d771f98b5b8f91a451881d1ed09ae" name="Payment/Process2/PayPal.php" role="php" />
-   <file baseinstalldir="/" md5sum="dab88090cd9f4fd22ff026c71f484b51" name="Payment/Process2/Result.php" role="php" />
-   <file baseinstalldir="/" md5sum="cb0ab0ff35dbba618050ef349f01b8d2" name="Payment/Process2/Transfirst.php" role="php" />
-   <file baseinstalldir="/" md5sum="4093ea2394b53320d431c65a90b480c0" name="Payment/Process2/TrustCommerce.php" role="php" />
-   <file baseinstalldir="/" md5sum="b0bc9a416f0ee167d9510a22bdf5e651" name="Payment/Process2/Type.php" role="php" />
-   <file baseinstalldir="/" md5sum="6d6f221f83328046b1afad55b94c2a58" name="Payment/Process2/Result/AuthorizeNet.php" role="php" />
-   <file baseinstalldir="/" md5sum="2541abd71fd416cd541add6e9728b062" name="Payment/Process2/Result/Bibit.php" role="php" />
-   <file baseinstalldir="/" md5sum="b4c51b5bab12a043fc6c8d15dca4212a" name="Payment/Process2/Result/Driver.php" role="php" />
+   <file baseinstalldir="/" md5sum="dde8ba05fa5ba6d4f5dc7376c2856547" name="Payment/Process2/PayPal.php" role="php" />
+   <file baseinstalldir="/" md5sum="8772a8f4b6c2534d1837b3114931a95d" name="Payment/Process2/Result.php" role="php" />
+   <file baseinstalldir="/" md5sum="9ff35206cd3907169cad7b3b19e87e6f" name="Payment/Process2/Transfirst.php" role="php" />
+   <file baseinstalldir="/" md5sum="e76918536a2f289c36f3137cf78369d0" name="Payment/Process2/TrustCommerce.php" role="php" />
+   <file baseinstalldir="/" md5sum="3cfb0accd7066ca543ed5f7b0b782895" name="Payment/Process2/Type.php" role="php" />
+   <file baseinstalldir="/" md5sum="4e23abaf1c3cb64988dd390bb37f35f7" name="Payment/Process2/Result/AuthorizeNet.php" role="php" />
+   <file baseinstalldir="/" md5sum="5f5df9ad8ec83e3ad6aec6ca96293517" name="Payment/Process2/Result/Bibit.php" role="php" />
+   <file baseinstalldir="/" md5sum="4dc2321cb2d59adcaa369f01b3a93cf9" name="Payment/Process2/Result/Driver.php" role="php" />
    <file baseinstalldir="/" md5sum="663c4e11a8c403286ce5bbe37606fbcd" name="Payment/Process2/Result/Dummy.php" role="php" />
-   <file baseinstalldir="/" md5sum="cb76f3d354be05a5ffd8072e1e5c302f" name="Payment/Process2/Result/LinkPoint.php" role="php" />
-   <file baseinstalldir="/" md5sum="fe6e7202813494ff30bdf56f8961c49d" name="Payment/Process2/Result/PayPal.php" role="php" />
-   <file baseinstalldir="/" md5sum="4b8bf99023ace27ab948cefb2b12aef1" name="Payment/Process2/Result/Transfirst.php" role="php" />
-   <file baseinstalldir="/" md5sum="535a07d857d081b0344ac711416d9adc" name="Payment/Process2/Result/TrustCommerce.php" role="php" />
-   <file baseinstalldir="/" md5sum="64ab67d8cf679a47843ee31ffbb7e85b" name="Payment/Process2/Type/CreditCard.php" role="php" />
+   <file baseinstalldir="/" md5sum="dcdbea7d0c8783f248cadab6043696b2" name="Payment/Process2/Result/LinkPoint.php" role="php" />
+   <file baseinstalldir="/" md5sum="fc39c23957f145641b3fc649bfd330d5" name="Payment/Process2/Result/PayPal.php" role="php" />
+   <file baseinstalldir="/" md5sum="a20ac8de378c4fda12a440db4e6a5211" name="Payment/Process2/Result/Transfirst.php" role="php" />
+   <file baseinstalldir="/" md5sum="895d048003471aa61a4a2b338f7338ca" name="Payment/Process2/Result/TrustCommerce.php" role="php" />
+   <file baseinstalldir="/" md5sum="2f6b6b6740d4475156955aebdcccaa8f" name="Payment/Process2/Type/CreditCard.php" role="php" />
    <file baseinstalldir="/" md5sum="010a70be2553c169f0b6fde87c8b704e" name="Payment/Process2/Type/eCheck.php" role="php" />
    <file baseinstalldir="/" md5sum="47eda165f4bed25cb78e09488d5889c5" name="tests/AllTests.php" role="test" />
-   <file baseinstalldir="/" md5sum="a240b87fed3e4d3a81e435a1d6aab183" name="tests/Payment_Process2Test.php" role="test" />
-   <file baseinstalldir="/" md5sum="9766bf125a679b86106fb7df4628fe3b" name="tests/Payment_Process2_AuthorizeNetTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="162034c1d451e87c79db0d94c1209692" name="tests/Payment_Process2_BibitTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="a3c9730220a3eb9cfb8653344a12c756" name="tests/Payment_Process2_CommonTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="025b4414038f5cb6d917c21ba4c07a4e" name="tests/Payment_Process2_DummyTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="23866e53443f6f5af7a25a8c8c93c605" name="tests/Payment_Process2_LinkPointTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="d205d496245f0cdec3d83dd3cddefac5" name="tests/Payment_Process2_PaypalTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="97ee6c15a3bf43d0d92497012f5918a7" name="tests/Payment_Process2_ResultTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="ae441a8703f8530064954901eefd05d9" name="tests/Payment_Process2Test.php" role="test" />
+   <file baseinstalldir="/" md5sum="91c5e635331a893108464f0d895e3894" name="tests/Payment_Process2_AuthorizeNetTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="f5750034788b6200b646671d552e8afb" name="tests/Payment_Process2_BibitTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="2540c3b6a549dca15b3ec11df3dd2bf6" name="tests/Payment_Process2_CommonTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="07296ae08b04ea77b54458cdb846af31" name="tests/Payment_Process2_DummyTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="c70e33c7e56377873332336267f31d1c" name="tests/Payment_Process2_LinkPointTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="aff1c7afb2fe570ed5937aeda3ef73e2" name="tests/Payment_Process2_PaypalTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="b7d915a3634415bd79e98e9eba12029a" name="tests/Payment_Process2_ResultTest.php" role="test" />
    <file baseinstalldir="/" md5sum="ff91ae4063eac77008fc2b97ac4b49fd" name="tests/Payment_Process2_Result_AuthorizeNetTest.php" role="test" />
    <file baseinstalldir="/" md5sum="8adb2627bc3f803a655d198e4c1a2344" name="tests/Payment_Process2_Result_BibitTest.php" role="test" />
    <file baseinstalldir="/" md5sum="7e45fb240c8a649560757989a3bad83f" name="tests/Payment_Process2_Result_DummyTest.php" role="test" />
    <file baseinstalldir="/" md5sum="2e9110bcb11b2efd8691baeb30ebfe50" name="tests/Payment_Process2_Result_LinkPointTest.php" role="test" />
    <file baseinstalldir="/" md5sum="5667413f0154e85e9af2e98da61b5d12" name="tests/Payment_Process2_Result_PaypalTest.php" role="test" />
    <file baseinstalldir="/" md5sum="909560169d5882e37d6fb00d0767a554" name="tests/Payment_Process2_Result_TransfirstTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="562bef379879a81e9cd5b90b57795307" name="tests/Payment_Process2_Result_TrustCommerceTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="ab484a2e3dd858e6d36acd6a94923aa5" name="tests/Payment_Process2_TransfirstTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="f8ef079b993b3fce5399924cd41ed3a3" name="tests/Payment_Process2_TrustCommerceTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="3d4a90eca8e8ec44dd54cde2d5f26b0d" name="tests/Payment_Process2_Result_TrustCommerceTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="e9906f1a142d50b31bb8cd76841003c5" name="tests/Payment_Process2_TransfirstTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="ec8490c1a87ecf136f59283b6dd9dcd9" name="tests/Payment_Process2_TrustCommerceTest.php" role="test" />
    <file baseinstalldir="/" md5sum="a675fbe4200d7ba42df836f55839cbc7" name="tests/Payment_Process2_TypeTest.php" role="test" />
-   <file baseinstalldir="/" md5sum="e6fd78e5a377ff58525e9e8b1b576b8f" name="tests/Payment_Process2_Type_CreditCardTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="d6e6b4f03d9d7a209c4dae2857bc4a8a" name="tests/Payment_Process2_Type_CreditCardTest.php" role="test" />
    <file baseinstalldir="/" md5sum="c45a40492a5257fe41dc2f5f452cb53b" name="tests/Payment_Process2_Type_eCheckTest.php" role="test" />
    <file baseinstalldir="/" md5sum="5a85f51d17d09ee803aa1251ad4d4b8a" name="tests/data/AuthorizeNet/error.html" role="test" />
    <file baseinstalldir="/" md5sum="2187b7d9f904702536875161fb7f5f9c" name="tests/data/TrustCommerce/error.html" role="test" />
@@ -124,6 +126,21 @@
    <date>2009-03-16</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
    <notes>Bugfix - factory methods fail to load classes</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-03-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+   <notes>Refactored code to use class constants instead of define()
+More validation / exceptions raised if you don&apos;t setPayment()
+Fixed CVV validation unit test coverage</notes>
   </release>
  </changelog>
 </package>
