@@ -32,7 +32,7 @@ interface Payment_Process2_Result_Driver {
      *
      * Must be called after parse()
      *
-     * @return PAYMENT_PROCESS2_RESULT_*
+     * @return Payment_Process2::RESULT_*
      */
     public function getCode();
 

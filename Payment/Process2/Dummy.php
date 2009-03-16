@@ -68,21 +68,21 @@ class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_
      */
     var $_defaultOptions = array(
         'randomResult' => true,
-        'returnCode' => PAYMENT_PROCESS2_RESULT_APPROVED,
+        'returnCode' => Payment_Process2::RESULT_APPROVED,
         'returnMessage' => "Dummy payment approved"
     );
 
     var $_returnValues = array(
         array(
-            'code' => PAYMENT_PROCESS2_RESULT_APPROVED,
+            'code' => Payment_Process2::RESULT_APPROVED,
             'message' => "Approved"
         ),
         array(
-            'code' => PAYMENT_PROCESS2_RESULT_DECLINED,
+            'code' => Payment_Process2::RESULT_DECLINED,
             'message' => "Declined"
         ),
         array(
-            'code' => PAYMENT_PROCESS2_RESULT_OTHER,
+            'code' => Payment_Process2::RESULT_OTHER,
             'message' => "System error"
         )
     );

@@ -14,7 +14,7 @@ require_once 'Payment/Process2/Result.php';
  */
 class Payment_Process2_Result_Bibit extends Payment_Process2_Result
 {
-    var $_returnCode = PAYMENT_PROCESS2_RESULT_DECLINED;
+    var $_returnCode = Payment_Process2::RESULT_DECLINED;
 
     var $_lastEvent = null;
 
@@ -67,7 +67,7 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
 
         $matches = $sxe->xpath('//reply/error/attribute::code');
         if (!empty($matches)) {
-            $this->_returnCode = PAYMENT_PROCESS2_RESULT_OTHER;
+            $this->_returnCode = Payment_Process2::RESULT_OTHER;
             $this->_errorCode  = (string)$matches[0];
 
             $matches = $sxe->xpath('//reply/error/text()');
@@ -89,7 +89,7 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
             $matches = $doc->evaluate('//reply/orderStatus/payment/amount/attribute::value');
             if (!empty($matches)) {
                 if ($this->_lastEvent == 'AUTHORISED') {
-                    $this->_returnCode = PAYMENT_PROCESS2_RESULT_APPROVED;
+                    $this->_returnCode = Payment_Process2::RESULT_APPROVED;
                     $this->message     = '';
                     return;
                 }
@@ -99,7 +99,7 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
         case Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE:
             $matches = $doc->evaluate('//reply/ok/captureReceived/amount/attribute::value');
             if (!empty($matches)) {
-                $this->_returnCode = PAYMENT_PROCESS2_RESULT_APPROVED;
+                $this->_returnCode = Payment_Process2::RESULT_APPROVED;
                 return;
             }
 
@@ -107,7 +107,7 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
         case Payment_Process2_Bibit::ACTION_BIBIT_REFUND:
             $matches = $doc->evaluate('//reply/ok/refundReceived/amount/attribute::value');
             if (!empty($matches)) {
-                $this->_returnCode = PAYMENT_PROCESS2_RESULT_APPROVED;
+                $this->_returnCode = Payment_Process2::RESULT_APPROVED;
                 return;
             }
             break;

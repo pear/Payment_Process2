@@ -252,7 +252,7 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         /* end amount mangle */
 
         if ($this->_payment instanceof Payment_Process2_Type_CreditCard &&
-            $this->action != PAYMENT_PROCESS2_ACTION_POSTAUTH) {
+            $this->action != Payment_Process2::ACTION_POSTAUTH) {
             $data['media'] = 'cc';
         }
 
@@ -276,11 +276,11 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
 
     public function translateAction($action) {
         switch ($action) {
-            case PAYMENT_PROCESS2_ACTION_NORMAL:
+            case Payment_Process2::ACTION_NORMAL:
                 return 'sale';
-            case PAYMENT_PROCESS2_ACTION_AUTHONLY:
+            case Payment_Process2::ACTION_AUTHONLY:
                 return 'preauth';
-            case PAYMENT_PROCESS2_ACTION_POSTAUTH:
+            case Payment_Process2::ACTION_POSTAUTH:
                 return 'postauth';
         }
 

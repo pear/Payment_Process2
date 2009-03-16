@@ -94,7 +94,7 @@ class Payment_Process2Test extends PHPUnit_Framework_TestCase {
 
 
         $result = new Payment_Process2_Result(null, new Payment_Process2_Common());
-        $result->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $result->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
         $this->assertTrue($object->isSuccess($result));
 

@@ -76,7 +76,7 @@ class Payment_Process2_AuthorizeNetTest extends PHPUnit_Framework_TestCase {
         $object = Payment_Process2::factory('AuthorizeNet');
         $object->login = 'unit';
         $object->password = 'test';
-        $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+        $object->action = Payment_Process2::ACTION_NORMAL;
         $object->amount = 1;
 
         $object->setRequest($request);
@@ -103,7 +103,7 @@ class Payment_Process2_AuthorizeNetTest extends PHPUnit_Framework_TestCase {
         $object->login = 'unit';
         $object->password = 'test';
         $object->amount = 1;
-        $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+        $object->action = Payment_Process2::ACTION_NORMAL;
 
         $object->setRequest($request);
 

@@ -266,7 +266,7 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
 
         if ($this->_payment instanceof Payment_Process2_Type_eCheck) {
             throw new Payment_Process2_Exception('eCheck not currently supported',
-                                    PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED);
+                                    Payment_Process2::ERROR_NOTIMPLEMENTED);
 
             /*
             $xml .= '<telecheck>'."\n";
@@ -325,13 +325,13 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
 
     public function translateAction($action) {
         switch ($action) {
-            case PAYMENT_PROCESS2_ACTION_NORMAL:
+            case Payment_Process2::ACTION_NORMAL:
                 return 'SALE';
 
-            case PAYMENT_PROCESS2_ACTION_AUTHONLY:
+            case Payment_Process2::ACTION_AUTHONLY:
                 return 'PREAUTH';
 
-            case PAYMENT_PROCESS2_ACTION_POSTAUTH:
+            case Payment_Process2::ACTION_POSTAUTH:
                 return 'POSTAUTH';
         }
 

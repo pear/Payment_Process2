@@ -210,7 +210,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     function getStatus()
     {
         if (!$this->_processed) {
-            throw new Payment_Process2_Exception('The transaction has not been processed yet.', PAYMENT_PROCESS2_ERROR_INCOMPLETE);
+            throw new Payment_Process2_Exception('The transaction has not been processed yet.', Payment_Process2::ERROR_INCOMPLETE);
         }
         return $this->_result->code;
     }
@@ -227,7 +227,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     function getSequence()
     {
         if (!$this->_processed) {
-            throw new Payment_Process2_Exception('The transaction has not been processed yet.', PAYMENT_PROCESS2_ERROR_INCOMPLETE);
+            throw new Payment_Process2_Exception('The transaction has not been processed yet.', Payment_Process2::ERROR_INCOMPLETE);
         }
         return $this->_result->_sequenceNumber;
     }
@@ -251,7 +251,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     function _handleTransactionSource()
     {
         $specific = $this->_fieldMap['transactionSource'];
-        if ($this->transactionSource == PAYMENT_PROCESS2_SOURCE_ONLINE) {
+        if ($this->transactionSource == Payment_Process2::SOURCE_ONLINE) {
             $this->_data[$specific] = 'Y';
         } else {
             $this->_data[$specific] = 'N';
@@ -389,13 +389,13 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
 
     public function translateAction($action) {
         switch ($action) {
-            case PAYMENT_PROCESS2_ACTION_NORMAL:
+            case Payment_Process2::ACTION_NORMAL:
                 return Payment_Process2_Transfirst::ACTION_TRANSFIRST_AUTHSETTLE;
 
-            case PAYMENT_PROCESS2_ACTION_AUTHONLY:
+            case Payment_Process2::ACTION_AUTHONLY:
                 return Payment_Process2_Transfirst::ACTION_TRANSFIRST_AUTH;
 
-            case PAYMENT_PROCESS2_ACTION_POSTAUTH:
+            case Payment_Process2::ACTION_POSTAUTH:
                 return Payment_Process2_Transfirst::ACTION_TRANSFIRST_SETTLE;
         }
         return false;

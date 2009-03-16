@@ -14,7 +14,7 @@ $process->setRequest($request);
 $process->_debug = true;
 $process->login = 'TestMerchant';
 $process->password = 'password';
-$process->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+$process->action = Payment_Process2::ACTION_NORMAL;
 $process->amount = 99.99;
 
 $card = Payment_Process2_Type::factory('CreditCard');

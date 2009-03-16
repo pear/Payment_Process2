@@ -15,7 +15,7 @@ interface Payment_Process2_Driver {
     /**
      * Translates an action into a localised string
      *
-     * @param string $action One of the PAYMENT_PROCESS2_ACTION_* constants
+     * @param string $action One of the Payment_Process2::ACTION_* constants
      *
      * @return string|false Returns false when it cannot translate
      */

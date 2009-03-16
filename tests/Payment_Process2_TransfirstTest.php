@@ -80,7 +80,7 @@ class Payment_Process2_TransfirstTest extends PHPUnit_Framework_TestCase {
         $object->password = 'test56';
         $object->invoiceNumber = 'test5';
         $object->customerId = 'test5test0test5';
-        $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+        $object->action = Payment_Process2::ACTION_NORMAL;
         $object->amount = 1;
 
         $object->setRequest($request);
@@ -105,7 +105,7 @@ class Payment_Process2_TransfirstTest extends PHPUnit_Framework_TestCase {
         $object->invoiceNumber = 'test5';
         $object->customerId = 'test5test0test5';
         $object->amount = 1;
-        $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+        $object->action = Payment_Process2::ACTION_NORMAL;
 
         $object->setRequest($request);
         $object->setPayment($this->aValidPayment());

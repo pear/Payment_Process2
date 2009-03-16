@@ -5,11 +5,11 @@ require_once 'Payment/Process2/Result/Driver.php';
 class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
 
-    var $_statusCodeMap = array('approved' => PAYMENT_PROCESS2_RESULT_APPROVED,
-                                'accepted' => PAYMENT_PROCESS2_RESULT_APPROVED,
-                                'declined' => PAYMENT_PROCESS2_RESULT_DECLINED,
-                                'baddata' => PAYMENT_PROCESS2_RESULT_OTHER,
-                                'error' => PAYMENT_PROCESS2_RESULT_OTHER);
+    var $_statusCodeMap = array('approved' => Payment_Process2::RESULT_APPROVED,
+                                'accepted' => Payment_Process2::RESULT_APPROVED,
+                                'declined' => Payment_Process2::RESULT_DECLINED,
+                                'baddata' => Payment_Process2::RESULT_OTHER,
+                                'error' => Payment_Process2::RESULT_OTHER);
 
     /**
      * TrustCommerce status codes
@@ -28,13 +28,13 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
     );
 
     var $_avsCodeMap = array(
-        'N' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'U' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        'G' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        'R' => PAYMENT_PROCESS2_AVS_ERROR,
-        'E' => PAYMENT_PROCESS2_AVS_ERROR,
-        'S' => PAYMENT_PROCESS2_AVS_ERROR,
-        'O' => PAYMENT_PROCESS2_AVS_ERROR
+        'N' => Payment_Process2::AVS_MISMATCH,
+        'U' => Payment_Process2::AVS_NOAPPLY,
+        'G' => Payment_Process2::AVS_NOAPPLY,
+        'R' => Payment_Process2::AVS_ERROR,
+        'E' => Payment_Process2::AVS_ERROR,
+        'S' => Payment_Process2::AVS_ERROR,
+        'O' => Payment_Process2::AVS_ERROR
     );
 
     var $_avsCodeMessages = array(
@@ -52,7 +52,7 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
          'O' => 'General decline or other error'
     );
 
-    var $_cvvCodeMap = array('cvv' => PAYMENT_PROCESS2_CVV_MISMATCH
+    var $_cvvCodeMap = array('cvv' => Payment_Process2::CVV_MISMATCH
     );
 
     var $_cvvCodeMessages = array( 'cvv' => 'The CVV number is not valid.'

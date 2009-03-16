@@ -352,19 +352,19 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
      */
     function translateAction($action) {
         switch ($action) {
-            case PAYMENT_PROCESS2_ACTION_NORMAL:
+            case Payment_Process2::ACTION_NORMAL:
                 return 'AUTH_CAPTURE';
                 break;
 
-            case PAYMENT_PROCESS2_ACTION_AUTHONLY:
+            case Payment_Process2::ACTION_AUTHONLY:
                 return 'AUTH_ONLY';
                 break;
 
-            case PAYMENT_PROCESS2_ACTION_POSTAUTH:
+            case Payment_Process2::ACTION_POSTAUTH:
                 return 'PRIOR_AUTH_CAPTURE';
                 break;
 
-            case PAYMENT_PROCESS2_ACTION_VOID:
+            case Payment_Process2::ACTION_VOID:
                 return 'VOID';
                 break;
         }

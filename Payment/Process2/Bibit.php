@@ -608,13 +608,13 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
 
     public function translateAction($action) {
         switch ($action) {
-            case PAYMENT_PROCESS2_ACTION_NORMAL:
+            case Payment_Process2::ACTION_NORMAL:
                 return Payment_Process2_Bibit::ACTION_BIBIT_REDIRECT;
-            case PAYMENT_PROCESS2_ACTION_AUTHONLY:
+            case Payment_Process2::ACTION_AUTHONLY:
                 return Payment_Process2_Bibit::ACTION_BIBIT_AUTH;
-            case PAYMENT_PROCESS2_ACTION_CREDIT:
+            case Payment_Process2::ACTION_CREDIT:
                 return Payment_Process2_Bibit::ACTION_BIBIT_REFUND;
-            case PAYMENT_PROCESS2_ACTION_SETTLE:
+            case Payment_Process2::ACTION_SETTLE:
                 return Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE;
         }
 

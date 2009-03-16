@@ -5,10 +5,10 @@ require_once 'Payment/Process2/Result/Driver.php';
 class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
 
-    var $_statusCodeMap = array('1' => PAYMENT_PROCESS2_RESULT_APPROVED,
-                                '2' => PAYMENT_PROCESS2_RESULT_DECLINED,
-                                '3' => PAYMENT_PROCESS2_RESULT_OTHER,
-                                '4' => PAYMENT_PROCESS2_RESULT_REVIEW,
+    var $_statusCodeMap = array('1' => Payment_Process2::RESULT_APPROVED,
+                                '2' => Payment_Process2::RESULT_DECLINED,
+                                '3' => Payment_Process2::RESULT_OTHER,
+                                '4' => Payment_Process2::RESULT_REVIEW,
                                 );
     /**
      * PayPal error codes
@@ -24,28 +24,28 @@ class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements 
     var $_statusCodeMessages = array();
 
     var $_avsCodeMap = array(
-        '0' => PAYMENT_PROCESS2_AVS_MATCH,
-        '1' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        '2' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        '3' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        '4' => PAYMENT_PROCESS2_AVS_ERROR,
-        'A' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'B' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'C' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'D' => PAYMENT_PROCESS2_AVS_MATCH,
-        'E' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        'F' => PAYMENT_PROCESS2_AVS_MATCH,
-        'G' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        'I' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        'N' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'P' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'R' => PAYMENT_PROCESS2_AVS_ERROR,
-        'S' => PAYMENT_PROCESS2_AVS_ERROR,
-        'U' => PAYMENT_PROCESS2_AVS_ERROR,
-        'W' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'X' => PAYMENT_PROCESS2_AVS_MATCH,
-        'Y' => PAYMENT_PROCESS2_AVS_MATCH,
-        'Z' => PAYMENT_PROCESS2_AVS_MISMATCH,
+        '0' => Payment_Process2::AVS_MATCH,
+        '1' => Payment_Process2::AVS_MISMATCH,
+        '2' => Payment_Process2::AVS_MISMATCH,
+        '3' => Payment_Process2::AVS_NOAPPLY,
+        '4' => Payment_Process2::AVS_ERROR,
+        'A' => Payment_Process2::AVS_MISMATCH,
+        'B' => Payment_Process2::AVS_MISMATCH,
+        'C' => Payment_Process2::AVS_MISMATCH,
+        'D' => Payment_Process2::AVS_MATCH,
+        'E' => Payment_Process2::AVS_NOAPPLY,
+        'F' => Payment_Process2::AVS_MATCH,
+        'G' => Payment_Process2::AVS_NOAPPLY,
+        'I' => Payment_Process2::AVS_NOAPPLY,
+        'N' => Payment_Process2::AVS_MISMATCH,
+        'P' => Payment_Process2::AVS_MISMATCH,
+        'R' => Payment_Process2::AVS_ERROR,
+        'S' => Payment_Process2::AVS_ERROR,
+        'U' => Payment_Process2::AVS_ERROR,
+        'W' => Payment_Process2::AVS_MISMATCH,
+        'X' => Payment_Process2::AVS_MATCH,
+        'Y' => Payment_Process2::AVS_MATCH,
+        'Z' => Payment_Process2::AVS_MISMATCH,
     );
 
     var $_avsCodeMessages = array(
@@ -74,17 +74,17 @@ class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements 
     );
 
     var $_cvvCodeMap = array(
-        '0' => PAYMENT_PROCESS2_CVV_MATCH,
-        '1' => PAYMENT_PROCESS2_CVV_MISMATCH,
-        '2' => PAYMENT_PROCESS2_CVV_NOAPPLY,
-        '3' => PAYMENT_PROCESS2_CVV_NOAPPLY,
-        '4' => PAYMENT_PROCESS2_CVV_ERROR,
-        'M' => PAYMENT_PROCESS2_CVV_MATCH,
-        'N' => PAYMENT_PROCESS2_CVV_MISMATCH,
-        'P' => PAYMENT_PROCESS2_CVV_ERROR,
-        'S' => PAYMENT_PROCESS2_CVV_NOAPPLY,
-        'U' => PAYMENT_PROCESS2_CVV_ERROR,
-        'X' => PAYMENT_PROCESS2_CVV_ERROR,
+        '0' => Payment_Process2::CVV_MATCH,
+        '1' => Payment_Process2::CVV_MISMATCH,
+        '2' => Payment_Process2::CVV_NOAPPLY,
+        '3' => Payment_Process2::CVV_NOAPPLY,
+        '4' => Payment_Process2::CVV_ERROR,
+        'M' => Payment_Process2::CVV_MATCH,
+        'N' => Payment_Process2::CVV_MISMATCH,
+        'P' => Payment_Process2::CVV_ERROR,
+        'S' => Payment_Process2::CVV_NOAPPLY,
+        'U' => Payment_Process2::CVV_ERROR,
+        'X' => Payment_Process2::CVV_ERROR,
     );
 
     var $_cvvCodeMessages = array(
@@ -135,14 +135,14 @@ class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements 
                 break;
             case 11:
                 // Duplicate transactions
-                $this->code = PAYMENT_PROCESS2_RESULT_DUPLICATE;
+                $this->code = Payment_Process2::RESULT_DUPLICATE;
                 break;
             case 4:
             case 41:
             case 250:
             case 251:
                 // Fraud detected
-                $this->code = PAYMENT_PROCESS2_RESULT_FRAUD;
+                $this->code = Payment_Process2::RESULT_FRAUD;
                 break;
         }
     }

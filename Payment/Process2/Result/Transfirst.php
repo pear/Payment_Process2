@@ -91,9 +91,9 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result impleme
      * @access private
      */
     var $_statusCodeMap = array(
-        '00' => PAYMENT_PROCESS2_RESULT_APPROVED,
-        '05' => PAYMENT_PROCESS2_RESULT_DECLINED,
-        'V7' => PAYMENT_PROCESS2_RESULT_DECLINED
+        '00' => Payment_Process2::RESULT_APPROVED,
+        '05' => Payment_Process2::RESULT_DECLINED,
+        'V7' => Payment_Process2::RESULT_DECLINED
     );
 
     var $_aciCodes = array(

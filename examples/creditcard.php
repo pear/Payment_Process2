@@ -12,7 +12,7 @@ $process = Payment_Process::factory('AuthorizeNet',$options);
 $process->_debug = true;
 $process->login = 'username';
 $process->password = 'password';
-$process->action = PAYMENT_PROCESS2_ACTION_AUTHONLY;
+$process->action = Payment_Process2::ACTION_AUTHONLY;
 $process->amount = 1.00;
 
 $card = Payment_Process2_Type::factory('CreditCard');

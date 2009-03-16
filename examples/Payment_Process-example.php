@@ -54,7 +54,7 @@ $processor = Payment_Process::factory('Dummy', $options);
 $data = array(
     'login' => "foo",
     'password' => "bar",
-    'action' => PAYMENT_PROCESS2_ACTION_NORMAL,
+    'action' => Payment_Process2::ACTION_NORMAL,
     'amount' => 15.00
 );
 

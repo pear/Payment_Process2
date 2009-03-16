@@ -145,7 +145,7 @@ class Payment_Process2_Common
     /**
      * Processing action.
      *
-     * This should be set to one of the PAYMENT_PROCESS2_ACTION_* constants.
+     * This should be set to one of the Payment_Process2::ACTION_* constants.
      *
      * @var int
      */
@@ -184,7 +184,7 @@ class Payment_Process2_Common
     /**
      * Transaction source.
      *
-     * This should be set to one of the PAYMENT_PROCESS2_SOURCE_* constants.
+     * This should be set to one of the Payment_Process2::SOURCE_* constants.
      *
      * @var int
      */
@@ -314,7 +314,7 @@ class Payment_Process2_Common
                 $res = $this->$func();
                 /** @todo All of these should raise exceptions instead */
                 if (is_bool($res) && $res == false) {
-                    throw new Payment_Process2_Exception('Validation of field "'.$field.'" failed; the method should have raised an exception.', PAYMENT_PROCESS2_ERROR_INVALID);
+                    throw new Payment_Process2_Exception('Validation of field "'.$field.'" failed; the method should have raised an exception.', Payment_Process2::ERROR_INVALID);
                 }
             }
         }
@@ -344,7 +344,7 @@ class Payment_Process2_Common
     function set($field, $value)
     {
         if (!$this->fieldExists($field)) {
-            throw new Payment_Process2_Exception('Field "' . $field . '" does not exist.', PAYMENT_PROCESS2_ERROR_INVALID);
+            throw new Payment_Process2_Exception('Field "' . $field . '" does not exist.', Payment_Process2::ERROR_INVALID);
         }
         $this->$field = $value;
         return true;
@@ -456,9 +456,9 @@ class Payment_Process2_Common
      * See if a value is a defined constant.
      *
      * This function checks to see if $value is defined in one of
-     * PAYMENT_PROCESS2_{$class}_*. It's used to verify that e.g.
-     * $object->action is one of PAYMENT_PROCESS2_ACTION_NORMAL,
-     * PAYMENT_PROCESS2_ACTION_AUTHONLY etc.
+     * Payment_Process2::{$class}_*. It's used to verify that e.g.
+     * $object->action is one of Payment_Process2::ACTION_NORMAL,
+     * Payment_Process2::ACTION_AUTHONLY etc.
      *
      * @param mixed $value Value to check
      * @param mixed $class Constant class to check
@@ -468,7 +468,7 @@ class Payment_Process2_Common
      */
     function _isDefinedConst($value, $class)
     {
-        $constClass = 'PAYMENT_PROCESS2_'.strtoupper($class).'_';
+        $constClass = 'Payment_Process2::'.strtoupper($class).'_';
 
         $length = strlen($constClass);
         $consts = get_defined_constants();

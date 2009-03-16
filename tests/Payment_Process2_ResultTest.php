@@ -78,14 +78,14 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
 
     public function testShouldDefaultToDeclinedWithUnknownTypes() {
         $result = new Payment_Process2_Result(null, new Payment_Process2_Common());
-        $this->assertSame(PAYMENT_PROCESS2_RESULT_DECLINED, $result->getCode());
+        $this->assertSame(Payment_Process2::RESULT_DECLINED, $result->getCode());
     }
 
     public function testShouldRespectInternalSettingsWhenReadingCodes() {
         $result = new Payment_Process2_Result(null, new Payment_Process2_Common());
-        $result->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $result->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
-        $this->assertSame(PAYMENT_PROCESS2_RESULT_APPROVED, $result->getCode());
+        $this->assertSame(Payment_Process2::RESULT_APPROVED, $result->getCode());
     }
 
     public function testShouldRespectInternalSettingsWhenReadingMessages1() {
@@ -119,7 +119,7 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
 
     public function testShouldValidateCorrectly2() {
         $r = new Payment_Process2_Result(null, new Payment_Process2_Common());
-        $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $r->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
 
         $result = $r->validate();
@@ -148,7 +148,7 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
-        $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $r->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
         try {
             $r->validate();
@@ -168,7 +168,7 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
-        $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $r->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
         $result = $r->validate();
         $this->assertTrue($result);
@@ -183,7 +183,7 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
-        $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $r->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
         $this->assertSame(null, $r->getCvvCode(), "Expected this to be null; a generic result shouldn't understand any cvv codes");
 
@@ -203,12 +203,12 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
-        $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $r->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
-        $r->_cvvCodeMap[1] = PAYMENT_PROCESS2_CVV_MATCH;
+        $r->_cvvCodeMap[1] = Payment_Process2::CVV_MATCH;
         $r->cvvCode = 1;
 
-        $this->assertSame(PAYMENT_PROCESS2_CVV_MATCH, $r->getCvvCode());
+        $this->assertSame(Payment_Process2::CVV_MATCH, $r->getCvvCode());
 
         $result = $r->validate();
 
@@ -223,12 +223,12 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
-        $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+        $r->_statusCodeMap[null] = Payment_Process2::RESULT_APPROVED;
 
-        $r->_cvvCodeMap[1] = PAYMENT_PROCESS2_CVV_MATCH;
+        $r->_cvvCodeMap[1] = Payment_Process2::CVV_MATCH;
         $r->cvvCode = 2;
 
-        $this->assertNotSame(PAYMENT_PROCESS2_CVV_MATCH, $r->getCvvCode());
+        $this->assertNotSame(Payment_Process2::CVV_MATCH, $r->getCvvCode());
 
         try {
             $r->validate();

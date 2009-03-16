@@ -10,7 +10,7 @@ $process = Payment_Process::factory('AuthorizeNet',$options);
 $process->_debug = true;
 $process->login = 'username';
 $process->password = 'password';
-$process->action = PAYMENT_PROCESS2_ACTION_AUTHONLY;
+$process->action = Payment_Process2::ACTION_AUTHONLY;
 $process->amount = 9.95;
 
 $check = Payment_Process2_Type::factory('eCheck');
@@ -19,7 +19,7 @@ $check->invoiceNumber = 112345145;
 $check->customerId = 1461264151;
 $check->firstName = 'Jose';
 $check->lastName = 'Perez';
-$check->type = PAYMENT_PROCESS2_CK_CHECKING;
+$check->type = Payment_Process2::CK_CHECKING;
 $check->bankName = 'Bank of USA';
 $check->accountNumber = '2222222222';
 $check->routingCode = '2222222222';

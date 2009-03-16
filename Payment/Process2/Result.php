@@ -50,15 +50,15 @@ class Payment_Process2_Result
      *
      * The value returned by your gateway as approved/declined should be mapped
      * into this variable. Valid results should then be mapped into the
-     * appropriate PAYMENT_PROCESS2_RESULT_* code using the $_statusCodeMap
+     * appropriate Payment_Process2::RESULT_* code using the $_statusCodeMap
      * array. Values returned into $code should be mapped as keys in the map
-     * with PAYMENT_PROCESS2_RESULT_* as the values.
+     * with Payment_Process2::RESULT_* as the values.
      *
      * @author  Joe Stump <joe@joestump.net>
      * @access  public
      * @var     mixed  $code
-     * @see    PAYMENT_PROCESS2_RESULT_APPROVED, PAYMENT_PROCESS2_RESULT_DECLINED
-     * @see    PAYMENT_PROCESS2_RESULT_OTHER, $_statusCodeMap
+     * @see    Payment_Process2::RESULT_APPROVED, Payment_Process2::RESULT_DECLINED
+     * @see    Payment_Process2::RESULT_OTHER, $_statusCodeMap
      */
     var $code;
 
@@ -104,15 +104,15 @@ class Payment_Process2_Result
      * Address verification code
      *
      * The AVS code returned from your gateway. This should then be mapped to
-     * the appropriate PAYMENT_PROCESS2_AVS_* code using $_avsCodeMap. This value
+     * the appropriate Payment_Process2::AVS_* code using $_avsCodeMap. This value
      * should also be mapped to the appropriate textual message via the
      * $_avsCodeMessages array.
      *
      * @author  Joe Stump <joe@joestump.net>
      * @access  public
      * @var     string  $avsCode
-     * @see     PAYMENT_PROCESS2_AVS_MISMATCH, PAYMENT_PROCESS2_AVS_ERROR
-     * @see     PAYMENT_PROCESS2_AVS_MATCH, PAYMENT_PROCESS2_AVS_NOAPPLY, $_avsCodeMap
+     * @see     Payment_Process2::AVS_MISMATCH, Payment_Process2::AVS_ERROR
+     * @see     Payment_Process2::AVS_MATCH, Payment_Process2::AVS_NOAPPLY, $_avsCodeMap
      * @see     $_avsCodeMessages
      */
     var $avsCode;
@@ -160,13 +160,13 @@ class Payment_Process2_Result
      *
      * The CVV code is the 3-4 digit number on the back of most credit cards.
      * This value should be mapped via the $_cvvCodeMap variable to the
-     * appropriate PAYMENT_PROCESS2_CVV_* values.
+     * appropriate Payment_Process2::CVV_* values.
      *
      * @author Joe Stump <joe@joestump.net>
      * @access public
      * @var string $cvvCode
      */
-    var $cvvCode = PAYMENT_PROCESS2_CVV_NOAPPLY;
+    var $cvvCode = Payment_Process2::CVV_NOAPPLY;
 
     /**
      * CVV Message
@@ -243,25 +243,25 @@ class Payment_Process2_Result
         $payment = $request->_payment;
 
         if ($request->getOption('avsCheck') === true) {
-            if ($this->getAVSCode() != PAYMENT_PROCESS2_AVS_MATCH) {
+            if ($this->getAVSCode() != Payment_Process2::AVS_MATCH) {
                 throw new Payment_Process2_Exception('AVS check failed',
-                                        PAYMENT_PROCESS2_ERROR_AVS);
+                                        Payment_Process2::ERROR_AVS);
             }
         }
 
         if ($request->getOption('cvvCheck') === true &&
             $payment instanceof Payment_Process2_Type_CreditCard) {
 
-            if ($this->getCvvCode() != PAYMENT_PROCESS2_CVV_MATCH) {
+            if ($this->getCvvCode() != Payment_Process2::CVV_MATCH) {
                 throw new Payment_Process2_Exception('CVV check failed',
-                                        PAYMENT_PROCESS2_ERROR_CVV);
+                                        Payment_Process2::ERROR_CVV);
             }
 
         }
 
-        if ($this->getCode() != PAYMENT_PROCESS2_RESULT_APPROVED) {
+        if ($this->getCode() != Payment_Process2::RESULT_APPROVED) {
             throw new Payment_Process2_Exception($this->getMessage(),
-                                    PAYMENT_PROCESS2_RESULT_DECLINED);
+                                    Payment_Process2::RESULT_DECLINED);
         }
 
         return true;
@@ -270,7 +270,7 @@ class Payment_Process2_Result
     /**
      * getCode
      *
-     * @return integer one of PAYMENT_PROCESS2_RESULT_* constant
+     * @return integer one of Payment_Process2::RESULT_* constant
      * @author Joe Stump <joe@joestump.net>
      * @access public
      */
@@ -280,7 +280,7 @@ class Payment_Process2_Result
             return $this->_statusCodeMap[$this->code];
         }
 
-        return PAYMENT_PROCESS2_RESULT_DECLINED;
+        return Payment_Process2::RESULT_DECLINED;
     }
 
     /**
@@ -307,7 +307,7 @@ class Payment_Process2_Result
     /**
      * Returns the AVS code
      *
-     * @return integer one of PAYMENT_PROCESS2_AVS_* constants
+     * @return integer one of Payment_Process2::AVS_* constants
      */
     function getAVSCode()
     {
@@ -330,7 +330,7 @@ class Payment_Process2_Result
      *
      * @todo Think if this should raise exceptions for unknown cvvcode?
      *
-     * @return integer One of PAYMENT_PROCESS2_CVV_* constants or null
+     * @return integer One of Payment_Process2::CVV_* constants or null
      */
     function getCvvCode()
     {

@@ -79,7 +79,7 @@ class Payment_Process2_BibitTest extends PHPUnit_Framework_TestCase {
 
         $object->login = 'UPPERCASE';
         $object->password = 'test';
-        $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+        $object->action = Payment_Process2::ACTION_NORMAL;
         $object->amount = 1;
         $object->ordercode = "ABC";
         $object->currency = "AU";
@@ -106,7 +106,7 @@ class Payment_Process2_BibitTest extends PHPUnit_Framework_TestCase {
         $object->login = 'UPPERCASE';
         $object->password = 'test';
         $object->amount = 1;
-        $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
+        $object->action = Payment_Process2::ACTION_NORMAL;
         $object->ordercode = "ABC";
         $object->currency = "AU";
         $object->description = "Unit test";

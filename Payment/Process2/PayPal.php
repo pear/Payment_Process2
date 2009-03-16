@@ -208,21 +208,21 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
     function _handleAction()
     {
         switch ($this->action) {
-            case PAYMENT_PROCESS2_ACTION_NORMAL:
+            case Payment_Process2::ACTION_NORMAL:
                 $this->_data['PAYMENTACTION'] = 'Sale';
                 $this->_data['METHOD'] = 'DoDirectPayment';
                 break;
-            case PAYMENT_PROCESS2_ACTION_AUTHONLY:
+            case Payment_Process2::ACTION_AUTHONLY:
                 $this->_data['PAYMENTACTION'] = 'Authorization';
                 $this->_data['METHOD'] = 'DoDirectPayment';
                 break;
-            case PAYMENT_PROCESS2_ACTION_POSTAUTH:
+            case Payment_Process2::ACTION_POSTAUTH:
                 $this->_data['METHOD'] = 'DoCapture';
                 break;
-            case PAYMENT_PROCESS2_ACTION_VOID    :
+            case Payment_Process2::ACTION_VOID    :
                 $this->_data['METHOD'] = 'DoVoid';
                 break;
-            case PAYMENT_PROCESS2_ACTION_CREDIT  :
+            case Payment_Process2::ACTION_CREDIT  :
                 $this->_data['METHOD'] = 'RefundTransaction';
                 break;
         }
@@ -261,15 +261,15 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
 
     public function translateAction($action) {
         switch ($action) {
-            case PAYMENT_PROCESS2_ACTION_NORMAL:
+            case Payment_Process2::ACTION_NORMAL:
                 return 'Sale';
-            case PAYMENT_PROCESS2_ACTION_AUTHONLY:
+            case Payment_Process2::ACTION_AUTHONLY:
                 return 'Authorization';
-            case PAYMENT_PROCESS2_ACTION_POSTAUTH:
+            case Payment_Process2::ACTION_POSTAUTH:
                 return 'DoCapture';
-            case PAYMENT_PROCESS2_ACTION_VOID:
+            case Payment_Process2::ACTION_VOID:
                 return 'DoVoid';
-            case PAYMENT_PROCESS2_ACTION_CREDIT:
+            case Payment_Process2::ACTION_CREDIT:
                 return 'RefundTransaction';
         }
 

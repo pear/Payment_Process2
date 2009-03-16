@@ -54,75 +54,6 @@ require_once 'Payment/Process2/Type.php';
 require_once 'Payment/Process2/Exception.php';
 require_once 'Payment/Process2/Result.php';
 
-/**
- * Error codes
- */
-define('PAYMENT_PROCESS2_ERROR_NOTIMPLEMENTED', -100);
-define('PAYMENT_PROCESS2_ERROR_NOFIELD', -101);
-define('PAYMENT_PROCESS2_ERROR_NOPROCESSOR', -102);
-define('PAYMENT_PROCESS2_ERROR_INCOMPLETE', -1);
-define('PAYMENT_PROCESS2_ERROR_INVALID', -2);
-define('PAYMENT_PROCESS2_ERROR_AVS', -3);
-define('PAYMENT_PROCESS2_ERROR_CVV', -4);
-define('PAYMENT_PROCESS2_ERROR_UNSUPPORTED', -5);
-define('PAYMENT_PROCESS2_ERROR_COMMUNICATION', -200);
-
-/**
- * Transaction actions
- */
-/**
- * A normal transaction
- */
-define('PAYMENT_PROCESS2_ACTION_NORMAL', 200);
-
-/**
- * Authorize only. No funds are transferred.
- */
-define('PAYMENT_PROCESS2_ACTION_AUTHONLY', 201);
-
-/**
- * Credit funds back from a previously-charged transaction.
- */
-define('PAYMENT_PROCESS2_ACTION_CREDIT', 202);
-
-/**
- * Post-authorize an AUTHONLY transaction.
- */
-define('PAYMENT_PROCESS2_ACTION_POSTAUTH', 203);
-
-/**
- * Clear a previous transaction
- */
-define('PAYMENT_PROCESS2_ACTION_VOID', 204);
-
-/**
- * Transaction sources
- */
-define('PAYMENT_PROCESS2_SOURCE_POS', 300);
-define('PAYMENT_PROCESS2_SOURCE_ONLINE', 301);
-define('PAYMENT_PROCESS2_SOURCE_PHONE', 302);
-define('PAYMENT_PROCESS2_SOURCE_MAIL', 303);
-
-
-/**
- * Result codes
- */
-define('PAYMENT_PROCESS2_RESULT_APPROVED', 400);
-define('PAYMENT_PROCESS2_RESULT_DECLINED', 401);
-define('PAYMENT_PROCESS2_RESULT_OTHER', 402);
-define('PAYMENT_PROCESS2_RESULT_FRAUD', 403);
-define('PAYMENT_PROCESS2_RESULT_DUPLICATE', 404);
-define('PAYMENT_PROCESS2_RESULT_REVIEW', 405);
-
-define('PAYMENT_PROCESS2_AVS_MATCH', 500);
-define('PAYMENT_PROCESS2_AVS_MISMATCH', 501);
-define('PAYMENT_PROCESS2_AVS_ERROR', 502);
-define('PAYMENT_PROCESS2_AVS_NOAPPLY', 503);
-
-define('PAYMENT_PROCESS2_CVV_MATCH', 600);
-define('PAYMENT_PROCESS2_CVV_MISMATCH', 601);
-define('PAYMENT_PROCESS2_CVV_ERROR', 602);
-define('PAYMENT_PROCESS2_CVV_NOAPPLY', 603);
 
 /**
  * Payment_Process
@@ -136,6 +67,75 @@ define('PAYMENT_PROCESS2_CVV_NOAPPLY', 603);
  */
 class Payment_Process2
 {
+    /**
+     * Error codes
+     */
+    const ERROR_NOTIMPLEMENTED = -100;
+    const ERROR_NOFIELD = -101;
+    const ERROR_NOPROCESSOR = -102;
+    const ERROR_INCOMPLETE = -1;
+    const ERROR_INVALID = -2;
+    const ERROR_AVS = -3;
+    const ERROR_CVV = -4;
+    const ERROR_UNSUPPORTED = -5;
+    const ERROR_COMMUNICATION = -200;
+
+    /**
+     * Transaction actions
+     */
+    /**
+     * A normal transaction
+     */
+    const ACTION_NORMAL = 200;
+
+    /**
+     * Authorize only. No funds are transferred.
+     */
+    const ACTION_AUTHONLY = 201;
+
+    /**
+     * Credit funds back from a previously-charged transaction.
+     */
+    const ACTION_CREDIT = 202;
+
+    /**
+     * Post-authorize an AUTHONLY transaction.
+     */
+    const ACTION_POSTAUTH = 203;
+
+    /**
+     * Clear a previous transaction
+     */
+    const ACTION_VOID = 204;
+
+    /**
+     * Transaction sources
+     */
+    const SOURCE_POS = 300;
+    const SOURCE_ONLINE = 301;
+    const SOURCE_PHONE = 302;
+    const SOURCE_MAIL = 303;
+
+
+    /**
+     * Result codes
+     */
+    const RESULT_APPROVED = 400;
+    const RESULT_DECLINED = 401;
+    const RESULT_OTHER = 402;
+    const RESULT_FRAUD = 403;
+    const RESULT_DUPLICATE = 404;
+    const RESULT_REVIEW = 405;
+
+    const AVS_MATCH = 500;
+    const AVS_MISMATCH = 501;
+    const AVS_ERROR = 502;
+    const AVS_NOAPPLY = 503;
+
+    const CVV_MATCH = 600;
+    const CVV_MISMATCH = 601;
+    const CVV_ERROR = 602;
+    const CVV_NOAPPLY = 603;
 
     var $_defaultOptions = array();
 
@@ -164,7 +164,7 @@ class Payment_Process2
         }
 
         throw new Payment_Process2_Exception('"'.$type.'" processor does not exist',
-                                PAYMENT_PROCESS2_ERROR_NOPROCESSOR);
+                                Payment_Process2::ERROR_NOPROCESSOR);
     }
 
     /**
@@ -270,7 +270,7 @@ class Payment_Process2
      */
     function isSuccess(Payment_Process2_Result $obj)
     {
-        return ($obj->getCode() == PAYMENT_PROCESS2_RESULT_APPROVED);
+        return ($obj->getCode() == Payment_Process2::RESULT_APPROVED);
     }
 
 }

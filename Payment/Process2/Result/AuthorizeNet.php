@@ -5,10 +5,10 @@ require_once 'Payment/Process2/Result/Driver.php';
 class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
 
-    var $_statusCodeMap = array('1' => PAYMENT_PROCESS2_RESULT_APPROVED,
-                                '2' => PAYMENT_PROCESS2_RESULT_DECLINED,
-                                '3' => PAYMENT_PROCESS2_RESULT_OTHER,
-                                '4' => PAYMENT_PROCESS2_RESULT_REVIEW
+    var $_statusCodeMap = array('1' => Payment_Process2::RESULT_APPROVED,
+                                '2' => Payment_Process2::RESULT_DECLINED,
+                                '3' => Payment_Process2::RESULT_OTHER,
+                                '4' => Payment_Process2::RESULT_REVIEW
                                 );
 
     /**
@@ -194,19 +194,19 @@ class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result imple
     );
 
     var $_avsCodeMap = array(
-        'A' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'B' => PAYMENT_PROCESS2_AVS_ERROR,
-        'E' => PAYMENT_PROCESS2_AVS_ERROR,
-        'G' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        'N' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'P' => PAYMENT_PROCESS2_AVS_NOAPPLY,
-        'R' => PAYMENT_PROCESS2_AVS_ERROR,
-        'S' => PAYMENT_PROCESS2_AVS_ERROR,
-        'U' => PAYMENT_PROCESS2_AVS_ERROR,
-        'W' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'X' => PAYMENT_PROCESS2_AVS_MATCH,
-        'Y' => PAYMENT_PROCESS2_AVS_MATCH,
-        'Z' => PAYMENT_PROCESS2_AVS_MISMATCH
+        'A' => Payment_Process2::AVS_MISMATCH,
+        'B' => Payment_Process2::AVS_ERROR,
+        'E' => Payment_Process2::AVS_ERROR,
+        'G' => Payment_Process2::AVS_NOAPPLY,
+        'N' => Payment_Process2::AVS_MISMATCH,
+        'P' => Payment_Process2::AVS_NOAPPLY,
+        'R' => Payment_Process2::AVS_ERROR,
+        'S' => Payment_Process2::AVS_ERROR,
+        'U' => Payment_Process2::AVS_ERROR,
+        'W' => Payment_Process2::AVS_MISMATCH,
+        'X' => Payment_Process2::AVS_MATCH,
+        'Y' => Payment_Process2::AVS_MATCH,
+        'Z' => Payment_Process2::AVS_MISMATCH
     );
 
     var $_avsCodeMessages = array(
@@ -225,11 +225,11 @@ class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result imple
         'Z' => '5-digit postal code matches, street address does not'
     );
 
-    var $_cvvCodeMap = array('M' => PAYMENT_PROCESS2_CVV_MATCH,
-                             'N' => PAYMENT_PROCESS2_CVV_MISMATCH,
-                             'P' => PAYMENT_PROCESS2_CVV_ERROR,
-                             'S' => PAYMENT_PROCESS2_CVV_ERROR,
-                             'U' => PAYMENT_PROCESS2_CVV_ERROR
+    var $_cvvCodeMap = array('M' => Payment_Process2::CVV_MATCH,
+                             'N' => Payment_Process2::CVV_MISMATCH,
+                             'P' => Payment_Process2::CVV_ERROR,
+                             'S' => Payment_Process2::CVV_ERROR,
+                             'U' => Payment_Process2::CVV_ERROR
     );
 
     var $_cvvCodeMessages = array(
@@ -308,14 +308,14 @@ class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result imple
                 break;
             case 11:
                 // Duplicate transactions
-                $this->code = PAYMENT_PROCESS2_RESULT_DUPLICATE;
+                $this->code = Payment_Process2::RESULT_DUPLICATE;
                 break;
             case 4:
             case 41:
             case 250:
             case 251:
                 // Fraud detected
-                $this->code = PAYMENT_PROCESS2_RESULT_FRAUD;
+                $this->code = Payment_Process2::RESULT_FRAUD;
                 break;
         }
     }

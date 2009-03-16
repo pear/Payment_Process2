@@ -13,9 +13,9 @@ require_once 'Payment/Process2/Result/Driver.php';
 class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
 
-    var $_statusCodeMap = array('APPROVED' => PAYMENT_PROCESS2_RESULT_APPROVED,
-                                'DECLINED' => PAYMENT_PROCESS2_RESULT_DECLINED,
-                                'FRAUD' => PAYMENT_PROCESS2_RESULT_FRAUD);
+    var $_statusCodeMap = array('APPROVED' => Payment_Process2::RESULT_APPROVED,
+                                'DECLINED' => Payment_Process2::RESULT_DECLINED,
+                                'FRAUD' => Payment_Process2::RESULT_FRAUD);
 
     /**
      * LinkPoint status codes
@@ -34,15 +34,15 @@ class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implemen
         'FRAUD' => 'This transaction has been determined to be fraud.');
 
     var $_avsCodeMap = array(
-        'YY' => PAYMENT_PROCESS2_AVS_MATCH,
-        'YN' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'YX' => PAYMENT_PROCESS2_AVS_ERROR,
-        'NY' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'XY' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'NN' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'NX' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'XN' => PAYMENT_PROCESS2_AVS_MISMATCH,
-        'XX' => PAYMENT_PROCESS2_AVS_ERROR
+        'YY' => Payment_Process2::AVS_MATCH,
+        'YN' => Payment_Process2::AVS_MISMATCH,
+        'YX' => Payment_Process2::AVS_ERROR,
+        'NY' => Payment_Process2::AVS_MISMATCH,
+        'XY' => Payment_Process2::AVS_MISMATCH,
+        'NN' => Payment_Process2::AVS_MISMATCH,
+        'NX' => Payment_Process2::AVS_MISMATCH,
+        'XN' => Payment_Process2::AVS_MISMATCH,
+        'XX' => Payment_Process2::AVS_ERROR
     );
 
     var $_avsCodeMessages = array(
@@ -57,12 +57,12 @@ class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implemen
         'XX' => 'Address comparison not available, zip code comparison not available'
     );
 
-    var $_cvvCodeMap = array('M' => PAYMENT_PROCESS2_CVV_MATCH,
-                             'N' => PAYMENT_PROCESS2_CVV_MISMATCH,
-                             'P' => PAYMENT_PROCESS2_CVV_ERROR,
-                             'S' => PAYMENT_PROCESS2_CVV_ERROR,
-                             'U' => PAYMENT_PROCESS2_CVV_ERROR,
-                             'X' => PAYMENT_PROCESS2_CVV_ERROR
+    var $_cvvCodeMap = array('M' => Payment_Process2::CVV_MATCH,
+                             'N' => Payment_Process2::CVV_MISMATCH,
+                             'P' => Payment_Process2::CVV_ERROR,
+                             'S' => Payment_Process2::CVV_ERROR,
+                             'U' => Payment_Process2::CVV_ERROR,
+                             'X' => Payment_Process2::CVV_ERROR
     );
 
     var $_cvvCodeMessages = array(
