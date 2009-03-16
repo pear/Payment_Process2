@@ -89,28 +89,6 @@ class Payment_Process2_DummyTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($result instanceof Payment_Process2_Result_Dummy);
     }
 
-    public function testShouldFailGracefullyOnFailedTransaction() {
-
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse('HTTP/1.1 404 Not Found');
-
-        $request = new HTTP_Request2();
-        $request->setAdapter($mock);
-
-        $object = Payment_Process2::factory('Dummy');
-        $object->login = 'unit';
-        $object->password = 'test';
-        $object->amount = 1;
-        $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
-
-        $object->setRequest($request);
-        $object->setPayment($this->aValidPayment());
-
-        $result = $object->process();
-
-        $this->assertTrue($result instanceof PEAR_Error);
-    }
-
 
     /*
 function __construct($options = false)
