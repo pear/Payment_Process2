@@ -176,7 +176,7 @@ class Payment_Process2_Type
     {
         $class = 'Payment_Process2_Type_'.$type;
         $path = 'Payment/Process2/Type/'.$type.'.php';
-        if (@fclose(@fopen($path, 'r+', true))) {
+        if (@fclose(@fopen($path, 'r', true))) {
             include_once $path;
 
             if (class_exists($class)) {

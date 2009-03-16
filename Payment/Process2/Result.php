@@ -216,7 +216,7 @@ class Payment_Process2_Result
         $class = 'Payment_Process2_Result_'.$type;
 
         $path = 'Payment/Process2/Result/'.$type.'.php';
-        if (@fclose(@fopen($path, 'r+', true))) {
+        if (@fclose(@fopen($path, 'r', true))) {
             include_once $path;
 
             if (class_exists($class)) {
