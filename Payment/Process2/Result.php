@@ -184,6 +184,8 @@ class Payment_Process2_Result
 
     var $_avsCodeMap = array();
 
+    var $_cvvCodeMap = array();
+
     /**
      * Class constructor
      *
@@ -237,20 +239,18 @@ class Payment_Process2_Result
      */
     function validate()
     {
-        if ($this->_request->getOption('avsCheck') === true) {
+        $request = $this->_request;
+        $payment = $request->_payment;
+
+        if ($request->getOption('avsCheck') === true) {
             if ($this->getAVSCode() != PAYMENT_PROCESS2_AVS_MATCH) {
                 throw new Payment_Process2_Exception('AVS check failed',
                                         PAYMENT_PROCESS2_ERROR_AVS);
             }
         }
 
-        $paymentType = null;
-        if (isset($this->_request->_payment->_type)) {
-            $paymentType = $this->_request->_payment->_type;
-        }
-
-        if ($this->_request->getOption('cvvCheck') === true &&
-            $paymentType == 'CreditCard') {
+        if ($request->getOption('cvvCheck') === true &&
+            $payment instanceof Payment_Process2_Type_CreditCard) {
 
             if ($this->getCvvCode() != PAYMENT_PROCESS2_CVV_MATCH) {
                 throw new Payment_Process2_Exception('CVV check failed',
@@ -328,11 +328,13 @@ class Payment_Process2_Result
     /**
      * Return the CVV match code
      *
-     * @return integer One of PAYMENT_PROCESS2_CVV_* constants
+     * @todo Think if this should raise exceptions for unknown cvvcode?
+     *
+     * @return integer One of PAYMENT_PROCESS2_CVV_* constants or null
      */
     function getCvvCode()
     {
-        return $this->_cvvCodeMap[$this->cvvCode];
+        return isset($this->_cvvCodeMap[$this->cvvCode])? $this->_cvvCodeMap[$this->cvvCode] : null;
     }
 
     /**

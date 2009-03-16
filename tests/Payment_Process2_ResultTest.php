@@ -47,6 +47,17 @@ require_once 'Payment/Process2/Common.php';
 
 class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
 
+    public function aValidPayment() {
+        $cc = Payment_Process2_Type::factory('CreditCard');
+        $cc->setDate(strtotime('2008-01-01'));
+        $cc->type = PAYMENT_PROCESS2_CC_MASTERCARD;
+        $cc->cardNumber = '5123456789012346';
+        $cc->expDate = '12/2008';
+        $cc->cvv = '123';
+
+        return $cc;
+    }
+
     public function testShouldCreateObjectWithFactory() {
         $object = Payment_Process2_Result::factory('Dummy', null, new Payment_Process2_Common());
 
@@ -92,7 +103,10 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
 
 
     public function testShouldValidateCorrectly1() {
-        $r = new Payment_Process2_Result(null, new Payment_Process2_Common());
+        $processor = Payment_Process2::factory('Dummy');
+        $processor->setPayment($this->aValidPayment());
+
+        $r = new Payment_Process2_Result(null, $processor);
 
         try {
             $r->validate();
@@ -114,9 +128,24 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
     }
 
 
+    public function testShouldValidateCorrectly3() {
+        $r = new Payment_Process2_Result(null, new Payment_Process2_Common());
+
+        try {
+            $r->validate();
+
+            $this->fail("Expected an exception");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
+    }
+
+
     public function testShouldValidateCorrectlyWithAvsCheck1() {
         $processor = Payment_Process2::factory('Dummy');
         $processor->setOption('avsCheck', true);
+
+        $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
         $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
@@ -136,6 +165,8 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $processor = Payment_Process2::factory('Dummy');
         $processor->setOption('avsCheck', true);
 
+        $processor->setPayment($this->aValidPayment());
+
         $r = new Payment_Process2_Result(null, $processor);
         $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
 
@@ -143,35 +174,68 @@ class Payment_Process2_ResultTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($result);
     }
 
-
-    public function testShouldValidateCorrectlyWithCcvCheck1() {
+    /** @todo Think if this should be a per result driver test */
+    public function testShouldValidateCorrectlyWithCvvCheck1() {
 
         $processor = Payment_Process2::factory('Dummy');
-        $processor->setOption('ccvCheck', true);
+        $processor->setOption('cvvCheck', true);
+
+        $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
         $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
 
+        $this->assertSame(null, $r->getCvvCode(), "Expected this to be null; a generic result shouldn't understand any cvv codes");
+
         try {
             $r->validate();
 
-            $this->fail("Expected an exception");
+            $this->fail("Expected an exception: We haven't got a Cvv code set");
         } catch (Payment_Process2_Exception $ppe) {
 
         }
     }
 
-    public function testShouldValidateCorrectlyWithCcvCheck2() {
-        $this->markTestIncomplete("Make this pass the Ccv check");
-
+    public function testShouldValidateCorrectlyWithCvvCheck2() {
         $processor = Payment_Process2::factory('Dummy');
-        $processor->setOption('ccvCheck', true);
+        $processor->setOption('cvvCheck', true);
+
+        $processor->setPayment($this->aValidPayment());
 
         $r = new Payment_Process2_Result(null, $processor);
         $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
 
+        $r->_cvvCodeMap[1] = PAYMENT_PROCESS2_CVV_MATCH;
+        $r->cvvCode = 1;
+
+        $this->assertSame(PAYMENT_PROCESS2_CVV_MATCH, $r->getCvvCode());
+
         $result = $r->validate();
 
         $this->assertTrue($result);
+    }
+
+
+    public function testShouldValidateCorrectlyWithCvvCheck3() {
+        $processor = Payment_Process2::factory('Dummy');
+        $processor->setOption('cvvCheck', true);
+
+        $processor->setPayment($this->aValidPayment());
+
+        $r = new Payment_Process2_Result(null, $processor);
+        $r->_statusCodeMap[null] = PAYMENT_PROCESS2_RESULT_APPROVED;
+
+        $r->_cvvCodeMap[1] = PAYMENT_PROCESS2_CVV_MATCH;
+        $r->cvvCode = 2;
+
+        $this->assertNotSame(PAYMENT_PROCESS2_CVV_MATCH, $r->getCvvCode());
+
+        try {
+            $r->validate();
+
+            $this->fail("Expected an exception: We haven't got a valid Cvv code set");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
     }
 }
