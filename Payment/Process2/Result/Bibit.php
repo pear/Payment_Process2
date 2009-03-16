@@ -80,7 +80,7 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
 
         $orderType = $this->_request->_data['x_action'];
         switch ($orderType) {
-        case PAYMENT_PROCESS2_ACTION_BIBIT_AUTH:
+        case Payment_Process2_Bibit::ACTION_BIBIT_AUTH:
             $matches = $sxe->xpath('//reply/orderStatus/payment/lastEvent/text()');
             if (!empty($matches)) {
                 $this->_lastEvent = (string)$matches[0];
@@ -96,7 +96,7 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
             }
 
             break;
-        case PAYMENT_PROCESS2_ACTION_BIBIT_CAPTURE:
+        case Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE:
             $matches = $doc->evaluate('//reply/ok/captureReceived/amount/attribute::value');
             if (!empty($matches)) {
                 $this->_returnCode = PAYMENT_PROCESS2_RESULT_APPROVED;
@@ -104,7 +104,7 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
             }
 
             break;
-        case PAYMENT_PROCESS2_ACTION_BIBIT_REFUND:
+        case Payment_Process2_Bibit::ACTION_BIBIT_REFUND:
             $matches = $doc->evaluate('//reply/ok/refundReceived/amount/attribute::value');
             if (!empty($matches)) {
                 $this->_returnCode = PAYMENT_PROCESS2_RESULT_APPROVED;

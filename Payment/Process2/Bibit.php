@@ -48,10 +48,6 @@ require_once 'Payment/Process2/Result/Bibit.php';
 require_once 'Net/Curl.php';
 require_once 'XML/Util.php';
 
-define('PAYMENT_PROCESS2_ACTION_BIBIT_AUTH', 300);
-define('PAYMENT_PROCESS2_ACTION_BIBIT_REDIRECT', 400);
-define('PAYMENT_PROCESS2_ACTION_BIBIT_REFUND', 500);
-define('PAYMENT_PROCESS2_ACTION_BIBIT_CAPTURE', 600);
 
 
 /**
@@ -73,6 +69,13 @@ define('PAYMENT_PROCESS2_ACTION_BIBIT_CAPTURE', 600);
  */
 class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_Process2_Driver
 {
+
+
+    const ACTION_BIBIT_AUTH = 300;
+    const ACTION_BIBIT_REDIRECT = 400;
+    const ACTION_BIBIT_REFUND =  500;
+    const ACTION_BIBIT_CAPTURE = 600;
+
     /**
      * Front-end -> back-end field map.
      *
@@ -269,10 +272,10 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
         $doc .= '<!DOCTYPE paymentService PUBLIC "-//Bibit//DTD Bibit PaymentService v1//EN" "http://dtd.bibit.com/paymentService_v1.dtd">';
 
         $doc .= XML_Util::createStartElement('paymentService', array('version' =>  $data['x_version'], 'merchantCode' => $data['x_login']));
-        if ($data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_CAPTURE || $data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_REFUND) {
+        if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE || $data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_REFUND) {
             $doc .= XML_Util::createStartElement('modify');
             $doc .= XML_Util::createStartElement('orderModification', array('orderCode' => $data['x_ordercode']));
-            if ($data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_CAPTURE) {
+            if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE) {
                 $doc .= XML_Util::createStartElement('capture');
 
                 $d = array();
@@ -292,7 +295,7 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
                           'exponent' => $data['x_exponent']));
 
                 $doc .= XML_Util::createEndElement('capture');
-            } else if ($data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_REFUND) {
+            } else if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_REFUND) {
                 $doc .= XML_Util::createStartElement('refund');
                 $doc .= XML_Util::createTag('amount',
                     array('value' => $data['x_amount'],
@@ -319,7 +322,7 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
                 $doc .= XML_Util::createEndElement('orderContent');
             }
 
-            if ($data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_REDIRECT) {
+            if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_REDIRECT) {
                 if (is_array($data['paymentMethodMask'])
                     && count($data['paymentMethodMask'] > 0)) {
                     $doc .= XML_Util::createStartElement('paymentMethodMask');
@@ -342,7 +345,7 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
 
                     $doc .= XML_Util::createEndElement('paymentMethodMask');
                 }
-            } else if ($data['x_action'] == PAYMENT_PROCESS2_ACTION_BIBIT_AUTH) {
+            } else if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_AUTH) {
                 $doc .= XML_Util::createStartElement('paymentDetails');
                 switch ($this->_payment->type) {
                 case Payment_Process2_Type::CC_VISA:
@@ -606,13 +609,13 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
     public function translateAction($action) {
         switch ($action) {
             case PAYMENT_PROCESS2_ACTION_NORMAL:
-                return PAYMENT_PROCESS2_ACTION_BIBIT_REDIRECT;
+                return Payment_Process2_Bibit::ACTION_BIBIT_REDIRECT;
             case PAYMENT_PROCESS2_ACTION_AUTHONLY:
-                return PAYMENT_PROCESS2_ACTION_BIBIT_AUTH;
+                return Payment_Process2_Bibit::ACTION_BIBIT_AUTH;
             case PAYMENT_PROCESS2_ACTION_CREDIT:
-                return PAYMENT_PROCESS2_ACTION_BIBIT_REFUND;
+                return Payment_Process2_Bibit::ACTION_BIBIT_REFUND;
             case PAYMENT_PROCESS2_ACTION_SETTLE:
-                return PAYMENT_PROCESS2_ACTION_BIBIT_CAPTURE;
+                return Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE;
         }
 
         return false;
