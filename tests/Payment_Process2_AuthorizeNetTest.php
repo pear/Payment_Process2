@@ -48,6 +48,15 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 
 class Payment_Process2_AuthorizeNetTest extends PHPUnit_Framework_TestCase {
 
+    public function aValidPayment() {
+        $object = Payment_Process2_Type::factory('eCheck');
+        $object->accountNumber = 1;
+        $object->routingCode = 2;
+        $object->bankName = "Unit test";
+
+        return $object;
+    }
+
     public function testShouldLoadClassFromFactory() {
         $payment = new Payment_Process2();
         $object = $payment->factory('AuthorizeNet');
@@ -72,6 +81,8 @@ class Payment_Process2_AuthorizeNetTest extends PHPUnit_Framework_TestCase {
 
         $object->setRequest($request);
 
+        $object->setPayment($this->aValidPayment());
+
         $result = $object->process();
 
         $this->assertTrue($result instanceof Payment_Process2_Result_AuthorizeNet);
@@ -95,6 +106,8 @@ class Payment_Process2_AuthorizeNetTest extends PHPUnit_Framework_TestCase {
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
 
         $object->setRequest($request);
+
+        $object->setPayment($this->aValidPayment());
 
         $result = $object->process();
 

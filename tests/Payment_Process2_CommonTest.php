@@ -84,7 +84,7 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
         $object = $this->aValidProcessor();
 
         $payment = $this->aValidPayment();
-        unset($payment->bankName);
+        $payment->bankName = '';
 
         try {
             $object->setPayment($payment);
@@ -161,14 +161,27 @@ class Payment_Process2_CommonTest extends PHPUnit_Framework_TestCase {
     public function testShouldValidateAllFields2() {
         $object = $this->aValidProcessor();
         $payment = $this->aValidPayment();
-        unset($payment->bankName);
 
         $object->setPayment($payment);
+
+        $payment->bankName = '';
 
         try {
             $object->validate();
 
-            $this->fail("Expected an exception before this point");
+            $this->fail("Expected an exception before this point; because the payment type is (now) invalid");
+        } catch (Payment_Process2_Exception $ppe) {
+
+        }
+    }
+
+    public function testShouldValidateAllFields3() {
+        $object = $this->aValidProcessor();
+
+        try {
+            $object->validate();
+
+            $this->fail("Expected an exception before this point; because we haven't set a payment (and that's generally required :)");
         } catch (Payment_Process2_Exception $ppe) {
 
         }

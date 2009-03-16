@@ -48,7 +48,7 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 
 class Payment_Process2_TrustCommerceTest extends PHPUnit_Framework_TestCase {
 
-    public function aPayment() {
+    public function aValidPayment() {
         $cc = Payment_Process2_Type::factory('CreditCard');
         $cc->setDate(strtotime('2008-01-01'));
         $cc->type = PAYMENT_PROCESS2_CC_MASTERCARD;
@@ -76,7 +76,7 @@ class Payment_Process2_TrustCommerceTest extends PHPUnit_Framework_TestCase {
         $request->setAdapter($mock);
 
         $object = Payment_Process2::factory('TrustCommerce');
-        $object->setPayment($this->aPayment());
+        $object->setPayment($this->aValidPayment());
         $object->login = 'unit';
         $object->password = 'test';
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
@@ -102,7 +102,7 @@ class Payment_Process2_TrustCommerceTest extends PHPUnit_Framework_TestCase {
         $request->setAdapter($mock);
 
         $object = Payment_Process2::factory('TrustCommerce');
-        $object->setPayment($this->aPayment());
+        $object->setPayment($this->aValidPayment());
         $object->login = 'unit';
         $object->password = 'test';
         $object->amount = 1;

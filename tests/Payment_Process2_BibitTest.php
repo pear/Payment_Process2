@@ -48,6 +48,17 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 
 class Payment_Process2_BibitTest extends PHPUnit_Framework_TestCase {
 
+    public function aValidPayment() {
+        $cc = Payment_Process2_Type::factory('CreditCard');
+        $cc->setDate(strtotime('2008-01-01'));
+        $cc->type = PAYMENT_PROCESS2_CC_MASTERCARD;
+        $cc->cardNumber = '5123456789012346';
+        $cc->expDate = '12/2008';
+        $cc->cvv = '123';
+
+        return $cc;
+    }
+
     public function testShouldLoadClassFromFactory() {
         $payment = new Payment_Process2();
         $object = $payment->factory('Bibit');
@@ -76,6 +87,8 @@ class Payment_Process2_BibitTest extends PHPUnit_Framework_TestCase {
 
         $object->setRequest($request);
 
+        $object->setPayment($this->aValidPayment());
+
         $result = $object->process();
 
         $this->assertTrue($result instanceof Payment_Process2_Result_Bibit);
@@ -99,6 +112,7 @@ class Payment_Process2_BibitTest extends PHPUnit_Framework_TestCase {
         $object->description = "Unit test";
 
         $object->setRequest($request);
+        $object->setPayment($this->aValidPayment());
 
         $result = $object->process();
 

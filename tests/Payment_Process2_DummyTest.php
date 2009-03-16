@@ -48,6 +48,17 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 
 class Payment_Process2_DummyTest extends PHPUnit_Framework_TestCase {
 
+    public function aValidPayment() {
+        $cc = Payment_Process2_Type::factory('CreditCard');
+        $cc->setDate(strtotime('2008-01-01'));
+        $cc->type = PAYMENT_PROCESS2_CC_MASTERCARD;
+        $cc->cardNumber = '5123456789012346';
+        $cc->expDate = '12/2008';
+        $cc->cvv = '123';
+
+        return $cc;
+    }
+
     public function testShouldLoadClassFromFactory() {
         $payment = new Payment_Process2();
         $object = $payment->factory('Dummy');
@@ -71,6 +82,7 @@ class Payment_Process2_DummyTest extends PHPUnit_Framework_TestCase {
         $object->amount = 1;
 
         $object->setRequest($request);
+        $object->setPayment($this->aValidPayment());
 
         $result = $object->process();
 
@@ -92,6 +104,7 @@ class Payment_Process2_DummyTest extends PHPUnit_Framework_TestCase {
         $object->action = PAYMENT_PROCESS2_ACTION_NORMAL;
 
         $object->setRequest($request);
+        $object->setPayment($this->aValidPayment());
 
         $result = $object->process();
 
