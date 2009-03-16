@@ -89,7 +89,7 @@ class Payment_Process2_Result
      * @var     string   $message
      * @see     $_statusCodeMessages
      */
-    var $message = 'No message from gateway';
+    var $message;
 
     /**
      * Authorization/Approval code
