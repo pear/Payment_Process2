@@ -47,26 +47,6 @@ require_once 'Payment/Process2/Result/Transfirst.php';
 require_once 'HTTP/Request2.php';
 require_once 'Validate.php';
 
-
-// Transfirst transaction types
-// Request authorization only - no funds are transferred.
-define('PAYMENT_PROCESS2_ACTION_TRANSFIRST_AUTH', 30);
-// Transfer funds from a previous authorization.
-define('PAYMENT_PROCESS2_ACTION_TRANSFIRST_SETTLE', 40);
-// Authorize & transfer funds
-define('PAYMENT_PROCESS2_ACTION_TRANSFIRST_AUTHSETTLE', 32);
-// Debit the indicated amount to a previously-charged card.
-define('PAYMENT_PROCESS2_ACTION_TRANSFIRST_CREDIT', 20);
-// Cancel authorization
-define('PAYMENT_PROCESS2_ACTION_TRANSFIRST_VOID', 61);
-
-define('PAYMENT_PROCESS2_RESULT_TRANSFIRST_APPROVAL', 00);
-define('PAYMENT_PROCESS2_RESULT_TRANSFIRST_DECLINE', 05);
-define('PAYMENT_PROCESS2_RESULT_TRANSFIRST_INVALIDAMOUNT', 13);
-define('PAYMENT_PROCESS2_RESULT_TRANSFIRST_INVALIDCARDNO', 14);
-define('PAYMENT_PROCESS2_RESULT_TRANSFIRST_REENTER', 19);
-
-
 /**
  * Payment_Process2_Transfirst
  *
@@ -84,6 +64,28 @@ define('PAYMENT_PROCESS2_RESULT_TRANSFIRST_REENTER', 19);
  */
 class Payment_Process2_Transfirst extends Payment_Process2_Common implements Payment_Process2_Driver
 {
+
+    // Transfirst transaction types
+    // Request authorization only - no funds are transferred.
+    const ACTION_TRANSFIRST_AUTH = 30;
+
+    // Transfer funds from a previous authorization.
+    const ACTION_TRANSFIRST_SETTLE = 40;
+
+    // Authorize & transfer funds
+    const ACTION_TRANSFIRST_AUTHSETTLE = 32;
+
+    // Debit the indicated amount to a previously-charged card.
+    const ACTION_TRANSFIRST_CREDIT = 20;
+
+    // Cancel authorization
+    const ACTION_TRANSFIRST_VOID = 61;
+
+    const RESULT_TRANSFIRST_APPROVAL = 00;
+    const RESULT_TRANSFIRST_DECLINE = 05;
+    const RESULT_TRANSFIRST_INVALIDAMOUNT =  13;
+    const RESULT_TRANSFIRST_INVALIDCARDNO = 14;
+    const RESULT_TRANSFIRST_REENTER = 19;
 
     var $_typeFieldMap = array(
            'CreditCard' => array(),
@@ -388,13 +390,13 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
     public function translateAction($action) {
         switch ($action) {
             case PAYMENT_PROCESS2_ACTION_NORMAL:
-                return PAYMENT_PROCESS2_ACTION_TRANSFIRST_AUTHSETTLE;
+                return Payment_Process2_Transfirst::ACTION_TRANSFIRST_AUTHSETTLE;
 
             case PAYMENT_PROCESS2_ACTION_AUTHONLY:
-                return PAYMENT_PROCESS2_ACTION_TRANSFIRST_AUTH;
+                return Payment_Process2_Transfirst::ACTION_TRANSFIRST_AUTH;
 
             case PAYMENT_PROCESS2_ACTION_POSTAUTH:
-                return PAYMENT_PROCESS2_ACTION_TRANSFIRST_SETTLE;
+                return Payment_Process2_Transfirst::ACTION_TRANSFIRST_SETTLE;
         }
         return false;
     }
