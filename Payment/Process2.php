@@ -23,10 +23,7 @@
  *    and/or other materials provided with the distribution.
  *
  * 3. The name of the authors may not be used to endorse or promote products
- *    derived from this software HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
- * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE. without specific prior written permission.
+ *    derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -172,10 +169,10 @@ class Payment_Process2
         // instantiate it
         if (class_exists($class)) {
         	$reflectionClass = new ReflectionClass($class);
-        	if ($reflectionClass->implementsInterface('Payment_Process2_Driver')) {
-            	$instance = new $class($options);
-            	return $instance;
-        	}
+            if ($reflectionClass->implementsInterface('Payment_Process2_Driver')) {
+                $instance = new $class($options);
+                return $instance;
+            }
         }
 
         throw new Payment_Process2_Exception('"'.$type.'" processor does not exist',
