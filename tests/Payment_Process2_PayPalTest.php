@@ -46,7 +46,7 @@ require_once 'Payment/Process2.php';
 require_once 'HTTP/Request2.php';
 require_once 'HTTP/Request2/Adapter/Mock.php';
 
-class Payment_Process2_PaypalTest extends PHPUnit_Framework_TestCase {
+class Payment_Process2_PayPalTest extends PHPUnit_Framework_TestCase {
 
     public function aValidPayment() {
         $cc = Payment_Process2_Type::factory('CreditCard');
@@ -61,9 +61,9 @@ class Payment_Process2_PaypalTest extends PHPUnit_Framework_TestCase {
 
     public function testShouldLoadClassFromFactory() {
         $payment = new Payment_Process2();
-        $object = $payment->factory('Paypal');
+        $object = $payment->factory('PayPal');
 
-        $this->assertTrue($object instanceOf Payment_Process2_Paypal);
+        $this->assertTrue($object instanceOf Payment_Process2_PayPal);
     }
 
 
@@ -75,7 +75,7 @@ class Payment_Process2_PaypalTest extends PHPUnit_Framework_TestCase {
         $request = new HTTP_Request2();
         $request->setAdapter($mock);
 
-        $object = Payment_Process2::factory('Paypal');
+        $object = Payment_Process2::factory('PayPal');
         $object->login = 'unit';
         $object->password = 'test';
         $object->action = Payment_Process2::ACTION_NORMAL;
@@ -86,7 +86,7 @@ class Payment_Process2_PaypalTest extends PHPUnit_Framework_TestCase {
 
         $result = $object->process();
 
-        $this->assertTrue($result instanceof Payment_Process2_Result_Paypal);
+        $this->assertTrue($result instanceof Payment_Process2_Result_PayPal);
     }
 
     public function testShouldFailGracefullyOnFailedTransaction() {
@@ -97,7 +97,7 @@ class Payment_Process2_PaypalTest extends PHPUnit_Framework_TestCase {
         $request = new HTTP_Request2();
         $request->setAdapter($mock);
 
-        $object = Payment_Process2::factory('Paypal');
+        $object = Payment_Process2::factory('PayPal');
         $object->login = 'unit';
         $object->password = 'test';
         $object->amount = 1;

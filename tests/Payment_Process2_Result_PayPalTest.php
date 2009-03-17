@@ -43,13 +43,13 @@
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
-class Payment_Process2_Result_PaypalTest extends PHPUnit_Framework_TestCase {
+class Payment_Process2_Result_PayPalTest extends PHPUnit_Framework_TestCase {
 
 
     public function testShouldCreateObjectWithFactory() {
-        $object = Payment_Process2_Result::factory('Paypal', null, new Payment_Process2_Common());
+        $object = Payment_Process2_Result::factory('PayPal', null, new Payment_Process2_Common());
 
-        $this->assertTrue($object instanceOf Payment_Process2_Result_Paypal);
+        $this->assertTrue($object instanceOf Payment_Process2_Result_PayPal);
     }
 
     /*

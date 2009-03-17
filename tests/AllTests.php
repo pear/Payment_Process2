@@ -59,7 +59,7 @@ require_once dirname(__FILE__) . '/Payment_Process2_Result_DummyTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Result_TrustCommerceTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Result_LinkPointTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Result_BibitTest.php';
-require_once dirname(__FILE__) . '/Payment_Process2_Result_PaypalTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_Result_PayPalTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Result_TransfirstTest.php';
 
 
@@ -73,7 +73,7 @@ require_once dirname(__FILE__) . '/Payment_Process2_DummyTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_TrustCommerceTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_LinkPointTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_BibitTest.php';
-require_once dirname(__FILE__) . '/Payment_Process2_PaypalTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_PayPalTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_TransfirstTest.php';
 
 class Payment_Process2_AllTests
@@ -100,7 +100,7 @@ class Payment_Process2_AllTests
         $suite->addTestSuite('Payment_Process2_TrustCommerceTest');
         $suite->addTestSuite('Payment_Process2_LinkPointTest');
         $suite->addTestSuite('Payment_Process2_BibitTest');
-        $suite->addTestSuite('Payment_Process2_PaypalTest');
+        $suite->addTestSuite('Payment_Process2_PayPalTest');
         $suite->addTestSuite('Payment_Process2_TransfirstTest');
 
         $suite->addTestSuite('Payment_Process2_ResultTest');
@@ -109,7 +109,7 @@ class Payment_Process2_AllTests
         $suite->addTestSuite('Payment_Process2_Result_TrustCommerceTest');
         $suite->addTestSuite('Payment_Process2_Result_LinkPointTest');
         $suite->addTestSuite('Payment_Process2_Result_BibitTest');
-        $suite->addTestSuite('Payment_Process2_Result_PaypalTest');
+        $suite->addTestSuite('Payment_Process2_Result_PayPalTest');
         $suite->addTestSuite('Payment_Process2_Result_TransfirstTest');
 
         return $suite;
