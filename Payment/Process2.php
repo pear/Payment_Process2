@@ -23,7 +23,10 @@
  *    and/or other materials provided with the distribution.
  *
  * 3. The name of the authors may not be used to endorse or promote products
- *    derived from this software without specific prior written permission.
+ *    derived from this software HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+ * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE. without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHORS ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -37,13 +40,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Payment
- * @package   Payment_Process
- * @author    Ian Eure <ieure@php.net>
- * @author    Joe Stump <joe@joestump.net>
- * @copyright 1997-2008 The PHP Group
+ * @package   Payment_Process2
+ * @author    Damien Bezborodov <dbezborodov@php.net>
+ * @author    Daniel O'Connor <daniel.oconnor@valex.com.au>
+ * @copyright 2009 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Payment_Process
+ * @link      http://pear.php.net/package/Payment_Process2
  */
 
 /** @todo Get rid of this */
@@ -59,11 +62,13 @@ require_once 'Payment/Process2/Result.php';
  * Payment_Process
  *
  * @category Payment
- * @package  Payment_Process
+ * @package  Payment_Process2
  * @author   Ian Eure <ieure@php.net>
+ * @author   Daniel O'Connor <daniel.oconnor@valex.com.au>
+ * @author   Damien Bezborodov <dbezborodov@php.net>
  * @license  http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Payment_Process
+ * @link     http://pear.php.net/package/Payment_Process2
  */
 class Payment_Process2
 {
@@ -137,7 +142,7 @@ class Payment_Process2
     const CVV_ERROR = 602;
     const CVV_NOAPPLY = 603;
 
-    var $_defaultOptions = array();
+    protected $_defaultOptions = array();
 
     /**
      * Return an instance of a specific processor.
@@ -145,22 +150,32 @@ class Payment_Process2
      * @param string $type    Name of the processor
      * @param array  $options Options for the processor
      *
-     * @return Payment_Process_Driver Instance of the processor object
+     * @return Payment_Process2_Driver
      * @throws Payment_Process2_Exception
      */
-    function factory($type, $options = array())
+    public static function factory($type, $options = array())
     {
-        $class = "Payment_Process2_".$type;
-
-        $path = "Payment/Process2/{$type}.php";
-
-        if (@fclose(@fopen($path, 'r', true))) {
-            include_once $path;
+        $class = "Payment_Process2_$type";
+        $path = "Payment/Process2/". basename($type) .".php";
+        
+        // If the class does not exist, attempt to include it
+        if (!class_exists($class)) {
+        	foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
+        		if (is_readable("$includePath/$path")) {
+            		include_once $path;
+            		break;
+        		}
+        	}
         }
 
+        // If the class exists and is and is a Payment_Process2_Driver,
+        // instantiate it
         if (class_exists($class)) {
-            $object =  new $class($options);
-            return $object;
+        	$reflectionClass = new ReflectionClass($class);
+        	if ($reflectionClass->implementsInterface('Payment_Process2_Driver')) {
+            	$instance = new $class($options);
+            	return $instance;
+        	}
         }
 
         throw new Payment_Process2_Exception('"'.$type.'" processor does not exist',
@@ -171,10 +186,13 @@ class Payment_Process2
      * Determine if a field is required.
      *
      * @param string $field Field to check
+     * 
+     * @todo Is this used?
      *
-     * @return boolean true if required, false if optional.
+     * @return boolean t
+     * rue if required, false if optional.
      */
-    function isRequired($field)
+    public function isRequired($field)
     {
         return (isset($this->_required[$field]));
     }
@@ -183,11 +201,13 @@ class Payment_Process2
      * Determines if a field exists.
      *
      * @param string $field Field to check
+     * 
+     * @todo Is this used?
      *
      * @return boolean true if field exists, false otherwise
      * @author Ian Eure <ieure@php.net>
      */
-    function fieldExists($field)
+    public function fieldExists($field)
     {
         return @in_array($field, $this->getFields());
     }
@@ -197,12 +217,13 @@ class Payment_Process2
      *
      * This function returns an array containing all the possible fields which
      * may be set.
+     * 
+     * @todo Is this used?
      *
      * @author Ian Eure <ieure@php.net>
-     * @access public
      * @return array Array of valid fields.
      */
-    function getFields()
+    public function getFields()
     {
         $vars = array_keys(get_class_vars(get_class($this)));
         foreach ($vars as $idx => $field) {
@@ -219,11 +240,13 @@ class Payment_Process2
      *
      * @param array $options        Options to set
      * @param array $defaultOptions Default options
+     * 
+     * @todo Is this used?
      *
      * @return void
      * @author Ian Eure <ieure@php.net>
      */
-    function setOptions($options = array(), $defaultOptions = array())
+    public function setOptions($options = array(), $defaultOptions = array())
     {
         $defaultOptions = $defaultOptions ? $defaultOptions : $this->_defaultOptions;
         $this->_options = array_merge($defaultOptions, $options);
@@ -233,12 +256,14 @@ class Payment_Process2
      * Get an option value.
      *
      * @param string $option Option to get
+     * 
+     * @todo Is this used?
      *
      * @return mixed   Option value
      * @access public
      * @author Ian Eure <ieure@php.net>
      */
-    function getOption($option)
+    public function getOption($option)
     {
         return @$this->_options[$option];
     }
@@ -248,12 +273,13 @@ class Payment_Process2
      *
      * @param string $option Option name to set
      * @param mixed  $value  Value to set
+     * 
+     * @todo Is this used?
      *
      * @return void
-     * @access public
      * @author Joe Stump <joe@joestump.net>
      */
-    function setOption($option,$value)
+    public function setOption($option,$value)
     {
         return ($this->_options[$option] = $value);
     }
@@ -264,11 +290,9 @@ class Payment_Process2
      * @param mixed $obj Object to check
      *
      * @return bool
-     * @access public
-     * @static
      * @author Joe Stump <joe@joestump.net>
      */
-    function isSuccess(Payment_Process2_Result $obj)
+    public static function isSuccess(Payment_Process2_Result $obj)
     {
         return ($obj->getCode() == Payment_Process2::RESULT_APPROVED);
     }
