@@ -38,6 +38,8 @@
  *
  * @category  Payment
  * @package   Payment_Process2
+ * @author    Ian Eure <ieure@php.net>
+ * @author    Joe Stump <joe@joestump.net>
  * @author    Damien Bezborodov <dbezborodov@php.net>
  * @author    Daniel O'Connor <daniel.oconnor@valex.com.au>
  * @copyright 2009 The PHP Group
