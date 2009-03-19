@@ -196,25 +196,6 @@ class Payment_Process2_Type
     }
 
     // }}}
-    // {{{ isValid()
-    /**
-    * isValid
-    *
-    * Validate a payment type object
-    *
-    * @author Joe Stump <joe@joestump.net>
-    * @access public
-    * @param Payment_Process2_Type $obj Type object to validate
-    * @return bool
-    * @throws Payment_Process2_Exception
-    * @see validate()
-    * @deprecated
-    */
-    function isValid(Payment_Process2_Type $obj)
-    {
-        return $obj->validate();
-    }
-    // }}}
 
     // {{{ validate()
     /**
