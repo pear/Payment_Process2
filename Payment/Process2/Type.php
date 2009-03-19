@@ -165,29 +165,36 @@ class Payment_Process2_Type
     /**
     * factory
     *
-    * Creates and returns an instance of a payment type. If an error occurs
-    * a PEAR_Error is returned.
+    * Creates and returns an instance of a payment type.
     *
-    * @author Joe Stump <joe@joestump.net>
     * @param string $type
     * @return Payment_Process2_Type
     * @throws Payment_Process2_Exception
     */
-    function factory($type)
+    public static function factory($type, $options = array())
     {
-        $class = 'Payment_Process2_Type_'.$type;
-        $path = 'Payment/Process2/Type/'.$type.'.php';
-        if (@fclose(@fopen($path, 'r', true))) {
-            include_once $path;
+        $class = "Payment_Process2_Type_$type";
+        $path = "Payment/Process2/Type/". basename($type) .".php";
 
-            if (class_exists($class)) {
-                $ret = new $class();
-                return $ret;
-            }
+        // If the class does not exist, attempt to include it
+        if (!class_exists($class)) {
+        	foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
+        		if (is_readable("$includePath/$path")) {
+            		include_once $path;
+            		break;
+        		}
+        	}
         }
 
-        throw new Payment_Process2_Exception('Invalid Payment_Process2_Type: '.$type);
+        if (class_exists($class)) {
+            $instance = new $class($options);
+            return $instance;
+        }
+
+        throw new Payment_Process2_Exception('"'.$type.'" processor does not exist',
+                                Payment_Process2::ERROR_NOPROCESSOR);
     }
+
     // }}}
     // {{{ isValid()
     /**
