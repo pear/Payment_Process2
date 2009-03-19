@@ -295,15 +295,6 @@ class Payment_Process2
     {
         return ($obj->getCode() == Payment_Process2::RESULT_APPROVED);
     }
-
-    /**
-     * @return Payment_Process2_Type
-     */
-    public function getPayment()
-    {
-        return $this->_payment;
-    }
-
 }
 
 ?>

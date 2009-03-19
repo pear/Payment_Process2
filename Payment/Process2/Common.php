@@ -272,6 +272,15 @@ class Payment_Process2_Common
         throw new Payment_Process2_Exception('Invalid type field map');
     }
     // }}}
+
+    /**
+     * @return Payment_Process2_Type
+     */
+    public function getPayment()
+    {
+        return $this->_payment;
+    }
+
     // {{{ setFrom($where)
     /**
      * Set many fields.
