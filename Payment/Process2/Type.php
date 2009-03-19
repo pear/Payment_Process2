@@ -200,21 +200,38 @@ class Payment_Process2_Type
     * @param Payment_Process2_Type $obj Type object to validate
     * @return bool
     * @throws Payment_Process2_Exception
-    * @todo validate() to raise exceptions
+    * @see validate()
+    * @deprecated
     */
     function isValid(Payment_Process2_Type $obj)
     {
-        $vars = get_object_vars($obj);
+        return $obj->validate();
+    }
+    // }}}
+
+    // {{{ validate()
+    /**
+    * Validate this object
+    *
+    * @access public
+    * @return bool
+    * @throws Payment_Process2_Exception
+    * @todo validate() to raise exceptions
+    */
+    function validate()
+    {
+        $vars = get_object_vars($this);
         foreach ($vars as $validate => $value) {
             $method = '_validate'.ucfirst($validate);
-            if (method_exists($obj, $method)) {
-                $obj->$method();
+            if (method_exists($this, $method)) {
+                $this->$method();
             }
         }
 
         return true;
     }
     // }}}
+
     // {{{ getType()
     /**
     * getType

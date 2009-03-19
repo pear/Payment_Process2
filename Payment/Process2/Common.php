@@ -241,7 +241,7 @@ class Payment_Process2_Common
         if (isset($this->_typeFieldMap[$payment->getType()]) &&
             is_array($this->_typeFieldMap[$payment->getType()])) {
 
-            Payment_Process2_Type::isValid($payment);
+            $payment->validate();
 
             $this->_payment = $payment;
             // Map over the payment specific fields. Check out
@@ -320,7 +320,7 @@ class Payment_Process2_Common
         }
 
         if ($this->_payment instanceof Payment_Process2_Type) {
-            Payment_Process2_Type::isValid($this->_payment);
+            $this->_payment->validate();
         } else {
             throw new Payment_Process2_Exception("Payment type not set");
         }

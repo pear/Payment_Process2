@@ -63,16 +63,14 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldValidateCardNumbersCorrectly1() {
-        $result = Payment_Process2_Type::isValid($this->object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($this->object->validate());
     }
 
     public function testShouldValidateCardNumbersCorrectly2() {
         $this->object->cardNumber = "Invalid-a-rino";
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -81,16 +79,14 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
 
 
     public function testShouldValidateTypesCorrectly1() {
-        $result = Payment_Process2_Type::isValid($this->object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($this->object->validate());
     }
 
     public function testShouldValidateTypesCorrectly2() {
         $this->object->type = "Invalid-a-rino";
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -99,16 +95,14 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
 
 
     public function testShouldValidateCvvsCorrectly1() {
-        $result = Payment_Process2_Type::isValid($this->object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($this->object->validate());
     }
 
     public function testShouldValidateCvvsCorrectly2() {
         $this->object->cvv = "Invalid-a-rino";
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -116,16 +110,14 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldValidateExpiryDatesCorrectly1() {
-        $result = Payment_Process2_Type::isValid($this->object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($this->object->validate());
     }
 
     public function testShouldValidateExpiryDatesCorrectly2() {
         $this->object->expDate = "Invalid-a-rino";
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -137,7 +129,7 @@ class Payment_Process2_Type_CreditCardTest extends PHPUnit_Framework_TestCase {
         $this->object->setDate(strtotime("2006-05-01")); // This credit card is way expired, its invalid
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {

@@ -63,16 +63,14 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testShouldValidateAccountNumbersCorrectly1() {
-        $result = Payment_Process2_Type::isValid($this->object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($this->object->validate());
     }
 
     public function testShouldValidateAccountNumbersCorrectly2() {
         $this->object->accountNumber = null;
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -81,16 +79,14 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
 
 
     public function testShouldValidateRoutingCodesCorrectly1() {
-        $result = Payment_Process2_Type::isValid($this->object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($this->object->validate());
     }
 
     public function testShouldValidateRoutingCodesCorrectly2() {
         $this->object->routingCode = null;
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -99,16 +95,14 @@ class Payment_Process2_Type_eCheckTest extends PHPUnit_Framework_TestCase {
 
 
     public function testShouldValidateBankNamesCorrectly1() {
-        $result = Payment_Process2_Type::isValid($this->object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($this->object->validate());
     }
 
     public function testShouldValidateBankNamesCorrectly2() {
         $this->object->bankName = null;
 
         try {
-            $result = Payment_Process2_Type::isValid($this->object);
+            $this->object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {

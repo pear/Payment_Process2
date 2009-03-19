@@ -71,7 +71,7 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object = Payment_Process2_Type::factory('CreditCard');
 
         try {
-            $result = Payment_Process2_Type::isValid($object);
+            $object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -85,9 +85,7 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object->routingCode = 2;
         $object->bankName = "Unit test";
 
-        $result = Payment_Process2_Type::isValid($object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($object->validate());
     }
 
     public function testShouldValidateEmailsCorrectly1() {
@@ -99,7 +97,7 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
 
 
         try {
-            $result = Payment_Process2_Type::isValid($object);
+            $object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -113,9 +111,7 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object->routingCode = 2;
         $object->bankName = "Unit test";
 
-        $result = Payment_Process2_Type::isValid($object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($object->validate());
     }
 
     public function testShouldValidateAmericanZipCodesCorrectly1() {
@@ -127,7 +123,7 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object->bankName = "Unit test";
 
         try {
-            $result = Payment_Process2_Type::isValid($object);
+            $object->validate();
 
             $this->fail("Should have raised an exception");
         } catch (Payment_Process2_Exception $ppe) {
@@ -142,9 +138,7 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object->routingCode = 2;
         $object->bankName = "Unit test";
 
-        $result = Payment_Process2_Type::isValid($object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($object->validate());
     }
 
 
@@ -155,8 +149,6 @@ class Payment_Process2_TypeTest extends PHPUnit_Framework_TestCase {
         $object->routingCode = 2;
         $object->bankName = "Unit test";
 
-        $result = Payment_Process2_Type::isValid($object);
-
-        $this->assertTrue($result);
+        $this->assertTrue($object->validate());
     }
 }

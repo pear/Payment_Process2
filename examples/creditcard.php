@@ -25,7 +25,7 @@ $card->expDate = '01/2005';
 $card->zip = '48197';
 $card->cvv = '768';
 
-$result = Payment_Process2_Type::isValid($card);
+$result = $card->validate();
 
 $result = $process->setPayment($card);
 
