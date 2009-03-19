@@ -156,7 +156,7 @@ class Payment_Process2
     {
         $class = "Payment_Process2_$type";
         $path = "Payment/Process2/". basename($type) .".php";
-        
+
         // If the class does not exist, attempt to include it
         if (!class_exists($class)) {
         	foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
@@ -185,7 +185,7 @@ class Payment_Process2
      * Determine if a field is required.
      *
      * @param string $field Field to check
-     * 
+     *
      * @todo Is this used?
      *
      * @return boolean t
@@ -200,7 +200,7 @@ class Payment_Process2
      * Determines if a field exists.
      *
      * @param string $field Field to check
-     * 
+     *
      * @todo Is this used?
      *
      * @return boolean true if field exists, false otherwise
@@ -216,7 +216,7 @@ class Payment_Process2
      *
      * This function returns an array containing all the possible fields which
      * may be set.
-     * 
+     *
      * @todo Is this used?
      *
      * @author Ian Eure <ieure@php.net>
@@ -239,7 +239,7 @@ class Payment_Process2
      *
      * @param array $options        Options to set
      * @param array $defaultOptions Default options
-     * 
+     *
      * @todo Is this used?
      *
      * @return void
@@ -255,7 +255,7 @@ class Payment_Process2
      * Get an option value.
      *
      * @param string $option Option to get
-     * 
+     *
      * @todo Is this used?
      *
      * @return mixed   Option value
@@ -272,7 +272,7 @@ class Payment_Process2
      *
      * @param string $option Option name to set
      * @param mixed  $value  Value to set
-     * 
+     *
      * @todo Is this used?
      *
      * @return void
@@ -294,6 +294,14 @@ class Payment_Process2
     public static function isSuccess(Payment_Process2_Result $obj)
     {
         return ($obj->getCode() == Payment_Process2::RESULT_APPROVED);
+    }
+
+    /**
+     * @return Payment_Process2_Type
+     */
+    public function getPayment()
+    {
+        return $this->_payment;
     }
 
 }
