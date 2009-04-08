@@ -103,15 +103,6 @@ class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_
         // Sanity check
         $this->validate();
 
-        if ($this->_options['randomResult']) {
-            $n       = rand(0, count($this->_returnValues) - 1);
-            $code    = $this->_returnValues[$n]['code'];
-            $message = $this->_returnValues[$n]['message'];
-        } else {
-            $code    = $this->_options['returnCode'];
-            $message = $this->_options['returnMessage'];
-        }
-
         return Payment_Process2_Result::factory('Dummy', null, $this);
     }
 
