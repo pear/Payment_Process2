@@ -16,10 +16,10 @@
   <email>damien.bezborodow@valex.com.au</email>
   <active>yes</active>
  </lead>
- <date>2009-03-19</date>
- <time>06:08:33</time>
+ <date>2009-04-08</date>
+ <time>00:58:21</time>
  <version>
-  <release>0.2.0</release>
+  <release>0.2.1</release>
   <api>0.2.0</api>
  </version>
  <stability>
@@ -27,13 +27,7 @@
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
- <notes>Refactored code to use class constants instead of define()
-More validation / exceptions raised if you don&apos;t setPayment()
-Fixed CVV validation unit test coverage
-Improved factory methods
-Implemented Payment_Process2_Type::validate()
-Removed Payment_Process2_Type::isValid()
-Some properties now public/protected</notes>
+ <notes>Added dependencies - Bug #16056</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="f237ba19dfcaa775b39a92ac7ab74ce6" name="examples/creditcard.php" role="doc" />
@@ -41,10 +35,10 @@ Some properties now public/protected</notes>
    <file baseinstalldir="/" md5sum="aa9ed76095ed6149f51b3118d6ecea12" name="examples/linkpoint.php" role="doc" />
    <file baseinstalldir="/" md5sum="ceba22b7cec3787483a1804b586c6f5b" name="examples/Payment_Process-example.php" role="doc" />
    <file baseinstalldir="/" md5sum="36f610bc67b7b3050c65027ff9c73c0b" name="examples/TrustCommerce_creditcard.php" role="doc" />
-   <file baseinstalldir="/" md5sum="bac5cd080c7eff19711e4caa0616704c" name="Payment/Process2.php" role="php" />
+   <file baseinstalldir="/" md5sum="a95fb7f5c5e0a383798367823aba0d75" name="Payment/Process2.php" role="php" />
    <file baseinstalldir="/" md5sum="8bafde49eda40b7fa4ac442da717cb89" name="Payment/Process2/AuthorizeNet.php" role="php" />
    <file baseinstalldir="/" md5sum="59866009105422f9e911c27f04fa4945" name="Payment/Process2/Bibit.php" role="php" />
-   <file baseinstalldir="/" md5sum="64dfeb8d1177a120ec3f64ee9483f288" name="Payment/Process2/Common.php" role="php" />
+   <file baseinstalldir="/" md5sum="0c8215f1d32a9a14f46a6157b13c8e41" name="Payment/Process2/Common.php" role="php" />
    <file baseinstalldir="/" md5sum="cd6e027f25bacdeb1783baa3fdfff195" name="Payment/Process2/Driver.php" role="php" />
    <file baseinstalldir="/" md5sum="c3373d6b6e647eb707c0073a5f0d5833" name="Payment/Process2/Dummy.php" role="php" />
    <file baseinstalldir="/" md5sum="f6cfeea2e97e449a1e2eb320609d35cf" name="Payment/Process2/Exception.php" role="php" />
@@ -54,7 +48,7 @@ Some properties now public/protected</notes>
    <file baseinstalldir="/" md5sum="8772a8f4b6c2534d1837b3114931a95d" name="Payment/Process2/Result.php" role="php" />
    <file baseinstalldir="/" md5sum="9ff35206cd3907169cad7b3b19e87e6f" name="Payment/Process2/Transfirst.php" role="php" />
    <file baseinstalldir="/" md5sum="e76918536a2f289c36f3137cf78369d0" name="Payment/Process2/TrustCommerce.php" role="php" />
-   <file baseinstalldir="/" md5sum="9688639ec84a417f32722cb3fc879e77" name="Payment/Process2/Type.php" role="php" />
+   <file baseinstalldir="/" md5sum="b642f89b2ffc54d25ec2e861db9317e3" name="Payment/Process2/Type.php" role="php" />
    <file baseinstalldir="/" md5sum="4e23abaf1c3cb64988dd390bb37f35f7" name="Payment/Process2/Result/AuthorizeNet.php" role="php" />
    <file baseinstalldir="/" md5sum="5f5df9ad8ec83e3ad6aec6ca96293517" name="Payment/Process2/Result/Bibit.php" role="php" />
    <file baseinstalldir="/" md5sum="4dc2321cb2d59adcaa369f01b3a93cf9" name="Payment/Process2/Result/Driver.php" role="php" />
@@ -101,6 +95,16 @@ Some properties now public/protected</notes>
    <pearinstaller>
     <min>1.4.0</min>
    </pearinstaller>
+   <package>
+    <name>Validate_Finance_CreditCard</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.3</min>
+   </package>
+   <package>
+    <name>HTTP_Request2</name>
+    <channel>pear.php.net</channel>
+    <min>0.3.0</min>
+   </package>
   </required>
  </dependencies>
  <phprelease />
@@ -145,6 +149,19 @@ Some properties now public/protected</notes>
    <notes>Refactored code to use class constants instead of define()
 More validation / exceptions raised if you don&apos;t setPayment()
 Fixed CVV validation unit test coverage</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-04-08</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+   <notes>Added dependencies - Bug #16056</notes>
   </release>
  </changelog>
 </package>
