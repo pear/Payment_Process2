@@ -64,6 +64,11 @@ class Payment_Process2_Result_ANZ extends Payment_Process2_Result
         $this->_request     = $request;
     }
 
+    /**
+     * Parse a response and map the appropriate fields
+     *
+     * @return null
+     */
     function parse()
     {
         parse_str($this->_rawResponse, $responseArray);
