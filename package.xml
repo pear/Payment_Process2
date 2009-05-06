@@ -105,6 +105,16 @@
     <channel>pear.php.net</channel>
     <min>0.3.0</min>
    </package>
+   <package>
+    <name>Net_Curl</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.5</min>
+   </package>
+   <package>
+    <name>XML_Util</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.1</min>
+   </package>
   </required>
  </dependencies>
  <phprelease />
