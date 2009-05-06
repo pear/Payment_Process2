@@ -4,7 +4,8 @@ require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
 require_once 'HTTP/Request2.php';
 
-class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Process2_Driver {
+class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Process2_Driver
+{
 
     var $transactionReference = '';
 
@@ -52,7 +53,9 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
     /**
      * Constructor.
      *
-     * @param  array  $options  Class options to set.
+     * @param array         $options Class options to set.
+     * @param HTTP_Request2 $request Request object to use (optional)
+     *
      * @see Payment_Process::setOptions()
      * @return void
      */
@@ -61,10 +64,13 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
         parent::__construct($options, $request);
         $this->_driver = 'ANZ';
 
-        $this->_makeRequired('login', 'password', 'action', 'amount', 'invoiceNumber', 'transactionReference');
+        $this->_makeRequired('login', 'password', 'action', 'amount',
+                             'invoiceNumber', 'transactionReference');
     }
 
     /**
+     * Process a payment
+     *
      * @return Payment_Process2_Result_ANZ
      */
     public function process()
@@ -83,7 +89,12 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
 
         $response = $request->send();
         if ($response->getStatus() != 200) {
-            throw new Payment_Process2_Exception("Payment Gateway HTTP Error {$response->getStatus()} {$response->getReasonPhrase()}");
+
+            $error_msg = "Payment Gateway HTTP Error "
+                         . $response->getStatus() . " "
+                         . $response->getReasonPhrase();
+
+            throw new Payment_Process2_Exception($error_msg);
         }
 
         $result = Payment_Process2_Result::factory($this->_driver,
@@ -95,8 +106,15 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
         return $result;
     }
 
-    public function prepareRequestData() {
+    /**
+     * Manipulate the data to be used in the request
+     *
+     * @return array
+     */
+    public function prepareRequestData()
+    {
         $data = array();
+
         $data['vpc_Version'] = '1';
 
         foreach ($this->_data as $name => &$value) {
@@ -105,6 +123,7 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
             }
             if ($name == 'vpc_CardExp') {
                 list($month, $year) = explode('/', $value);
+
                 $value = substr($year, -2) . $month;
             }
             if ($name == 'vpc_Amount') {
@@ -116,20 +135,37 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
         return $data;
     }
 
-    public function translateAction($action) {
+    /**
+     * Translate a Payment_Process2 action
+     * into a driver specific action
+     *
+     * @param string $action Ie, Payment_Process2::ACTION_NORMAL
+     *
+     * @return string|bool
+     */
+    public function translateAction($action)
+    {
         switch ($action) {
-            case Payment_Process2::ACTION_NORMAL:
-                return 'pay';
+        case Payment_Process2::ACTION_NORMAL:
+            return 'pay';
         }
 
         return false;
     }
 
-    public function getStatus() {
+    public function getStatus()
+    {
         return false;
     }
 
-    public function _validateTransactionReference() {
+    /**
+     * Validate an amount
+     *
+     * @throws Payment_Process2_Exception
+     * @return bool
+     */
+    public function _validateTransactionReference()
+    {
         if (empty($this->transactionReference)) {
             throw new Payment_Process2_Exception('Missing transaction reference');
         }
@@ -137,7 +173,14 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
         return true;
     }
 
-    public function _validateAmount() {
+    /**
+     * Validate an amount
+     *
+     * @throws Payment_Process2_Exception
+     * @return bool
+     */
+    public function _validateAmount()
+    {
         if (empty($this->amount) || $this->amount < 0) {
             throw new Payment_Process2_Exception('Invalid amount');
         }

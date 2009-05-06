@@ -2,7 +2,8 @@
 
 require_once 'Payment/Process2/Result.php';
 
-class Payment_Process2_Result_ANZ extends Payment_Process2_Result {
+class Payment_Process2_Result_ANZ extends Payment_Process2_Result
+{
 
     var $_statusCodeMap = array(
         '0' => Payment_Process2::RESULT_APPROVED,
