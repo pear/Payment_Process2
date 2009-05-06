@@ -9,14 +9,14 @@ require_once 'HTTP/Request2.php';
  *
  * COPYRIGHT NOTICE:
  *
- * This driver is contributed by Valuation Exchange Pty Ltd with permission
- * from Australia and New Zealand Banking Group Limited. The ANZ Bank in no way
- * endorse or support this driver, which is provided under the below BSD
- * License.
+ * This driver is contributed by Valuation Exchange Pty Ltd to The PHP Group
+ * with permission from Australia and New Zealand Banking Group Limited. The
+ * ANZ Bank in no way endorse or support this driver, which is provided under
+ * the below BSD License.
  *
  * This driver is designed to meet specifications provided by MasterCard and
- * the ANZ Bank. Those specifications are not publicly available and are the
- * intellectual property of MasterCard.
+ * the ANZ Bank. Those specifications are available from www.anz.com and are
+ * the intellectual property of MasterCard.
  *
  * This copyright notice must be retained, as required by the BSD Lisence.
  *
