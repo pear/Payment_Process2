@@ -61,6 +61,7 @@ require_once dirname(__FILE__) . '/Payment_Process2_Result_LinkPointTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Result_BibitTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Result_PayPalTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_Result_TransfirstTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_Result_ANZTest.php';
 
 
 require_once dirname(__FILE__) . '/Payment_Process2_TypeTest.php';
@@ -75,6 +76,7 @@ require_once dirname(__FILE__) . '/Payment_Process2_LinkPointTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_BibitTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_PayPalTest.php';
 require_once dirname(__FILE__) . '/Payment_Process2_TransfirstTest.php';
+require_once dirname(__FILE__) . '/Payment_Process2_ANZTest.php';
 
 class Payment_Process2_AllTests
 {
@@ -102,6 +104,7 @@ class Payment_Process2_AllTests
         $suite->addTestSuite('Payment_Process2_BibitTest');
         $suite->addTestSuite('Payment_Process2_PayPalTest');
         $suite->addTestSuite('Payment_Process2_TransfirstTest');
+        $suite->addTestSuite('Payment_Process2_ANZTest');
 
         $suite->addTestSuite('Payment_Process2_ResultTest');
         $suite->addTestSuite('Payment_Process2_Result_AuthorizeNetTest');
@@ -111,6 +114,7 @@ class Payment_Process2_AllTests
         $suite->addTestSuite('Payment_Process2_Result_BibitTest');
         $suite->addTestSuite('Payment_Process2_Result_PayPalTest');
         $suite->addTestSuite('Payment_Process2_Result_TransfirstTest');
+        $suite->addTestSuite('Payment_Process2_Result_ANZTest');
 
         return $suite;
     }
