@@ -1,12 +1,5 @@
 <?php
-require_once 'Payment/Process2.php';
-require_once 'Payment/Process2/Common.php';
-require_once 'Payment/Process2/Driver.php';
-require_once 'HTTP/Request2.php';
-
 /**
- * Driver for the ANZ Bank's eGate Payment Web Service (Merchant-Hosted)
- *
  * COPYRIGHT NOTICE:
  *
  * This driver is contributed by Valuation Exchange Pty Ltd to The PHP Group
@@ -49,14 +42,36 @@ require_once 'HTTP/Request2.php';
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
+ * PHP version 5
+ *
  * @category  Payment
  * @package   Payment_Process2
  * @author    Daniel O'Connor <daniel.oconnor@valex.com.au>
- * @author    Damien Bezborodov <damien.bezborodow@valex.com>
+ * @author    Damien Bezborodov <damien.bezborodow@valex.com.au>
  * @copyright 2009 The PHP Group
  * @copyright 2009 Valuation Exchange Pty Ltd
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Payment_Process2
+ * @link      http://www.anz.com/
+ * @link      http://www.valex.com.au/
+ */
+
+require_once 'Payment/Process2.php';
+require_once 'Payment/Process2/Common.php';
+require_once 'Payment/Process2/Driver.php';
+require_once 'HTTP/Request2.php';
+
+/**
+ * Driver for the ANZ Bank's eGate Payment Web Service (Merchant-Hosted)
+ *
+ * @category  Payment
+ * @package   Payment_Process2
+ * @author    Daniel O'Connor <daniel.oconnor@valex.com.au>
+ * @author    Damien Bezborodov <damien.bezborodow@valex.com.au>
+ * @copyright 2009 The PHP Group
+ * @copyright 2009 Valuation Exchange Pty Ltd
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @link      http://pear.php.net/package/Payment_Process2
  * @link      http://www.anz.com/
  * @link      http://www.valex.com.au/
@@ -210,6 +225,11 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
         return false;
     }
 
+    /**
+     * Get driver status
+     *
+     * @return bool
+     */
     public function getStatus()
     {
         return false;
