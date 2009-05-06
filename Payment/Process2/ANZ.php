@@ -18,6 +18,8 @@ require_once 'HTTP/Request2.php';
  * the ANZ Bank. Those specifications are not publicly available and are the
  * intellectual property of MasterCard.
  *
+ * This copyright notice must be retained, as required by the BSD Lisence.
+ *
  * LICENSE:
  *
  * Copyright (c) 2009, Valuation Exchange Pty Ltd
