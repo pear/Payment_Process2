@@ -16,18 +16,19 @@
   <email>damien.bezborodow@valex.com.au</email>
   <active>yes</active>
  </lead>
- <date>2009-04-08</date>
- <time>00:58:21</time>
+ <date>2009-05-06</date>
+ <time>02:31:55</time>
  <version>
-  <release>0.2.1</release>
-  <api>0.2.0</api>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
- <notes>Added dependencies - Bug #16056</notes>
+ <notes>Added an ANZ payment driver (Mastercard Interface Gateway / MIGS)
+Added a MockCreditCard for testing</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="f237ba19dfcaa775b39a92ac7ab74ce6" name="examples/creditcard.php" role="doc" />
@@ -36,11 +37,12 @@
    <file baseinstalldir="/" md5sum="ceba22b7cec3787483a1804b586c6f5b" name="examples/Payment_Process-example.php" role="doc" />
    <file baseinstalldir="/" md5sum="36f610bc67b7b3050c65027ff9c73c0b" name="examples/TrustCommerce_creditcard.php" role="doc" />
    <file baseinstalldir="/" md5sum="a95fb7f5c5e0a383798367823aba0d75" name="Payment/Process2.php" role="php" />
+   <file baseinstalldir="/" md5sum="6eb2d1fa656ffb65f709fdf792da8bcd" name="Payment/Process2/ANZ.php" role="php" />
    <file baseinstalldir="/" md5sum="8bafde49eda40b7fa4ac442da717cb89" name="Payment/Process2/AuthorizeNet.php" role="php" />
    <file baseinstalldir="/" md5sum="59866009105422f9e911c27f04fa4945" name="Payment/Process2/Bibit.php" role="php" />
    <file baseinstalldir="/" md5sum="0c8215f1d32a9a14f46a6157b13c8e41" name="Payment/Process2/Common.php" role="php" />
    <file baseinstalldir="/" md5sum="cd6e027f25bacdeb1783baa3fdfff195" name="Payment/Process2/Driver.php" role="php" />
-   <file baseinstalldir="/" md5sum="c3373d6b6e647eb707c0073a5f0d5833" name="Payment/Process2/Dummy.php" role="php" />
+   <file baseinstalldir="/" md5sum="0c1c89b491d6fad1a670677f7c58862d" name="Payment/Process2/Dummy.php" role="php" />
    <file baseinstalldir="/" md5sum="f6cfeea2e97e449a1e2eb320609d35cf" name="Payment/Process2/Exception.php" role="php" />
    <file baseinstalldir="/" md5sum="c9b67f63748f8291de310e6f5110a898" name="Payment/Process2/LinkPoint.php" role="php" />
    <file baseinstalldir="/" md5sum="1818950e96ddd4fd4920c69eac1bb9e9" name="Payment/Process2/Offline.php" role="php" />
@@ -49,6 +51,7 @@
    <file baseinstalldir="/" md5sum="9ff35206cd3907169cad7b3b19e87e6f" name="Payment/Process2/Transfirst.php" role="php" />
    <file baseinstalldir="/" md5sum="e76918536a2f289c36f3137cf78369d0" name="Payment/Process2/TrustCommerce.php" role="php" />
    <file baseinstalldir="/" md5sum="b642f89b2ffc54d25ec2e861db9317e3" name="Payment/Process2/Type.php" role="php" />
+   <file baseinstalldir="/" md5sum="0d1dd07f41372c8ecd62f7a89f31fdc5" name="Payment/Process2/Result/ANZ.php" role="php" />
    <file baseinstalldir="/" md5sum="4e23abaf1c3cb64988dd390bb37f35f7" name="Payment/Process2/Result/AuthorizeNet.php" role="php" />
    <file baseinstalldir="/" md5sum="5f5df9ad8ec83e3ad6aec6ca96293517" name="Payment/Process2/Result/Bibit.php" role="php" />
    <file baseinstalldir="/" md5sum="4dc2321cb2d59adcaa369f01b3a93cf9" name="Payment/Process2/Result/Driver.php" role="php" />
@@ -59,8 +62,10 @@
    <file baseinstalldir="/" md5sum="895d048003471aa61a4a2b338f7338ca" name="Payment/Process2/Result/TrustCommerce.php" role="php" />
    <file baseinstalldir="/" md5sum="2f6b6b6740d4475156955aebdcccaa8f" name="Payment/Process2/Type/CreditCard.php" role="php" />
    <file baseinstalldir="/" md5sum="010a70be2553c169f0b6fde87c8b704e" name="Payment/Process2/Type/eCheck.php" role="php" />
-   <file baseinstalldir="/" md5sum="1e547a2dba4de47607e7033f008767f5" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="739552eb789e202453fbf0c31f9ac248" name="Payment/Process2/Type/MockCreditCard.php" role="php" />
+   <file baseinstalldir="/" md5sum="bffd1e783c80c20c3295eff1ee072b5c" name="tests/AllTests.php" role="test" />
    <file baseinstalldir="/" md5sum="ae441a8703f8530064954901eefd05d9" name="tests/Payment_Process2Test.php" role="test" />
+   <file baseinstalldir="/" md5sum="dd6884d1cd1c2e071ec2b489f11bd5cc" name="tests/Payment_Process2_ANZTest.php" role="test" />
    <file baseinstalldir="/" md5sum="91c5e635331a893108464f0d895e3894" name="tests/Payment_Process2_AuthorizeNetTest.php" role="test" />
    <file baseinstalldir="/" md5sum="f5750034788b6200b646671d552e8afb" name="tests/Payment_Process2_BibitTest.php" role="test" />
    <file baseinstalldir="/" md5sum="2540c3b6a549dca15b3ec11df3dd2bf6" name="tests/Payment_Process2_CommonTest.php" role="test" />
@@ -68,6 +73,7 @@
    <file baseinstalldir="/" md5sum="c70e33c7e56377873332336267f31d1c" name="tests/Payment_Process2_LinkPointTest.php" role="test" />
    <file baseinstalldir="/" md5sum="dd12c31d5b900f5b15b217c20d43d2ff" name="tests/Payment_Process2_PayPalTest.php" role="test" />
    <file baseinstalldir="/" md5sum="b7d915a3634415bd79e98e9eba12029a" name="tests/Payment_Process2_ResultTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="cc4d5d60aa599c2c0c26a604e60bce35" name="tests/Payment_Process2_Result_ANZTest.php" role="test" />
    <file baseinstalldir="/" md5sum="ff91ae4063eac77008fc2b97ac4b49fd" name="tests/Payment_Process2_Result_AuthorizeNetTest.php" role="test" />
    <file baseinstalldir="/" md5sum="8adb2627bc3f803a655d198e4c1a2344" name="tests/Payment_Process2_Result_BibitTest.php" role="test" />
    <file baseinstalldir="/" md5sum="7e45fb240c8a649560757989a3bad83f" name="tests/Payment_Process2_Result_DummyTest.php" role="test" />
@@ -80,6 +86,18 @@
    <file baseinstalldir="/" md5sum="d53978baff13924e5c408ab732387f24" name="tests/Payment_Process2_TypeTest.php" role="test" />
    <file baseinstalldir="/" md5sum="79eea285896d4a9ae76e3f8eae0837e1" name="tests/Payment_Process2_Type_CreditCardTest.php" role="test" />
    <file baseinstalldir="/" md5sum="4186b4a6c0e009893d4a75fceff94f7f" name="tests/Payment_Process2_Type_eCheckTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="d4d3e8c4ae6d0a45c71e7971a2350254" name="tests/data/ANZ/communication.html" role="test" />
+   <file baseinstalldir="/" md5sum="78b7e05ee96f04797b0010ddd406e06c" name="tests/data/ANZ/declined.html" role="test" />
+   <file baseinstalldir="/" md5sum="aae47774243159a6f87a7d91a846d558" name="tests/data/ANZ/declined_go_away.html" role="test" />
+   <file baseinstalldir="/" md5sum="5cf56280878541469f514784c3fb108f" name="tests/data/ANZ/error.html" role="test" />
+   <file baseinstalldir="/" md5sum="475f6a25cd469a66ecd676bf8ef20a2a" name="tests/data/ANZ/expired.html" role="test" />
+   <file baseinstalldir="/" md5sum="3651a28a61a5d54c591a3010f2ac7dd8" name="tests/data/ANZ/insufficient_credit.html" role="test" />
+   <file baseinstalldir="/" md5sum="8f7c25ade8eba5a2935037d9fe0c4f62" name="tests/data/ANZ/invalid_expiry.html" role="test" />
+   <file baseinstalldir="/" md5sum="8f7c25ade8eba5a2935037d9fe0c4f62" name="tests/data/ANZ/invalid_pan.html" role="test" />
+   <file baseinstalldir="/" md5sum="fbb853ffe5e6b93ee41f46646172ec49" name="tests/data/ANZ/invalid_transaction.html" role="test" />
+   <file baseinstalldir="/" md5sum="9bc928073daa54b6e999d41991c8f622" name="tests/data/ANZ/not_processed.html" role="test" />
+   <file baseinstalldir="/" md5sum="b4424281a11c14bdef874276d7ba1ca2" name="tests/data/ANZ/no_reply.html" role="test" />
+   <file baseinstalldir="/" md5sum="c16b477d88bffd6e6339a458fa772b1f" name="tests/data/ANZ/success.html" role="test" />
    <file baseinstalldir="/" md5sum="5a85f51d17d09ee803aa1251ad4d4b8a" name="tests/data/AuthorizeNet/error.html" role="test" />
    <file baseinstalldir="/" md5sum="2187b7d9f904702536875161fb7f5f9c" name="tests/data/TrustCommerce/error.html" role="test" />
    <file baseinstalldir="/" md5sum="ecdc420841b38bcd74f393a19682d299" name="tests/data/TrustCommerce/success.html" role="test" />
@@ -172,6 +190,20 @@ Fixed CVV validation unit test coverage</notes>
    <date>2009-04-08</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
    <notes>Added dependencies - Bug #16056</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-05-06</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD Style</license>
+   <notes>Added an ANZ payment driver (Mastercard Interface Gateway / MIGS)
+Added a MockCreditCard for testing</notes>
   </release>
  </changelog>
 </package>
