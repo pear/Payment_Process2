@@ -17,11 +17,11 @@ require_once 'Payment/Process2/Common.php';
  * Payment_Process codes.
  *
  * @category Payment
- * @package  Payment_Process
+ * @package  Payment_Process2
  * @author   Joe Stump <joe@joestump.net>
  * @license  http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Payment_Process
+ * @link     http://pear.php.net/package/Payment_Process2
  */
 class Payment_Process2_Result
 {

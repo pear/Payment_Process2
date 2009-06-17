@@ -32,13 +32,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Payment
- * @package   Payment_Process
+ * @package   Payment_Process2
  * @author    Joe Stump <joe@joestump.net>
  * @author    Robert Peake <robert.peake@trustcommerce.com>
  * @copyright 1997-2005 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Payment_Process
+ * @link      http://pear.php.net/package/Payment_Process2
  */
 
 require_once 'Payment/Process2.php';
@@ -69,7 +69,7 @@ require_once 'HTTP/Request2.php';
  * </pre>
  *
  *
- * @package Payment_Process
+ * @package Payment_Process2
  * @author Robert Peake <robert.peake@trustcommerce.com>
  * @version @version@
  */

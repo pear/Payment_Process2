@@ -32,12 +32,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Payment
- * @package   Payment_Process
+ * @package   Payment_Process2
  * @author    Ian Eure <ieure@php.net>
  * @copyright 1997-2005 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Payment_Process
+ * @link      http://pear.php.net/package/Payment_Process2
  */
 
 require_once 'Payment/Process2/Common.php';
@@ -51,11 +51,11 @@ require_once 'Payment/Process2/Result/Dummy.php';
  * result codes and messages for testing purposes.
  *
  * @category Payment
- * @package  Payment_Process
+ * @package  Payment_Process2
  * @author   Ian Eure <ieure@php.net>
  * @license  http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Payment_Process
+ * @link     http://pear.php.net/package/Payment_Process2
  */
 class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_Process2_Driver
 {

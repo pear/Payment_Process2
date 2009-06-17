@@ -34,14 +34,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Payment
- * @package   Payment_Process
+ * @package   Payment_Process2
  * @author    Ian Eure <ieure@php.net>
  * @author    Joe Stump <joe@joestump.net>
  * @author    Philippe Jausions <Philippe.Jausions@11abacus.com>
  * @copyright 1997-2005 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Payment_Process
+ * @link      http://pear.php.net/package/Payment_Process2
  * @see       Validate_Finance_CreditCard
  */
 
@@ -53,11 +53,11 @@ require_once 'Payment/Process2/Exception.php';
  * Payment_Process2_Type_CreditCard
  *
  * @category Payment
- * @package  Payment_Process
+ * @package  Payment_Process2
  * @author   Joe Stump <joe@joestump.net>
  * @license  http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Payment_Process
+ * @link     http://pear.php.net/package/Payment_Process2
  */
 class Payment_Process2_Type_CreditCard extends Payment_Process2_Type
 {

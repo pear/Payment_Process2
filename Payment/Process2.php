@@ -58,7 +58,7 @@ require_once 'Payment/Process2/Result.php';
 
 
 /**
- * Payment_Process
+ * Payment_Process2
  *
  * @category Payment
  * @package  Payment_Process2

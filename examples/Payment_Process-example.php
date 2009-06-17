@@ -32,12 +32,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Payment
- * @package   Payment_Process
+ * @package   Payment_Process2
  * @author    Ian Eure <ieure@php.net>
  * @copyright 2003-2008 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Payment_Process
+ * @link      http://pear.php.net/package/Payment_Process2
  */
 
 require 'Payment/Process2.php';

@@ -36,12 +36,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category   Payment
- * @package    Payment_Process
+ * @package    Payment_Process2
  * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
  * @copyright  2007 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Payment_Process
+ * @link       http://pear.php.net/package/Payment_Process2
  * @todo       Complete the implementation
  */
 
@@ -58,7 +58,7 @@ require_once 'HTTP/Request2.php';
 /**
  * This is a processor for PayPal's merchant  Direct Payment gateway.
  *
- * @package    Payment_Process
+ * @package    Payment_Process2
  * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
  * @version    @version@
  * @link       http://www.paypal.com/

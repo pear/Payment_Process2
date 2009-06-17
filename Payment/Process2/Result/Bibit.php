@@ -6,11 +6,11 @@ require_once 'Payment/Process2/Result.php';
  * Payment_Process2_Bibit_Result
  *
  * @category Payment
- * @package  Payment_Process
+ * @package  Payment_Process2
  * @author   Robin Ericsson <lobbin@localhost.nu>
  * @license  http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version  Release: @package_version@
- * @link     http://pear.php.net/package/Payment_Process
+ * @link     http://pear.php.net/package/Payment_Process2
  */
 class Payment_Process2_Result_Bibit extends Payment_Process2_Result
 {

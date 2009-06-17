@@ -8,7 +8,7 @@ require_once 'Payment/Process2/Result/Driver.php';
  * LinkPoint result class
  *
  * @author Joe Stump <joe@joestump.net>
- * @package Payment_Process
+ * @package Payment_Process2
  */
 class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implements Payment_Process2_Result_Driver
 {
@@ -117,7 +117,7 @@ require_once 'XML/Parser.php';
  *
  * @todo    Split out to own class
  * @author Joe Stump <joe@joestump.net>
- * @package Payment_Process
+ * @package Payment_Process2
  */
 class Payment_Process2_LinkPoint_XML_Parser extends XML_Parser
 {

@@ -32,12 +32,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Payment
- * @package   Payment_Process
+ * @package   Payment_Process2
  * @author    Ian Eure <ieure@php.net>
  * @copyright 1997-2005 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Payment_Process
+ * @link      http://pear.php.net/package/Payment_Process2
  */
 
 require_once 'Payment/Process2/Common.php';
@@ -58,7 +58,7 @@ require_once 'Validate.php';
  * strongly recommend that you do additional testing before using it in
  * production systems.
  *
- * @package Payment_Process
+ * @package Payment_Process2
  * @author Ian Eure <ieure@php.net>
  * @version @version@
  */
