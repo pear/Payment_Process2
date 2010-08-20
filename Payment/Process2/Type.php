@@ -267,7 +267,7 @@ class Payment_Process2_Type
     function _validateZip()
     {
         if (isset($this->zip) && strtolower($this->country) == 'us') {
-            if (!ereg('^[0-9]{5}(-[0-9]{4})?$', $this->zip)) {
+            if (!preg_match('/^[0-9]{5}(-[0-9]{4})?$/', $this->zip)) {
                 throw new Payment_Process2_Exception("Invalid email address");
             }
         }

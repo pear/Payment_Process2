@@ -99,7 +99,7 @@ class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implemen
             $this->_mapFields($xml->response);
 
             // switch to DECLINED since a duplicate isn't *really* fraud
-            if(eregi('duplicate',$this->message)) {
+            if (preg_match('/duplicate/i',$this->message)) {
                 $this->messageCode = 'DECLINED';
             }
         }
