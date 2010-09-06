@@ -68,26 +68,22 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
      */
     function parse()
     {
-      $array = array();
-      parse_str(str_replace("\r\n", "&", $this->_rawResponse), $array);
+        $responseArray = array();
+     
+        parse_str(str_replace(array("\r", "\n"), "&", $this->_rawResponse), $responseArray);
 
-      $this->_mapFields($array);
-    }
-
-    /**
-     * @todo Good unit test coverage!
-     */
-    function _mapFields($responseArray)
-    {
-        if (empty($responseArray)) {
-            return;
+        if (isset($responseArray['status'])) {
+            $this->code = trim($responseArray['status']);
         }
 
-        foreach ($this->_fieldMap as $key => $val) {
-            if (isset($responseArray[$key])) {
-                $this->$val = trim($responseArray[$key]);
-            }
+        if (isset($responseArray['avs'])) {
+            $this->avsCode = trim($responseArray['avs']);
         }
+
+        if (isset($responseArray['transid'])) {
+            $this->transactionId = trim($responseArray['transid']);
+        }
+
         if (!isset($this->_statusCodeMessages[$this->messageCode])) {
 
             $message = !empty($responseArray['status']) ? $this->_statusCodeMessages[trim($responseArray['status'])] : "";
