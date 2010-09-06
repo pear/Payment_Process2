@@ -45,7 +45,6 @@ require_once 'Payment/Process2.php';
 require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
 require_once 'Payment/Process2/Result/Bibit.php';
-require_once 'Net/Curl.php';
 require_once 'XML/Util.php';
 
 
