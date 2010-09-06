@@ -88,17 +88,17 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
                 $this->$val = trim($responseArray[$key]);
             }
         }
-        if (!isset($this->_statusCodeMessages[$this->messageCode]))
-        {
-            $message = $this->_statusCodeMessages[trim($responseArray['status'])];
-            if(!empty($responseArray['error']))
-            {
+        if (!isset($this->_statusCodeMessages[$this->messageCode])) {
+
+            $message = !empty($responseArray['status']) ? $this->_statusCodeMessages[trim($responseArray['status'])] : "";
+            if (!empty($responseArray['error'])) {
                 $message .= "\nError type: ".$responseArray['error'].'.';
-                if($responseArray['offenders'])
-                {
-                    $message .= "\nOffending fields: ".$responseArray['offenders'].'.';
-                }
+	    }
+
+            if (!empty($responseArray['offenders'])) {
+                $message .= "\nOffending fields: ".$responseArray['offenders'].'.';
             }
+
             $this->_statusCodeMessages[$this->messageCode] = $message;
         }
     }
