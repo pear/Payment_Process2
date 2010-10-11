@@ -172,7 +172,7 @@ class Payment_Process2_Result_ANZ extends Payment_Process2_Result
      * @param string $rawResponse Raw response
      * @param mixed  $request     Request
      */
-    function __construct($rawResponse, $request)
+    public function __construct($rawResponse, $request)
     {
         $this->_rawResponse = $rawResponse;
         $this->_request     = $request;
@@ -183,7 +183,7 @@ class Payment_Process2_Result_ANZ extends Payment_Process2_Result
      *
      * @return null
      */
-    function parse()
+    public function parse()
     {
         parse_str($this->_rawResponse, $responseArray);
         $this->_mapFields($responseArray);
