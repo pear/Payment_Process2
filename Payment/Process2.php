@@ -226,14 +226,22 @@ class Payment_Process2
      */
     public function getFields()
     {
-        $vars = array_keys(get_class_vars(get_class($this)));
-        foreach ($vars as $idx => $field) {
-            if ($field{0} == '_') {
-                unset($vars[$idx]);
+        $reflection = new ReflectionObject($this);
+        $fields = array();
+        foreach ($reflection->getProperties() as $property) {
+            if  ($property->isPrivate() || $property->isProtected()) {
+                continue;
             }
+
+            $field = $property->getName();
+            if ($field{0} == '_') {
+                continue;
+            }
+
+            $fields[] = $property->getName();
         }
 
-        return $vars;
+        return $fields;
     }
 
     /**
