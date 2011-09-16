@@ -31,14 +31,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Payment
- * @package    Payment_Process2
- * @author     Joe Stump <joe@joestump.net>
- * @author     Ian Eure <ieure@php.net>
- * @copyright  1997-2005 The PHP Group
+ * @category  Payment
+ * @package   Payment_Process2
+ * @author    Joe Stump <joe@joestump.net>
+ * @author    Ian Eure <ieure@php.net>
+ * @copyright 1997-2005 The PHP Group
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Payment_Process2
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Payment_Process2
  */
 
 require_once 'PEAR.php';
@@ -48,10 +48,11 @@ require_once 'Payment/Process2/Exception.php';
 /**
  * Payment_Process2_Type
  *
- * @author Joe Stump <joe@joestump.net>
  * @category Payment
- * @package Payment_Process2
- * @version @version@
+ * @package  Payment_Process2
+ * @author   Joe Stump <joe@joestump.net>
+ * @license  http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @link     http://pear.php.net/package/Payment_Process2
  */
 class Payment_Process2_Type
 {
@@ -161,16 +162,18 @@ class Payment_Process2_Type
     var $ipAddress;
     // }}}
 
-    // {{{ &factory($type)
+    // {{{ factory($type)
     /**
-    * factory
-    *
-    * Creates and returns an instance of a payment type.
-    *
-    * @param string $type
-    * @return Payment_Process2_Type
-    * @throws Payment_Process2_Exception
-    */
+     * factory
+     *
+     * Creates and returns an instance of a payment type.
+     *
+     * @param string $type    Type
+     * @param array  $options Options
+     *
+     * @return Payment_Process2_Type
+     * @throws Payment_Process2_Exception
+     */
     public static function factory($type, $options = array())
     {
         $class = "Payment_Process2_Type_$type";
@@ -178,12 +181,12 @@ class Payment_Process2_Type
 
         // If the class does not exist, attempt to include it
         if (!class_exists($class)) {
-        	foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
-        		if (is_readable("$includePath/$path")) {
-            		include_once $path;
-            		break;
-        		}
-        	}
+            foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
+                if (is_readable("$includePath/$path")) {
+                    include_once $path;
+                    break;
+                }
+            }
         }
 
         if (class_exists($class)) {
@@ -191,8 +194,10 @@ class Payment_Process2_Type
             return $instance;
         }
 
-        throw new Payment_Process2_Exception('"'.$type.'" processor does not exist',
-                                Payment_Process2::ERROR_NOPROCESSOR);
+        throw new Payment_Process2_Exception(
+            '"'.$type.'" processor does not exist',
+            Payment_Process2::ERROR_NOPROCESSOR
+        );
     }
 
     // }}}
@@ -230,7 +235,7 @@ class Payment_Process2_Type
     */
     function getType()
     {
-      return $this->_type;
+        return $this->_type;
     }
     // }}}
     // {{{ _validateEmail()
