@@ -159,26 +159,28 @@ class Payment_Process2
 
         // If the class does not exist, attempt to include it
         if (!class_exists($class)) {
-        	foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
-        		if (is_readable("$includePath/$path")) {
-            		include_once $path;
-            		break;
-        		}
-        	}
+            foreach (explode(PATH_SEPARATOR, get_include_path()) as $includePath) {
+                if (is_readable("$includePath/$path")) {
+                    include_once $path;
+                    break;
+                }
+            }
         }
 
         // If the class exists and is and is a Payment_Process2_Driver,
         // instantiate it
         if (class_exists($class)) {
-        	$reflectionClass = new ReflectionClass($class);
+            $reflectionClass = new ReflectionClass($class);
             if ($reflectionClass->implementsInterface('Payment_Process2_Driver')) {
                 $instance = new $class($options);
                 return $instance;
             }
         }
 
-        throw new Payment_Process2_Exception('"'.$type.'" processor does not exist',
-                                Payment_Process2::ERROR_NOPROCESSOR);
+        throw new Payment_Process2_Exception(
+            '"'.$type.'" processor does not exist',
+            Payment_Process2::ERROR_NOPROCESSOR
+        );
     }
 
     /**
