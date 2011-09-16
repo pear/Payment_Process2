@@ -121,9 +121,9 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
      * @see Payment_Process::setOptions()
      * @access private
      */
-    var $_defaultOptions = array(
+    protected $defaultOptions = array(
         'paypalUri' => 'https://api-3t.sandbox.paypal.com/nvp',
-        );
+    );
 
     /**
      * Has the transaction been processed?

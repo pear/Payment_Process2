@@ -127,9 +127,8 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
      * Default options for this processor.
      *
      * @see Payment_Process::setOptions()
-     * @access private
      */
-    var $_defaultOptions = array(
+    protected $defaultOptions = array(
          'host'   => 'secure.linkpt.net',
          'port'   => '1129',
          'result' => 'LIVE'

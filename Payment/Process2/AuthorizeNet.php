@@ -129,9 +129,8 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
      * Default options for this processor.
      *
      * @see Payment_Process::setOptions()
-     * @access private
      */
-    var $_defaultOptions = array(
+    protected $defaultOptions = array(
          'authorizeUri' => 'https://secure.authorize.net/gateway/transact.dll',
          'x_delim_data' => 'TRUE',
          'x_delim_char' => ',',

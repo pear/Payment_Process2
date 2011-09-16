@@ -141,7 +141,7 @@ class Payment_Process2
     const CVV_ERROR = 602;
     const CVV_NOAPPLY = 603;
 
-    protected $_defaultOptions = array();
+    protected $defaultOptions = array();
 
     /**
      * Return an instance of a specific processor.
@@ -249,7 +249,7 @@ class Payment_Process2
      */
     public function setOptions($options = array(), $defaultOptions = array())
     {
-        $defaultOptions = $defaultOptions ? $defaultOptions : $this->_defaultOptions;
+        $defaultOptions = $defaultOptions ? $defaultOptions : $this->defaultOptions;
         $this->_options = array_merge($defaultOptions, $options);
     }
 

@@ -115,10 +115,7 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
         ),
     );
 
-    /**
-     * @todo Swap to protected
-     */
-    var $_defaultOptions = array(
+    protected $defaultOptions = array(
         'url' => 'https://migs.mastercard.com.au/vpcdps',
     );
 

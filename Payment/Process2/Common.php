@@ -191,7 +191,7 @@ class Payment_Process2_Common
     var $transactionSource;
     // }}}
 
-    var $_defaultOptions = array();
+    protected $defaultOptions = array();
 
 
     var $_request = null;
@@ -425,7 +425,7 @@ class Payment_Process2_Common
         if (!is_array($options)) {
             throw new InvalidArgumentException("Must provide an array");
         }
-        $defaultOptions = $defaultOptions ? $defaultOptions : $this->_defaultOptions;
+        $defaultOptions = $defaultOptions ? $defaultOptions : $this->defaultOptions;
         $this->_options = array_merge($defaultOptions, $options);
     }
     // }}}

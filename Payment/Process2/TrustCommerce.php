@@ -133,9 +133,8 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
      * Default options for this processor.
      *
      * @see Payment_Process::setOptions()
-     * @access private
      */
-    var $_defaultOptions = array();
+    protected $defaultOptions = array();
 
     /**
      * Has the transaction been processed?

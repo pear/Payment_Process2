@@ -129,9 +129,8 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
      * Default options for this processor.
      *
      * @see Payment_Process::setOptions()
-     * @access private
      */
-    var $_defaultOptions = array(
+    protected $defaultOptions = array(
         'authorizeUri' => "https://epaysecure.transfirst.com/eLink/authpd.asp"
     );
 

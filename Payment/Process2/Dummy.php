@@ -62,11 +62,10 @@ class Payment_Process2_Dummy extends Payment_Process2_Common implements Payment_
     /**
      * Default options for this class.
      *
-     * @access private
      * @type array
      * @see Payment_Process::setOptions()
      */
-    var $_defaultOptions = array(
+    protected $defaultOptions = array(
         'randomResult' => true,
         'returnCode' => Payment_Process2::RESULT_APPROVED,
         'returnMessage' => "Dummy payment approved"

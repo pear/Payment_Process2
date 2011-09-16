@@ -108,9 +108,8 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      * Default options for this processor.
      *
      * @see Payment_Process::setOptions()
-     * @access private
      */
-    var $_defaultOptions = array(
+    protected $defaultOptions = array(
         'authorizeUri' => 'https://secure.bibit.com/jsp/merchant/xml/paymentService.jsp',
         'authorizeTestUri' => 'https://secure-test.bibit.com/jsp/merchant/xml/paymentService.jsp',
         'x_version' => '1.4'
