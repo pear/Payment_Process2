@@ -45,7 +45,7 @@ require_once 'Payment/Process2.php';
 require_once 'Payment/Process2/Common.php';
 require_once 'Payment/Process2/Driver.php';
 require_once 'Payment/Process2/Result/Bibit.php';
-require_once 'XML/Util.php';
+require_once 'XML/Util2.php';
 
 
 
@@ -205,7 +205,7 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      *
      * @see Payment_Process::setOptions()
      */
-    function __construct($options = array(), HTTP_Request2 $request = null)
+    public function __construct($options = array(), HTTP_Request2 $request = null)
     {
         parent::__construct($options, $request);
         $this->_driver = 'Bibit';
@@ -265,16 +265,16 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
     {
         $data = array_merge($this->_options, $this->_data);
 
-
-        $doc  = XML_Util::getXMLDeclaration();
+        $util = new XML_Util2();
+        $doc  = $util->getXMLDeclaration();
         $doc .= '<!DOCTYPE paymentService PUBLIC "-//Bibit//DTD Bibit PaymentService v1//EN" "http://dtd.bibit.com/paymentService_v1.dtd">';
 
-        $doc .= XML_Util::createStartElement('paymentService', array('version' =>  $data['x_version'], 'merchantCode' => $data['x_login']));
+        $doc .= $util->createStartElement('paymentService', array('version' =>  $data['x_version'], 'merchantCode' => $data['x_login']));
         if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE || $data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_REFUND) {
-            $doc .= XML_Util::createStartElement('modify');
-            $doc .= XML_Util::createStartElement('orderModification', array('orderCode' => $data['x_ordercode']));
+            $doc .= $util->createStartElement('modify');
+            $doc .= $util->createStartElement('orderModification', array('orderCode' => $data['x_ordercode']));
             if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_CAPTURE) {
-                $doc .= XML_Util::createStartElement('capture');
+                $doc .= $util->createStartElement('capture');
 
                 $d = array();
                 $t = time() - 86400;
@@ -286,49 +286,49 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
                 $d['minute']     = date('i', $t);
                 $d['second']     = date('s', $t);
 
-                $doc .= XML_Util::createTag('date', $d);
-                $doc .= XML_Util::createTag('amount',
+                $doc .= $util->createTag('date', $d);
+                $doc .= $util->createTag('amount',
                     array('value' => $data['x_amount'],
                           'currencyCode' => $data['x_currency'],
                           'exponent' => $data['x_exponent']));
 
-                $doc .= XML_Util::createEndElement('capture');
+                $doc .= $util->createEndElement('capture');
             } else if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_REFUND) {
-                $doc .= XML_Util::createStartElement('refund');
-                $doc .= XML_Util::createTag('amount',
+                $doc .= $util->createStartElement('refund');
+                $doc .= $util->createTag('amount',
                     array('value' => $data['x_amount'],
                           'currencyCode' => $data['x_currency'],
                           'exponent' => $data['x_exponent']));
-                $doc .= XML_Util::createEndElement('refund');
+                $doc .= $util->createEndElement('refund');
             }
 
-            $doc .= XML_Util::createEndElement('orderModification');
-            $doc .= XML_Util::createEndElement('modify');
+            $doc .= $util->createEndElement('orderModification');
+            $doc .= $util->createEndElement('modify');
         } else {
-            $doc .= XML_Util::createStartElement('submit');
-            $doc .= XML_Util::createStartElement('order',
+            $doc .= $util->createStartElement('submit');
+            $doc .= $util->createStartElement('order',
                 array('orderCode' => $data['x_ordercode']));
 
-            $doc .= XML_Util::createTag('description', null, $data['x_descr']);
-            $doc .= XML_Util::createTag('amount',
+            $doc .= $util->createTag('description', null, $data['x_descr']);
+            $doc .= $util->createTag('amount',
                 array('value' => $data['x_amount'],
                       'currencyCode' => $data['x_currency'],
                       'exponent' => $data['x_exponent']));
             if (isset($data['x_ordercontent'])) {
-                $doc .= XML_Util::createStartElement('orderContent');
-                $doc .= XML_Util::createCDataSection($data['x_ordercontent']);
-                $doc .= XML_Util::createEndElement('orderContent');
+                $doc .= $util->createStartElement('orderContent');
+                $doc .= $util->createCDataSection($data['x_ordercontent']);
+                $doc .= $util->createEndElement('orderContent');
             }
 
             if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_REDIRECT) {
                 if (is_array($data['paymentMethodMask'])
                     && count($data['paymentMethodMask'] > 0)) {
-                    $doc .= XML_Util::createStartElement('paymentMethodMask');
+                    $doc .= $util->createStartElement('paymentMethodMask');
 
                     /** @todo Unit test coverage of this ? */
                     if (!empty($data['paymentMethodMask']['include'])) {
                         foreach ($data['paymentMethodMask']['include'] as $code) {
-                            $doc .= XML_Util::createTag('include',
+                            $doc .= $util->createTag('include',
                                                         array('code' => $code));
                         }
                     }
@@ -336,15 +336,15 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
                     /** @todo Unit test coverage of this ? */
                     if (!empty($data['paymentMethodMask']['exclude'])) {
                         foreach ($data['paymentMethodMask']['exclude'] as $code) {
-                            $doc .= XML_Util::createTag('exclude',
+                            $doc .= $util->createTag('exclude',
                                                         array('code' => $code));
                         }
                     }
 
-                    $doc .= XML_Util::createEndElement('paymentMethodMask');
+                    $doc .= $util->createEndElement('paymentMethodMask');
                 }
             } else if ($data['x_action'] == Payment_Process2_Bibit::ACTION_BIBIT_AUTH) {
-                $doc .= XML_Util::createStartElement('paymentDetails');
+                $doc .= $util->createStartElement('paymentDetails');
                 switch ($this->_payment->type) {
                 case Payment_Process2_Type::CC_VISA:
                     $cc_type = 'VISA-SSL';
@@ -357,28 +357,28 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
                     break;
                 }
 
-                $doc .= XML_Util::createStartElement($cc_type);
+                $doc .= $util->createStartElement($cc_type);
                 if (isset($data['x_card_num'])) {
-                    $doc .= XML_Util::createTag('cardNumber', null,
+                    $doc .= $util->createTag('cardNumber', null,
                                                 $data['x_card_num']);
                 }
                 if (isset($data['x_exp_date'])) {
-                    $doc .= XML_Util::createStartElement('expiryDate');
-                    $doc .= XML_Util::createTag('date',
+                    $doc .= $util->createStartElement('expiryDate');
+                    $doc .= $util->createTag('date',
                         array('month' => substr($data['x_exp_date'], 0, 2),
                               'year' => substr($data['x_exp_date'], 3, 4)));
-                    $doc .= XML_Util::createEndElement('expiryDate');
+                    $doc .= $util->createEndElement('expiryDate');
                 }
                 if (isset($this->_payment->firstName) &&
                     isset($this->_payment->lastName)) {
-                    $doc .= XML_Util::createTag('cardHolderName', null,
+                    $doc .= $util->createTag('cardHolderName', null,
                         $this->_payment->firstName.' '.$this->_payment->lastName);
                 }
                 if (isset($data['x_card_code'])) {
-                    $doc .= XML_Util::createTag('cvc', null, $data['x_card_code']);
+                    $doc .= $util->createTag('cvc', null, $data['x_card_code']);
                 }
 
-                $doc .= XML_Util::createEndElement($cc_type);
+                $doc .= $util->createEndElement($cc_type);
 
                 if ((isset($data['shopperIPAddress']) || isset($data['sessionId']))
                 &&  ($data['shopperIPAddress'] != ''  || $data['sessionId'] != '')) {
@@ -390,32 +390,32 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
                         $t['id'] = $data['sessionId'];
                     }
 
-                    $doc .= XML_Util::createTag('session', $t);
+                    $doc .= $util->createTag('session', $t);
                     unset($t);
                 }
 
-                $doc .= XML_Util::createEndElement('paymentDetails');
+                $doc .= $util->createEndElement('paymentDetails');
             }
 
             if ((isset($data['shopperEmailAddress'])    && $data['shopperEmailAddress'] != '')
             ||  (isset($data['authenticatedShopperID']) && $data['authenticatedShopperID'] != '')) {
-                $doc .= XML_Util::createStartElement('shopper');
+                $doc .= $util->createStartElement('shopper');
 
                 if ($data['shopperEmailAddress'] != '') {
-                    $doc .= XML_Util::createTag('shopperEmailAddress', null, $data['shopperEmailAddress']);
+                    $doc .= $util->createTag('shopperEmailAddress', null, $data['shopperEmailAddress']);
                 }
                 if ($data['authenticatedShopperID'] != '') {
-                    $doc .= XML_Util::createTag('authenticatedShopperID', null, $data['authenticatedShopperID']);
+                    $doc .= $util->createTag('authenticatedShopperID', null, $data['authenticatedShopperID']);
                 }
 
-                $doc .= XML_Util::createEndElement('shopper');
+                $doc .= $util->createEndElement('shopper');
             }
 
             if (is_array($data['shippingAddress']) && count($data['shippingAddress']) > 0) {
                 $a =& $data['shippingAddress'];
 
-                $doc .= XML_Util::createStartElement('shippingAddress');
-                $doc .= XML_Util::createStartElement('address');
+                $doc .= $util->createStartElement('shippingAddress');
+                $doc .= $util->createStartElement('address');
 
                 $fields = array('firstName',    'lastName',     'street',
                                 'houseName',    'houseNumber',  'houseNumberExtension',
@@ -424,18 +424,18 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
 
                 foreach ($fields as $field) {
                     if (isset($a[$field])) {
-                        $doc .= XML_Util::createTag($field, null, $a[$field]);
+                        $doc .= $util->createTag($field, null, $a[$field]);
                     }
                 }
 
-                $doc .= XML_Util::createEndElement('address');
-                $doc .= XML_Util::createEndElement('shippingAddress');
+                $doc .= $util->createEndElement('address');
+                $doc .= $util->createEndElement('shippingAddress');
             }
 
-            $doc .= XML_Util::createEndElement('order');
-            $doc .= XML_Util::createEndElement('submit');
+            $doc .= $util->createEndElement('order');
+            $doc .= $util->createEndElement('submit');
         }
-        $doc .= XML_Util::createEndElement('paymentService');
+        $doc .= $util->createEndElement('paymentService');
 
         return $doc;
     }
