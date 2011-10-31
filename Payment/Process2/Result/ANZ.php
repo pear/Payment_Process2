@@ -157,13 +157,6 @@ class Payment_Process2_Result_ANZ extends Payment_Process2_Result
     var $_cvvCodeMessages = array(
     );
 
-    var $_fieldMap = array('vpc_TxnResponseCode' => 'code',
-                           'vpc_TransactionNo' => 'transactionId',
-                           'vpc_Message' => 'message',
-                           'vpc_CSCResultCode' => 'cvvCheck',
-                           'vpc_ReceiptNo' => 'receiptNumber'
-    );
-
     var $receiptNumber;
 
     /**
@@ -194,14 +187,34 @@ class Payment_Process2_Result_ANZ extends Payment_Process2_Result
                           'vpc_CSCResultCode' => 'cvvCheck',
                           'vpc_ReceiptNo' => 'receiptNumber');
 
-        foreach ($fieldMap as $key => $val) {
-            $this->$val = (array_key_exists($key, $responseArray))
-                          ? $responseArray[$key]
-                          : null;
-        }
-    }
+        $this->code = null;
+        $this->transactionId = null;
+        $this->message = null;
+        $this->cvvCheck = null;
+        $this->receiptNumber = null;
 
-    
+        if (array_key_exists('vpc_TxnResponseCode', $responseArray)) {
+            $this->code = $responseArray['vpc_TxnResponseCode'];
+        }
+
+        if (array_key_exists('vpc_TransactionNo', $responseArray)) {
+            $this->transactionId = $responseArray['vpc_TransactionNo'];
+        }
+
+        if (array_key_exists('vpc_Message', $responseArray)) {
+            $this->message = $responseArray['vpc_Message'];
+        }
+
+        if (array_key_exists('vpc_CSCResultCode', $responseArray)) {
+            $this->cvvCheck = $responseArray['vpc_CSCResultCode'];
+        }
+
+        if (array_key_exists('vpc_ReceiptNo', $responseArray)) {
+            $this->receiptNumber = $responseArray['vpc_ReceiptNo'];
+        }
+
+    }
+   
 
     
 }
