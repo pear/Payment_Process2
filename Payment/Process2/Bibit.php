@@ -85,24 +85,14 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
      * @access private
      */
     var $_fieldMap = array(
-        // Required
-        'login' => 'x_login',
-        'password' => 'x_password',
-        'ordercode' => 'x_ordercode',
-        'description' => 'x_descr',
-        'amount' => 'x_amount',
-        'currency' => 'x_currency',
-        'exponent' => 'x_exponent',
-        'action' => 'x_action',
         // Optional
-        'ordercontent' => 'x_ordercontent',
         'shopper_ip_address' => 'shopperIPAddress',
         'shopper_email_address' => 'shopperEmailAddress',
         'session_id' => 'sessionId',
         'authenticated_shopper_id' => 'authenticatedShopperID',
-        'shipping_address' => 'shippingAddress',
-        'payment_method_mask' => 'paymentMethodMask',
     );
+
+    var $_action = 'x_action';
 
     /**
      * Default options for this processor.
@@ -249,6 +239,38 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
 
 
         return $response;
+    }
+
+    function _prepare()
+    {
+        $fields = $this->_fieldMap;
+        $this->_data['x_action'] = $this->_action;
+        $this->_data['x_login'] = $this->login;
+        $this->_data['x_password'] = $this->password;
+        $this->_data["x_ordercode"] = $this->ordercode;
+        $this->_data["x_descr"] = $this->description;
+        $this->_data["x_amount"] = $this->amount;
+        $this->_data["x_currency"] = $this->currency;
+        $this->_data["x_exponent"] = $this->exponent;
+        if (!empty($this->ordercontent)) {
+            $this->_data['x_ordercontent'] = substr($this->ordercontent, 0, 10240);
+        }
+        $this->_data["shippingAddress"] = $this->shipping_address;
+        $this->_data["paymentMethodMask"] = $this->payment_method_mask;
+
+
+        foreach ($fields as $generic => $specific) {
+            if (!isset($this->_data[$specific])) {
+                // Form of payments data overrides those set in the
+                // Payment_Process2_Common.
+                if (isset($this->_payment->$generic)) {
+                    $this->_data[$specific] = $this->_payment->$generic;
+                }
+            }
+        }
+
+
+        return true;
     }
 
     public function prepareRequestData() {
@@ -438,22 +460,6 @@ class Payment_Process2_Bibit extends Payment_Process2_Common implements Payment_
         $doc .= $util->createEndElement('paymentService');
 
         return $doc;
-    }
-
-    /**
-     * Prepare the ordercontent
-     *
-     * Docs says max size is 10k
-     *
-     * @return void
-     * @access private
-     */
-    function _handleOrdercontent()
-    {
-        $specific = $this->_fieldMap['ordercontent'];
-        if (!empty($this->ordercontent)) {
-            $this->_data[$specific] = substr($this->ordercontent, 0, 10240);
-        }
     }
 
     /**

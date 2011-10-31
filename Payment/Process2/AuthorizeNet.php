@@ -80,7 +80,7 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
         // Required
         'login'         => 'x_login',
         'password'      => 'x_password',
-        'action'        => 'x_type',
+
 
         // Optional
         'login'         => 'x_login',
@@ -140,6 +140,8 @@ class Payment_Process2_AuthorizeNet extends Payment_Process2_Common implements P
          'x_currency_code'  => 'USD',
          'x_version'        => '3.1'
     );
+
+    var $_action = 'x_type';
 
     /**
      * List of possible encapsulation characters

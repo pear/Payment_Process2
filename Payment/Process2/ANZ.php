@@ -95,11 +95,12 @@ class Payment_Process2_ANZ extends Payment_Process2_Common implements Payment_Pr
         // Required
         'login' => 'vpc_Merchant',
         'password' => 'vpc_AccessCode',
-        'action' => 'vpc_Command',
         'amount' => 'vpc_Amount',
         'invoiceNumber' => 'vpc_OrderInfo',
         'transactionReference' => 'vpc_MerchTxnRef',
     );
+
+    var $_action = 'vpc_Command';
 
     /**
     * $_typeFieldMap

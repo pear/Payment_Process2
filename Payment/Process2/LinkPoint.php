@@ -77,7 +77,6 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
     var $_fieldMap = array(
         // Required
         'login'         => 'configfile',
-        'action'        => 'ordertype',
         'invoiceNumber' => 'oid',
         'customerId'    => 'x_cust_id',
         'amount'        => 'chargetotal',
@@ -93,6 +92,8 @@ class Payment_Process2_LinkPoint extends Payment_Process2_Common implements Paym
         'email'         => 'email',
         'ip'            => 'ip',
     );
+
+    var $_action = 'ordertype';
 
     /**
     * $_typeFieldMap

@@ -78,7 +78,6 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
         // Required
         'login'         => 'USER',
         'password'      => 'PWD',
-        'action'        => 'PAYMENTACTION',
 
         // Optional
         'invoiceNumber' => 'INVNUM',
@@ -97,6 +96,8 @@ class Payment_Process2_PayPal extends Payment_Process2_Common implements Payment
         'email'         => 'EMAIL',
         'ip'            => 'IPADDRESS',
     );
+
+    var $_action = "PAYMENTACTION";
 
     /**
      * $_typeFieldMap

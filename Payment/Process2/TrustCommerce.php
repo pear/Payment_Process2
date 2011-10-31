@@ -87,7 +87,6 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         // Required
         'login' => 'custid',
         'password' => 'password',
-        'action' => 'action',
         'amount' => 'amount',
         //PostAuth
         'transactionId' => 'transid',
@@ -103,6 +102,8 @@ class Payment_Process2_TrustCommerce extends Payment_Process2_Common implements 
         'currency' => 'currency',
         'expDate' => 'exp'
     );
+
+    var $_action = 'action';
 
     /**
     * $_typeFieldMap

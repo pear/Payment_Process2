@@ -104,7 +104,6 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         // Required
         'login'             => "DPIAccountNum",
         'password'          => "password",
-        'action'            => "transactionCode",
         'invoiceNumber'     => "orderNum",
         'customerId'        => "customerNum",
         'amount'            => "transactionAmount",
@@ -121,6 +120,8 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
         'phone'             => "cardHolderPhone",
         'email'             => "cardHolderEmail"
     );
+
+    var $_action = "transactionCode";
 
     /** @todo Work out if this actually lives in credit card */
     var $expDate = null;
@@ -249,11 +250,10 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
      */
     function _handleTransactionSource()
     {
-        $specific = $this->_fieldMap['transactionSource'];
         if ($this->transactionSource == Payment_Process2::SOURCE_ONLINE) {
-            $this->_data[$specific] = 'Y';
+            $this->_data["ECommerce"] = 'Y';
         } else {
-            $this->_data[$specific] = 'N';
+            $this->_data["ECommerce"] = 'N';
         }
     }
 
@@ -266,7 +266,7 @@ class Payment_Process2_Transfirst extends Payment_Process2_Common implements Pay
      */
     function _handleExpDate()
     {
-        $specific = $this->_fieldMap['expDate'];
+        $specific = "expirationDate";
         if (isset($this->_data[$specific])) {
             $this->_data[$specific] = str_replace('/', '', $this->_data[$specific]);
         } else {

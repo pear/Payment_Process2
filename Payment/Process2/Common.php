@@ -627,7 +627,7 @@ class Payment_Process2_Common
      */
     function _handleAction()
     {
-        $this->_data[$this->_fieldMap['action']] = $this->translateAction($this->action);
+        $this->_data[$this->_action] = $this->translateAction($this->action);
     }
     // }}}
     // {{{ _prepare()
@@ -652,7 +652,10 @@ class Payment_Process2_Common
          *         But the whole point of having a _handler() is that you need
          *         to do something more than simple mapping.
          */
-        foreach ($this->_fieldMap as $generic => $specific) {
+        $fields = $this->_fieldMap;
+        $fields['action'] = $this->_action;
+
+        foreach ($fields as $generic => $specific) {
             $func = '_handle'.ucfirst($generic);
             if (method_exists($this, $func)) {
                 $this->$func();
