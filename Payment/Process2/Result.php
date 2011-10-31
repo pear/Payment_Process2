@@ -348,24 +348,6 @@ class Payment_Process2_Result
     }
 
     /**
-     * _mapFields
-     *
-     * @param mixed $responseArray Response array
-     *
-     * @return void
-     * @author Joe Stump <joe@joestump.net>
-     * @access private
-     */
-    function _mapFields($responseArray)
-    {
-        foreach ($this->_fieldMap as $key => $val) {
-            $this->$val = (array_key_exists($key, $responseArray))
-                          ? $responseArray[$key]
-                          : null;
-        }
-    }
-
-    /**
      * Accept an object
      *
      * @param object $object Object to accept
