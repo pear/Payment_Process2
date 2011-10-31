@@ -101,19 +101,6 @@ class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements 
         'X' => 'Security could not be verified',
     );
 
-    var $_fieldMap = array('0'  => 'code',
-                           '2'  => 'messageCode',
-                           '3'  => 'message',
-                           '4'  => 'approvalCode',
-                           '5'  => 'avsCode',
-                           '6'  => 'transactionId',
-                           '7'  => 'invoiceNumber',
-                           '8'  => 'description',
-                           '9'  => 'amount',
-                           '12' => 'customerId',
-                           '38' => 'cvvCode',
-    );
-
     /**
      * Parses the data received from the payment gateway
      *
@@ -125,8 +112,24 @@ class Payment_Process2_Result_PayPal extends Payment_Process2_Result implements 
 
         parse_str($this->_rawResponse, $responseArray);
 
-        $this->_mapFields($responseArray);
+        $fieldMap = array('0'  => 'code',
+                           '2'  => 'messageCode',
+                           '3'  => 'message',
+                           '4'  => 'approvalCode',
+                           '5'  => 'avsCode',
+                           '6'  => 'transactionId',
+                           '7'  => 'invoiceNumber',
+                           '8'  => 'description',
+                           '9'  => 'amount',
+                           '12' => 'customerId',
+                           '38' => 'cvvCode',
+        );
 
+        foreach ($fieldMap as $key => $val) {
+            $this->$val = (array_key_exists($key, $responseArray))
+                          ? $responseArray[$key]
+                          : null;
+        }
         // Adjust result code/message if needed based on raw code
         switch ($this->messageCode) {
             case 33:

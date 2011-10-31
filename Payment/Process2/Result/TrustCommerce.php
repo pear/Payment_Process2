@@ -58,18 +58,13 @@ class Payment_Process2_Result_TrustCommerce extends Payment_Process2_Result impl
     var $_cvvCodeMessages = array( 'cvv' => 'The CVV number is not valid.'
     );
 
-    var $_fieldMap = array('status'  => 'code',
-                           'avs'  => 'avsCode',
-                           'transid'  => 'transactionId'
-    );
-
     /**
      * @todo Good unit test coverage!
      */
     function parse()
     {
         $responseArray = array();
-     
+
         parse_str(str_replace(array("\r", "\n"), "&", $this->_rawResponse), $responseArray);
 
         if (isset($responseArray['status'])) {

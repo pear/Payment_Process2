@@ -18,15 +18,12 @@ class Payment_Process2_Result_Bibit extends Payment_Process2_Result
 
     var $_lastEvent = null;
 
-    var $_fieldMap = array(
-    );
-
     /**
      * Class constructor
      *
      * @param mixed $rawResponse Raw response
      */
-    function __construct($rawResponse)
+    public function __construct($rawResponse)
     {
         $this->_rawResponse = $rawResponse;
     }

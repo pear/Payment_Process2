@@ -53,12 +53,4 @@ interface Payment_Process2_Result_Driver {
     public function getCvvCode();
 
     public function getCvvMessage();
-
-    /**
-     * Maps an array of data parsed from the response
-     * and populates internal fields.
-     *
-     * @todo Destroy this method in favor of a per-child, simpler way
-     */
-    function _mapFields($responseArray);
 }

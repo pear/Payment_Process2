@@ -74,12 +74,6 @@ class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implemen
         'X' => 'No response from the credit card association was received'
     );
 
-    var $_fieldMap = array('r_approved'  => 'code',
-                           'r_error'  => 'message',
-                           'r_code'  => 'approvalCode',
-                           'r_ordernum'  => 'transactionId'
-    );
-
     /**
     * parse
     *
@@ -89,6 +83,13 @@ class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implemen
     */
     function parse()
     {
+
+        $fieldMap = array('r_approved'  => 'code',
+                           'r_error'  => 'message',
+                           'r_code'  => 'approvalCode',
+                           'r_ordernum'  => 'transactionId'
+        );
+
         $xml =  new Payment_Process2_LinkPoint_XML_Parser();
         $xml->parseString('<response>'.$this->_rawResponse.'</response>');
         if (is_array($xml->response) && count($xml->response)) {
@@ -96,7 +97,13 @@ class Payment_Process2_Result_LinkPoint extends Payment_Process2_Result implemen
             $this->cvvCode = substr($xml->response['r_avs'],2,1);
             $this->customerId = $this->_request->customerId;
             $this->invoiceNumber = $this->_request->invoiceNumber;
-            $this->_mapFields($xml->response);
+ 
+            foreach ($fieldMap as $key => $val) {
+                $this->$val = (array_key_exists($key, $xml->response))
+                              ? $xml->response[$key]
+                              : null;
+            }
+
 
             // switch to DECLINED since a duplicate isn't *really* fraud
             if (preg_match('/duplicate/i',$this->message)) {

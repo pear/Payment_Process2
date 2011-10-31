@@ -108,7 +108,7 @@ require_once 'Payment/Process2/Result.php';
  * @category  Payment
  * @package   Payment_Process2
  * @author    Daniel O'Connor <daniel.oconnor@valex.com.au>
- * @author    Damien Bezborodov <damien.bezborodow@valex.com>
+ * @author    Damien Bezborodov <damien.bezborodow@valex.com.au>
  * @copyright 2009 The PHP Group
  * @copyright 2009 Valuation Exchange Pty Ltd
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
@@ -186,6 +186,22 @@ class Payment_Process2_Result_ANZ extends Payment_Process2_Result
     public function parse()
     {
         parse_str($this->_rawResponse, $responseArray);
-        $this->_mapFields($responseArray);
+ 
+
+        $fieldMap = array('vpc_TxnResponseCode' => 'code',
+                          'vpc_TransactionNo' => 'transactionId',
+                          'vpc_Message' => 'message',
+                          'vpc_CSCResultCode' => 'cvvCheck',
+                          'vpc_ReceiptNo' => 'receiptNumber');
+
+        foreach ($fieldMap as $key => $val) {
+            $this->$val = (array_key_exists($key, $responseArray))
+                          ? $responseArray[$key]
+                          : null;
+        }
     }
+
+    
+
+    
 }

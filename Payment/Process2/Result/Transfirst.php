@@ -115,33 +115,6 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result impleme
         '9' => "Automated referral service (ARS) stand-in"
     );
 
-    var $_fieldMap = array(
-        0  => '_null',                    // TF Internal Message Format
-        1  => '_acctNo',                  // TF Account number
-        2  => '_transactionCode',         // The transaction code from the request message passed by the original request.
-        3  => 'transactionId',            // Assigned by TF used to uniquely identify transaction.
-        4  => '_mailOrder',               // Mail Order Identifier
-        5  => '_ccAcctNo',                // The credit card account number passed by the original request.
-        6  => '_ccExpDate',               // The Expiration Date passed by the original request. The field is formatted YYMM (Year, Month)
-        7  => '_authAmount',              // An eight-digit value, which denotes the dollar amount passed to TF, without a decimal. ( DDDDDDCC )
-        8  => '_authDate',                // A six-digit value, which denotes the date the authorization, was attempted.  The field is formatted YYMMDD. (Year, Month, Date)
-        9  => '_authTime',                // A six-digit value, which denotes the time the authorization, was attempted.  The field is formatted HHMMSS.  (Hour, Minute, Second)
-        10 => 'messageCode',              // A two-digit value, which indicates the result of the authorization request.  Used to determine if the card was authorized, declined or timed out.
-        11 => 'customerId',               // The Customer Number passed by the original request
-        12 => 'invoiceNumber',            // The Order Number passed by the original request.
-        13 => '_urn',                     // A number that uniquely identifies an individual transaction.  Assigned by TF and can be used when referencing a specific transaction.
-        14 => '_authResponse',            // A number provided by the issuing bank indicating the authorization is valid and funds have been reserved for transfer to the merchants account at a later time.
-        15 => '_authSource',              // A code that defines the source where an authorization was captured.
-        16 => '_authCharacteristic',      // A code that defines the qualification level for the authorized transaction.
-        17 => 'approvalCode',             // Assigned by Visa or MasterCard, used to uniquely identify and link together all related information and used to authorize and clear a transaction.
-        18 => '_validationCode',          // Assigned by V.I.P. System that is used to determine the accuracy of the authorization data.
-        19 => '_sicCatCode',              // A merchants industry classification.  Example - Mail Order/Phone Order Merchants (Direct Market) = 5969.
-        20 => '_currencyCode',            // 840 indicate US Currency to date this is the only valid value.
-        21 => 'avsCode',                  // A value that indicates the level of Address Verification that was validated.
-        22 => '_merchantStoreNo',         // Identifies the specific terminal used at a location  1-4 Merchant store #, 5-8 specific terminal at store.
-        23 => 'cvvCode'                   // A two-digit value, indicating the result of the card verification based on the CVV2 code provided by the cardholder.
-    );
-
     /**
      * Constructor.
      *
@@ -182,7 +155,41 @@ class Payment_Process2_Result_Transfirst extends Payment_Process2_Result impleme
      */
     function parse()
     {
-        $this->_mapFields(explode('|', $this->_rawResponse));
+        $responseArray = explode('|', $this->_rawResponse);
+
+        $fieldMap = array(
+            0  => '_null',                    // TF Internal Message Format
+            1  => '_acctNo',                  // TF Account number
+            2  => '_transactionCode',         // The transaction code from the request message passed by the original request.
+            3  => 'transactionId',            // Assigned by TF used to uniquely identify transaction.
+            4  => '_mailOrder',               // Mail Order Identifier
+            5  => '_ccAcctNo',                // The credit card account number passed by the original request.
+            6  => '_ccExpDate',               // The Expiration Date passed by the original request. The field is formatted YYMM (Year, Month)
+            7  => '_authAmount',              // An eight-digit value, which denotes the dollar amount passed to TF, without a decimal. ( DDDDDDCC )
+            8  => '_authDate',                // A six-digit value, which denotes the date the authorization, was attempted.  The field is formatted YYMMDD. (Year, Month, Date)
+            9  => '_authTime',                // A six-digit value, which denotes the time the authorization, was attempted.  The field is formatted HHMMSS.  (Hour, Minute, Second)
+            10 => 'messageCode',              // A two-digit value, which indicates the result of the authorization request.  Used to determine if the card was authorized, declined or timed out.
+            11 => 'customerId',               // The Customer Number passed by the original request
+            12 => 'invoiceNumber',            // The Order Number passed by the original request.
+            13 => '_urn',                     // A number that uniquely identifies an individual transaction.  Assigned by TF and can be used when referencing a specific transaction.
+            14 => '_authResponse',            // A number provided by the issuing bank indicating the authorization is valid and funds have been reserved for transfer to the merchants account at a later time.
+            15 => '_authSource',              // A code that defines the source where an authorization was captured.
+            16 => '_authCharacteristic',      // A code that defines the qualification level for the authorized transaction.
+            17 => 'approvalCode',             // Assigned by Visa or MasterCard, used to uniquely identify and link together all related information and used to authorize and clear a transaction.
+            18 => '_validationCode',          // Assigned by V.I.P. System that is used to determine the accuracy of the authorization data.
+            19 => '_sicCatCode',              // A merchants industry classification.  Example - Mail Order/Phone Order Merchants (Direct Market) = 5969.
+            20 => '_currencyCode',            // 840 indicate US Currency to date this is the only valid value.
+            21 => 'avsCode',                  // A value that indicates the level of Address Verification that was validated.
+            22 => '_merchantStoreNo',         // Identifies the specific terminal used at a location  1-4 Merchant store #, 5-8 specific terminal at store.
+            23 => 'cvvCode'                   // A two-digit value, indicating the result of the card verification based on the CVV2 code provided by the cardholder.
+        );
+
+        foreach ($fieldMap as $key => $val) {
+            $this->$val = (array_key_exists($key, $responseArray))
+                          ? $responseArray[$key]
+                          : null;
+        }
+
     }
 
     /**

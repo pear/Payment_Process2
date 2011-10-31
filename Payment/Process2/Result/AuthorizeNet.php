@@ -240,20 +240,6 @@ class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result imple
         'U' => 'Issuer unable to process request',
     );
 
-    var $_fieldMap = array('0'  => 'code',
-                           '2'  => 'messageCode',
-                           '3'  => 'message',
-                           '4'  => 'approvalCode',
-                           '5'  => 'avsCode',
-                           '6'  => 'transactionId',
-                           '7'  => 'invoiceNumber',
-                           '8'  => 'description',
-                           '9'  => 'amount',
-                           '12' => 'customerId',
-                           '37' => 'md5Hash',
-                           '38' => 'cvvCode'
-    );
-
     /**
      * To hold the MD5 hash returned
      *
@@ -289,8 +275,21 @@ class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result imple
             $responseArray[$count] = substr($responseArray[$count], 0, -1);
         }
 
-        // Save some fields in private members
-        $map = array_flip($this->_fieldMap);
+        $fieldMap = array('0'  => 'code',
+                          '2'  => 'messageCode',
+                          '3'  => 'message',
+                          '4'  => 'approvalCode',
+                          '5'  => 'avsCode',
+                          '6'  => 'transactionId',
+                          '7'  => 'invoiceNumber',
+                          '8'  => 'description',
+                          '9'  => 'amount',
+                          '12' => 'customerId',
+                          '37' => 'md5Hash',
+                          '38' => 'cvvCode'
+        );
+
+        $map = array_flip($fieldMap);
         if (!empty($responseArray[$map['md5Hash']])) {
             $this->_md5Hash = $responseArray[$map['md5Hash']];
         }
@@ -298,7 +297,11 @@ class Payment_Process2_Result_AuthorizeNet extends Payment_Process2_Result imple
             $this->_amount  = $responseArray[$map['amount']];
         }
 
-        $this->_mapFields($responseArray);
+        foreach ($fieldMap as $key => $val) {
+            $this->$val = (array_key_exists($key, $responseArray))
+                          ? $responseArray[$key]
+                          : null;
+        }
 
         // Adjust result code/message if needed based on raw code
         switch ($this->messageCode) {
