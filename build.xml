@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="ValEx_InputFilter" default="build" basedir=".">
+<project name="Payment_Process2" default="build" basedir=".">
 	<condition property="phpunit.bin" value="phpunit.bat" else="phpunit">
         <os family="windows"/>
     </condition>
