@@ -9,6 +9,7 @@
     </condition>
 
 	<target name="clean" description="Clean up and create artifact directories">
+		<delete dir="${basedir}/lib" />
 		<delete dir="${basedir}/build/api"/>
 		<delete dir="${basedir}/build/code-browser"/>
 		<delete dir="${basedir}/build/coverage"/>
@@ -16,6 +17,7 @@
 		<delete dir="${basedir}/build/pdepend"/>
 		<delete dir="${basedir}/build"/>
 
+		<mkdir dir="${basedir}/lib/" />
 		<mkdir dir="${basedir}/build"/>
 		<mkdir dir="${basedir}/build/api"/>
 		<mkdir dir="${basedir}/build/code-browser"/>
