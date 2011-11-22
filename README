@@ -15,3 +15,5 @@ To install from scratch
 $ pear install package.xml
 To upgrade
 $ pear upgrade -f package.xml
+
+Damo smells!!!!
