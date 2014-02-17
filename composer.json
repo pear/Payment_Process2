@@ -1,0 +1,36 @@
+{
+    "authors": [
+        {
+            "email": "daniel.oconnor@valex.com.au",
+            "name": "Daniel O'Connor",
+            "role": "Lead"
+        },
+        {
+            "email": "damien.bezborodow@valex.com.au",
+            "name": "Damien Bezborodov",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Payment_Process2": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/Payment_Process2",
+    "include-path": [
+        "./"
+    ],
+    "license": "BSD Style",
+    "name": "pear/payment_process2",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Payment_Process2",
+        "source": "https://github.com/pear/Payment_Process2"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
